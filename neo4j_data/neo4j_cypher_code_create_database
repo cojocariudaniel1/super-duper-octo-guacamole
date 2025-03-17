@@ -1,3 +1,12 @@
+// Delete all relationships
+MATCH ()-[r]->()
+DELETE r;
+
+// Delete all nodes
+MATCH (n)
+DELETE n;
+
+
 CREATE CONSTRAINT IF NOT EXISTS FOR (u:User) REQUIRE u.id IS UNIQUE;
 CREATE CONSTRAINT IF NOT EXISTS FOR (i:Interest) REQUIRE i.name IS UNIQUE;
 CREATE CONSTRAINT IF NOT EXISTS FOR (p:Post) REQUIRE p.id IS UNIQUE;
@@ -8,80 +17,101 @@ CREATE CONSTRAINT IF NOT EXISTS FOR (n:Notification) REQUIRE n.id IS UNIQUE;
 CREATE CONSTRAINT IF NOT EXISTS FOR (m:Message) REQUIRE m.id IS UNIQUE;
 CREATE CONSTRAINT IF NOT EXISTS FOR (s:Session) REQUIRE s.id IS UNIQUE;
 
-// Sample Data and Relationships
-MERGE (user1:User {id: '1', name: 'Alice', age: 28, email: 'alice@example.com', reputation: 0})
-MERGE (user2:User {id: '2', name: 'Bob', age: 32, email: 'bob@example.com', reputation: 0})
-MERGE (user3:User {id: '3', name: 'Charlie', age: 25, email: 'charlie@example.com', reputation: 0})
 
+// Users
+MERGE (user1:User {id: '1', name: 'Alice', age: 28, email: 'alice@example.com', password: '123', reputation: 0})
+MERGE (user2:User {id: '2', name: 'Bob', age: 32, email: 'bob@example.com',password: '123', reputation: 0})
+MERGE (user3:User {id: '3', name: 'Charlie', age: 25, email: 'charlie@example.com',password: '123', reputation: 0})
+
+// Interests
 MERGE (interest1:Interest {name: 'Technology'})
 MERGE (interest2:Interest {name: 'Sports'})
 
-MERGE (post1:Post {id: '101', content: 'Exploring Neo4j for social graphs', timestamp: '2025-02-02'})
-MERGE (post2:Post {id: '102', content: 'Best programming languages in 2025', timestamp: '2025-02-01'})
+// Posts
+MERGE (post1:Post {id: '101', content: 'Exploring Neo4j for social graphs', timestamp: '2025-02-02', visibility: 'PUBLIC'})
+MERGE (post2:Post {id: '102', content: 'Best programming languages in 2025', timestamp: '2025-02-01', visibility: 'PUBLIC'})
 
+// Comments
 MERGE (comment1:Comment {id: '201', text: 'Great insights!', timestamp: '2025-02-02'})
 MERGE (comment2:Comment {id: '202', text: 'I prefer Python!', timestamp: '2025-02-01'})
+MERGE (comment3:Comment {id: '203', text: 'I agree with you!', timestamp: '2025-02-03'})
+MERGE (comment4:Comment {id: '204', text: 'Python is great for data science.', timestamp: '2025-02-03'})
 
-MERGE (community1:Community {name: 'Neo4j Enthusiasts'})
-MERGE (community2:Community {name: 'AI Researchers'})
+// Communities
+MERGE (community1:Community {name: 'Neo4j Enthusiasts', description: 'A community for Neo4j lovers'})
+MERGE (community2:Community {name: 'AI Researchers', description: 'A community for AI enthusiasts'})
 
+// Tags
 MERGE (tag1:Tag {name: 'GraphDB'})
 MERGE (tag2:Tag {name: 'Programming'})
 
-MERGE (notification1:Notification {id: '301', message: 'You have a new comment', timestamp: '2025-02-02'})
-MERGE (message1:Message {id: '401', content: 'Hey, want to discuss Neo4j?', timestamp: '2025-02-02'})
+// Notifications
+MERGE (notification1:Notification {id: '301', message: 'You have a new comment', timestamp: '2025-02-02', status: 'UNREAD'})
+
+// Messages
+MERGE (message1:Message {id: '401', content: 'Hey, want to discuss Neo4j?', timestamp: '2025-02-02', status: 'DELIVERED'})
+
+// Sessions
 MERGE (session1:Session {id: '501', status: 'Active', last_active: '2025-02-02'})
 
-// Relationships with Friend Requests
-MERGE (user1)-[:REQUESTED_FRIEND]->(user2)
-MERGE (user2)-[:FRIEND_WITH]->(user3)
+
+
+// Friend Requests and Friendships
+MERGE (user1)-[:REQUESTED_FRIEND {timestamp: '2025-02-01', status: 'PENDING'}]->(user2)
+MERGE (user2)-[:FRIEND_WITH {timestamp: '2025-02-01'}]->(user3)
 
 // Interests
-MERGE (user1)-[:INTERESTED_IN]->(interest1)
-MERGE (user2)-[:INTERESTED_IN]->(interest2)
+MERGE (user1)-[:INTERESTED_IN {timestamp: '2025-02-01'}]->(interest1)
+MERGE (user2)-[:INTERESTED_IN {timestamp: '2025-02-01'}]->(interest2)
 
-// Post creation
-MERGE (user1)-[:CREATED]->(post1)
-MERGE (user2)-[:CREATED]->(post2)
+// Post Creation
+MERGE (user1)-[:CREATED {timestamp: '2025-02-02'}]->(post1)
+MERGE (user2)-[:CREATED {timestamp: '2025-02-01'}]->(post2)
 
-// Commenting on posts
-MERGE (post1)-[:HAS_COMMENT]->(comment1)
-MERGE (post2)-[:HAS_COMMENT]->(comment2)
+// Commenting on Posts
+MERGE (post1)-[:HAS_COMMENT {timestamp: '2025-02-02'}]->(comment1)
+MERGE (post2)-[:HAS_COMMENT {timestamp: '2025-02-01'}]->(comment2)
 
-// Community interactions
-MERGE (user1)-[:MEMBER_OF]->(community1)
-MERGE (user3)-[:MEMBER_OF]->(community2)
-MERGE (community1)-[:HAS_POST]->(post1)
-MERGE (community2)-[:HAS_POST]->(post2)
+// Nested Comments (Replies to Comments)
+MERGE (comment3)-[:REPLY_TO {timestamp: '2025-02-03'}]->(comment1)
+MERGE (comment4)-[:REPLY_TO {timestamp: '2025-02-03'}]->(comment2)
 
-// Likes with reputation update
-MERGE (user2)-[:LIKED]->(post1)
+// Community Interactions
+MERGE (user1)-[:MEMBER_OF {timestamp: '2025-02-01', role: 'MEMBER'}]->(community1)
+MERGE (user3)-[:MEMBER_OF {timestamp: '2025-02-01', role: 'ADMIN'}]->(community2)
+MERGE (community1)-[:HAS_POST {timestamp: '2025-02-02'}]->(post1)
+MERGE (community2)-[:HAS_POST {timestamp: '2025-02-01'}]->(post2)
+
+// Likes with Reputation Update
+MERGE (user2)-[:LIKED {timestamp: '2025-02-02'}]->(post1)
 SET user1.reputation = user1.reputation + 10
-MERGE (user3)-[:LIKED]->(post2)
+MERGE (user3)-[:LIKED {timestamp: '2025-02-01'}]->(post2)
 SET user2.reputation = user2.reputation + 10
-MERGE (user2)-[:LIKED]->(comment1)
+MERGE (user2)-[:LIKED {timestamp: '2025-02-02'}]->(comment1)
 SET user1.reputation = user1.reputation + 5
-MERGE (user1)-[:LIKED]->(comment2)
+MERGE (user1)-[:LIKED {timestamp: '2025-02-01'}]->(comment2)
 SET user2.reputation = user2.reputation + 5
 
-// Tagging system
-MERGE (post1)-[:TAGGED_AS]->(tag1)
-MERGE (post2)-[:TAGGED_AS]->(tag2)
-MERGE (comment1)-[:TAGGED_AS]->(tag1)
-MERGE (comment2)-[:TAGGED_AS]->(tag2)
+// Tagging System
+MERGE (post1)-[:TAGGED_AS {timestamp: '2025-02-02'}]->(tag1)
+MERGE (post2)-[:TAGGED_AS {timestamp: '2025-02-01'}]->(tag2)
+MERGE (comment1)-[:TAGGED_AS {timestamp: '2025-02-02'}]->(tag1)
+MERGE (comment2)-[:TAGGED_AS {timestamp: '2025-02-01'}]->(tag2)
 
-// User connections
-MERGE (user1)-[:FOLLOWS]->(user2)
-MERGE (user2)-[:FOLLOWS]->(user3)
+// User Connections
+MERGE (user1)-[:FOLLOWS {timestamp: '2025-02-01'}]->(user2)
+MERGE (user2)-[:FOLLOWS {timestamp: '2025-02-01'}]->(user3)
 
-// Notifications and messages
-MERGE (user1)-[:RECEIVED]->(notification1)
-MERGE (user2)-[:SENT]->(message1)
-MERGE (message1)-[:RECEIVED_BY]->(user3)
+// Notifications and Messages
+MERGE (user1)-[:RECEIVED {timestamp: '2025-02-02'}]->(notification1)
+MERGE (user2)-[:SENT {timestamp: '2025-02-02'}]->(message1)
+MERGE (message1)-[:RECEIVED_BY {timestamp: '2025-02-02'}]->(user3)
 
-// User sessions
-MERGE (user1)-[:HAS_SESSION]->(session1)
-MERGE (user3)-[:HAS_SESSION]->(session1)
+// User Sessions
+MERGE (user1)-[:HAS_SESSION {timestamp: '2025-02-02'}]->(session1)
+MERGE (user3)-[:HAS_SESSION {timestamp: '2025-02-02'}]->(session1)
 
-// Blocking users
-MERGE (user1)-[:BLOCKED]->(user3);
+// Blocking Users
+MERGE (user1)-[:BLOCKED {timestamp: '2025-02-01', reason: 'Spam'}]->(user3)
+
+

@@ -1,6 +1,5 @@
-from PySide6.QtWidgets import QApplication, QWidget, QMessageBox, QLineEdit, QPushButton
-import sys
-from frontend.assets.ui_files.login_window import Ui_LoginPage
+from PySide6.QtWidgets import QWidget, QMessageBox
+from frontend.assets.ui_files.loginUI.PythonUI.login_window import Ui_LoginPage
 from neo4j_data.Repository.UserRepository import UserRepository
 from neo4j_data.database_connect import Neo4jDriverSingleton
 

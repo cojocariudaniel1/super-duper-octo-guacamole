@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'login.ui'
+## Form generated from reading UI file 'dashboard.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -19,16 +19,16 @@ from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLayout,
     QLineEdit, QListWidget, QListWidgetItem, QPushButton,
     QScrollArea, QSizePolicy, QVBoxLayout, QWidget)
 
-class Ui_ForumAppUI(object):
-    def setupUi(self, ForumAppUI):
-        if not ForumAppUI.objectName():
-            ForumAppUI.setObjectName(u"ForumAppUI")
-        ForumAppUI.resize(1440, 1024)
-        ForumAppUI.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        ForumAppUI.setStyleSheet(u"background: #1A1A1B;")
-        self.mainVerticalLayout = QVBoxLayout(ForumAppUI)
+class Ui_DashBoardView(object):
+    def setupUi(self, DashBoardView):
+        if not DashBoardView.objectName():
+            DashBoardView.setObjectName(u"DashBoardView")
+        DashBoardView.resize(1440, 1024)
+        DashBoardView.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        DashBoardView.setStyleSheet(u"background: #1A1A1B;")
+        self.mainVerticalLayout = QVBoxLayout(DashBoardView)
         self.mainVerticalLayout.setObjectName(u"mainVerticalLayout")
-        self.topNavBar = QWidget(ForumAppUI)
+        self.topNavBar = QWidget(DashBoardView)
         self.topNavBar.setObjectName(u"topNavBar")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -66,7 +66,7 @@ class Ui_ForumAppUI(object):
 
         self.mainLayout = QHBoxLayout()
         self.mainLayout.setObjectName(u"mainLayout")
-        self.leftSideBar = QWidget(ForumAppUI)
+        self.leftSideBar = QWidget(DashBoardView)
         self.leftSideBar.setObjectName(u"leftSideBar")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
         sizePolicy1.setHorizontalStretch(0)
@@ -104,7 +104,7 @@ class Ui_ForumAppUI(object):
 
         self.mainLayout.addWidget(self.leftSideBar)
 
-        self.ContentPosts_ScrollArea = QScrollArea(ForumAppUI)
+        self.ContentPosts_ScrollArea = QScrollArea(DashBoardView)
         self.ContentPosts_ScrollArea.setObjectName(u"ContentPosts_ScrollArea")
         self.ContentPosts_ScrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
@@ -117,7 +117,7 @@ class Ui_ForumAppUI(object):
 
         self.mainLayout.addWidget(self.ContentPosts_ScrollArea)
 
-        self.rightSideBar = QWidget(ForumAppUI)
+        self.rightSideBar = QWidget(DashBoardView)
         self.rightSideBar.setObjectName(u"rightSideBar")
         sizePolicy1.setHeightForWidth(self.rightSideBar.sizePolicy().hasHeightForWidth())
         self.rightSideBar.setSizePolicy(sizePolicy1)
@@ -135,18 +135,18 @@ class Ui_ForumAppUI(object):
         self.mainVerticalLayout.addLayout(self.mainLayout)
 
 
-        self.retranslateUi(ForumAppUI)
+        self.retranslateUi(DashBoardView)
 
-        QMetaObject.connectSlotsByName(ForumAppUI)
+        QMetaObject.connectSlotsByName(DashBoardView)
     # setupUi
 
-    def retranslateUi(self, ForumAppUI):
-        self.logoLabel.setText(QCoreApplication.translate("ForumAppUI", u"Forum Logo", None))
-        self.searchBar.setPlaceholderText(QCoreApplication.translate("ForumAppUI", u"Search...", None))
-        self.profileButton.setText(QCoreApplication.translate("ForumAppUI", u"Profile", None))
-        self.pushButton.setText(QCoreApplication.translate("ForumAppUI", u"PushButton", None))
-        self.label.setText(QCoreApplication.translate("ForumAppUI", u"Communities", None))
-        self.label_2.setText(QCoreApplication.translate("ForumAppUI", u"Frieends", None))
+    def retranslateUi(self, DashBoardView):
+        self.logoLabel.setText(QCoreApplication.translate("DashBoardView", u"Forum Logo", None))
+        self.searchBar.setPlaceholderText(QCoreApplication.translate("DashBoardView", u"Search...", None))
+        self.profileButton.setText(QCoreApplication.translate("DashBoardView", u"Profile", None))
+        self.pushButton.setText(QCoreApplication.translate("DashBoardView", u"PushButton", None))
+        self.label.setText(QCoreApplication.translate("DashBoardView", u"Communities", None))
+        self.label_2.setText(QCoreApplication.translate("DashBoardView", u"Frieends", None))
         pass
     # retranslateUi
 

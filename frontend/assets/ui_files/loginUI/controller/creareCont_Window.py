@@ -3,6 +3,8 @@ from PySide6.QtUiTools import QUiLoader
 from backend.global_path import get_absolute_file_path
 import sys
 
+from frontend.assets.ui_files.loginUI.UserInterfaceFile.registerPage import Ui_registerForm
+
 
 class RegisterForm(QWidget):
     def __init__(self):
@@ -10,7 +12,8 @@ class RegisterForm(QWidget):
 
         # Încarcă fișierul .ui pentru RegisterForm
         loader = QUiLoader()
-        self.ui = loader.load(get_absolute_file_path(r"frontend\assets\ui_files\creare_cont.ui"), self)
+        self.ui = Ui_registerForm()
+        self.ui.setupUi(self)
 
         # Inițializează conexiunea la Neo4j
         self.connector = Neo4jConnector("bolt://localhost:7687", "neo4j", "12345678")  # Modifică cu credențialele tale
@@ -23,19 +26,19 @@ class RegisterForm(QWidget):
             sys.exit(1)
 
         # Conectează butonul de creare cont
-        self.ui.createAccountButton.clicked.connect(self.create_account)
+        self.ui.registerButton.clicked.connect(self.create_account)
 
         # Conectează butonul de revenire la login
-        self.ui.backToLoginButton.clicked.connect(self.back_to_login)
+        # self.ui.backToLoginButton.clicked.connect(self.back_to_login)
 
         self.show()
 
     def create_account(self):
         """Creează un cont nou utilizator."""
-        username = self.ui.usernameInput.text()
+        username = self.ui.userNameInput.text()
         email = self.ui.emailInput.text()
         password = self.ui.passwordInput.text()
-        confirm_password = self.ui.confirmPasswordInput.text()
+        confirm_password = self.ui.repeatPasswordInput.text()
 
         if password != confirm_password:
             QMessageBox.warning(self, "Password Mismatch", "Passwords do not match. Please try again.")

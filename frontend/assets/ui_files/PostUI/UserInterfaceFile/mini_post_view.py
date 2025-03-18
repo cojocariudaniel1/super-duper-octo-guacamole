@@ -22,14 +22,14 @@ class Ui_MiniViewPost(object):
     def setupUi(self, MiniViewPost):
         if not MiniViewPost.objectName():
             MiniViewPost.setObjectName(u"MiniViewPost")
-        MiniViewPost.resize(1206, 382)
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
+        MiniViewPost.resize(1206, 190)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MiniViewPost.sizePolicy().hasHeightForWidth())
         MiniViewPost.setSizePolicy(sizePolicy)
-        MiniViewPost.setMinimumSize(QSize(0, 200))
-        MiniViewPost.setMaximumSize(QSize(16777215, 400))
+        MiniViewPost.setMinimumSize(QSize(0, 150))
+        MiniViewPost.setMaximumSize(QSize(16777215, 16777215))
         MiniViewPost.setStyleSheet(u"background: #252526; border-radius: 8px; padding: 10px; margin: 5px; color: white;")
         self.postLayout = QVBoxLayout(MiniViewPost)
         self.postLayout.setObjectName(u"postLayout")
@@ -78,10 +78,12 @@ class Ui_MiniViewPost(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.content_label.sizePolicy().hasHeightForWidth())
         self.content_label.setSizePolicy(sizePolicy2)
-        self.content_label.setMaximumSize(QSize(16777215, 500))
+        self.content_label.setMinimumSize(QSize(0, 0))
+        self.content_label.setMaximumSize(QSize(16777215, 16777215))
         self.content_label.setStyleSheet(u"background: #1A1A1B;\n"
 "")
         self.content_label.setTextFormat(Qt.TextFormat.RichText)
+        self.content_label.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
         self.content_label.setWordWrap(True)
 
         self.verticalLayout.addWidget(self.content_label)

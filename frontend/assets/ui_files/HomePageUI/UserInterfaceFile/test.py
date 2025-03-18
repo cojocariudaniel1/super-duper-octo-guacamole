@@ -2,9 +2,10 @@ import sys
 
 from PySide6.QtWidgets import QApplication
 
-from frontend.PySide6_GUI.login_window import LoginWindow
+from frontend.assets.ui_files.loginUI.controller.noLoginWindow import NoLoginWindow
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    forum = LoginWindow()
+    window = NoLoginWindow()
+    window.show()
     sys.exit(app.exec())

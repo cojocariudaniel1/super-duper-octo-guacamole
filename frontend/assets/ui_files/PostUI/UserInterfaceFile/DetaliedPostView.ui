@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MiniViewPost</class>
- <widget class="QWidget" name="MiniViewPost">
+ <class>DetailedPostView</class>
+ <widget class="QWidget" name="DetailedPostView">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>1206</width>
-    <height>242</height>
+    <height>385</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,13 +19,7 @@
   <property name="minimumSize">
    <size>
     <width>0</width>
-    <height>150</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>16777215</height>
+    <height>200</height>
    </size>
   </property>
   <property name="styleSheet">
@@ -52,8 +46,7 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background: #1A1A1B;
-</string>
+        <string notr="true">background: #1A1A1B;</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Shape::StyledPanel</enum>
@@ -88,22 +81,22 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="author_label">
            <property name="styleSheet">
             <string notr="true">font: 12pt &quot;Raleway&quot;;</string>
            </property>
            <property name="text">
-            <string>TextLabel</string>
+            <string>Author Name</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="timestamp_label">
            <property name="styleSheet">
             <string notr="true">font: 12pt &quot;Raleway&quot;;</string>
            </property>
            <property name="text">
-            <string>16 min. ago</string>
+            <string>Timestamp</string>
            </property>
           </widget>
          </item>
@@ -112,19 +105,46 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="title_label">
+      <widget class="QLabel" name="post_title_label">
        <property name="styleSheet">
-        <string notr="true">font: 800 18pt &quot;Raleway&quot;;</string>
+        <string notr="true">color: white;
+font: 800 18pt &quot;Raleway&quot;;</string>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string>Post Title</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="content_label">
+       <property name="styleSheet">
+        <string notr="true">font:14pt &quot;Raleway&quot;;
+border-radius: 10px; </string>
+       </property>
+       <property name="text">
+        <string>Post content goes here...</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::AutoText</enum>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignJustify|Qt::AlignmentFlag::AlignTop</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="comments_layout"/>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="comment_input">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -132,31 +152,30 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16777215</height>
+         <height>50</height>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 500 14pt &quot;Raleway&quot;;
+        <string notr="true">background: #444; color: #fff; border-radius: 5px; padding: 5px;
+font: 500 14pt &quot;Raleway&quot;;
+
+</string>
+       </property>
+       <property name="placeholderText">
+        <string>Write a comment...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="submit_comment_button">
+       <property name="styleSheet">
+        <string notr="true">background-color: #5a5a5a; color: white; border-radius: 5px;
+font: 500 14pt &quot;Raleway&quot;;
 
 </string>
        </property>
        <property name="text">
-        <string>TextLabel</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::TextFormat::RichText</enum>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
+        <string>Submit Comment</string>
        </property>
       </widget>
      </item>

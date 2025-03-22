@@ -22,7 +22,7 @@ class Ui_MiniViewPost(object):
     def setupUi(self, MiniViewPost):
         if not MiniViewPost.objectName():
             MiniViewPost.setObjectName(u"MiniViewPost")
-        MiniViewPost.resize(1206, 190)
+        MiniViewPost.resize(1206, 242)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -60,16 +60,24 @@ class Ui_MiniViewPost(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.label_2 = QLabel(self.horizontalLayoutWidget)
         self.label_2.setObjectName(u"label_2")
+        self.label_2.setStyleSheet(u"font: 12pt \"Raleway\";")
 
         self.horizontalLayout.addWidget(self.label_2)
 
         self.label = QLabel(self.horizontalLayoutWidget)
         self.label.setObjectName(u"label")
+        self.label.setStyleSheet(u"font: 12pt \"Raleway\";")
 
         self.horizontalLayout.addWidget(self.label)
 
 
         self.verticalLayout.addWidget(self.frame_2)
+
+        self.title_label = QLabel(MiniViewPost)
+        self.title_label.setObjectName(u"title_label")
+        self.title_label.setStyleSheet(u"font: 800 18pt \"Raleway\";")
+
+        self.verticalLayout.addWidget(self.title_label)
 
         self.content_label = QLabel(MiniViewPost)
         self.content_label.setObjectName(u"content_label")
@@ -81,6 +89,8 @@ class Ui_MiniViewPost(object):
         self.content_label.setMinimumSize(QSize(0, 0))
         self.content_label.setMaximumSize(QSize(16777215, 16777215))
         self.content_label.setStyleSheet(u"background: #1A1A1B;\n"
+"font: 500 14pt \"Raleway\";\n"
+"\n"
 "")
         self.content_label.setTextFormat(Qt.TextFormat.RichText)
         self.content_label.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
@@ -101,6 +111,7 @@ class Ui_MiniViewPost(object):
         self.profileIcon.setText("")
         self.label_2.setText(QCoreApplication.translate("MiniViewPost", u"TextLabel", None))
         self.label.setText(QCoreApplication.translate("MiniViewPost", u"16 min. ago", None))
+        self.title_label.setText(QCoreApplication.translate("MiniViewPost", u"TextLabel", None))
         self.content_label.setText(QCoreApplication.translate("MiniViewPost", u"TextLabel", None))
         pass
     # retranslateUi

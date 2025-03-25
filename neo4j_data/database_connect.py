@@ -1,27 +1,25 @@
 from neo4j import GraphDatabase
 
 class Neo4jDriverSingleton:
-    """
-    Singleton class for managing the Neo4j database connection.
-    """
     _instance = None
+    _driver = None
 
-    def __new__(cls, uri="bolt://localhost:7687", user="neo4j", password="12345678"):
+    def __new__(cls, uri=None, user=None, password=None):
         if cls._instance is None:
             cls._instance = super(Neo4jDriverSingleton, cls).__new__(cls)
-            cls._instance._driver = GraphDatabase.driver(uri, auth=(user, password))
+            if uri and user and password:
+                cls._driver = GraphDatabase.driver(uri, auth=(user, password))
         return cls._instance
 
     @classmethod
-    def get_instance(cls):
-        if cls._instance is None:
-            cls._instance = Neo4jDriverSingleton()
-        return cls._instance
+    def get_driver(cls):
+        if cls._driver is None:
+            raise ValueError("Driver not initialized. Please create an instance with credentials first.")
+        return cls._driver
 
-    def session(self):
-        """ Returnează o sesiune activă. """
-        return self._driver.session()
-
-    def close(self):
-        """ Închide conexiunea cu baza de date. """
-        self._driver.close()
+    @classmethod
+    def close_driver(cls):
+        if cls._driver is not None:
+            cls._driver.close()
+            cls._driver = None
+            cls._instance = None

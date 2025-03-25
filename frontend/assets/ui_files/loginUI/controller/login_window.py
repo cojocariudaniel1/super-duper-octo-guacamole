@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QWidget, QMessageBox
 from PySide6.QtCore import QTimer, QThread, Signal
 from frontend.PySide6_GUI.customWidget.LoadingBar import LoadingBar
 from frontend.assets.ui_files.HomePageUI.controller.dashboardWIndow import DashboardWindow
+
 from frontend.assets.ui_files.loginUI.UserInterfaceFile.login import Ui_Form
 from neo4j_data.Repository.UserRepository import UserRepository, read_user
 from neo4j_data.database_connect import Neo4jDriverSingleton
@@ -32,21 +33,20 @@ class LoginWindow(QWidget):
         self.ui.loginButton.clicked.connect(self.start_login)
 
         # Use the singleton instance of the Neo4j driver
-        self.driver = Neo4jDriverSingleton.get_instance()
+        self.driver = Neo4jDriverSingleton.get_driver()
         self.user_repo = UserRepository(self.driver)
 
         # Add the loading bar
-        self.loading_bar = LoadingBar(self)
-        self.loading_bar.setGeometry(0, self.ui.loginButton.y() + self.ui.loginButton.height() + 10, self.width(), 4)
-
+        self.ui.userNameInput.setText("user38599@topikka.com")
+        self.ui.passwordInput.setText("hashed_password")
         self.show()
 
     def start_login(self):
         """Start the login process with a loading animation."""
-        self.loading_bar.start_loading(duration_ms=1000)  # 1-second animation
 
         # Get the username and password
         username = self.ui.userNameInput.text().strip()
+
         password = self.ui.passwordInput.text().strip()
 
         # Start the query in a separate thread
@@ -56,7 +56,6 @@ class LoginWindow(QWidget):
 
     def process_login(self, user):
         """Perform the actual login process after the query is completed."""
-        self.loading_bar.stop_loading()  # Stop the loading animation once the process completes
 
         if user:
             stored_password = user['password']

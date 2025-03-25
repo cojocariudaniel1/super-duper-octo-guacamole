@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FeedPostWidget</class>
+ <widget class="QFrame" name="FeedPostWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1167</width>
+    <height>259</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1167</width>
+    <height>259</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1167</width>
+    <height>259</height>
+   </size>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: #D9D9D9;
+border-radius: 18px;
+</string>
+  </property>
+  <property name="frameShape">
+   <enum>QFrame::Shape::StyledPanel</enum>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="contentWidget" native="true">
+     <property name="styleSheet">
+      <string notr="true">background: transparent;</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QWidget" name="postContentWidget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>700</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="sizeConstraint">
+          <enum>QLayout::SizeConstraint::SetFixedSize</enum>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="headerLayout">
+           <property name="spacing">
+            <number>4</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="communityIcon">
+             <property name="minimumSize">
+              <size>
+               <width>13</width>
+               <height>13</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>13</width>
+               <height>13</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: #555555;
+border-radius: 6px;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="communityName">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>9999</width>
+               <height>9999</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 12px;
+color: #1A1A1B;
+margin:5px;
+</string>
+             </property>
+             <property name="text">
+              <string>RoadAccidents</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="postTime">
+             <property name="styleSheet">
+              <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 12px;
+color: #555555;
+margin:5px;</string>
+             </property>
+             <property name="text">
+              <string>1h ago</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>1</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Shape::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Shadow::Raised</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="authorLayout">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="authorIcon">
+             <property name="minimumSize">
+              <size>
+               <width>31</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>31</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: #1A1A1B;
+border-radius: 15px;
+</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="username">
+               <property name="styleSheet">
+                <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 14px;
+color: #1A1A1B;
+margin-left:2px;
+margin-top:3px;
+margin-bottom:3px;</string>
+               </property>
+               <property name="text">
+                <string>Gaudy3!p</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="usernamePoints">
+               <property name="styleSheet">
+                <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 12px;
+color: #1A1A1B;
+margin-left:5px;
+</string>
+               </property>
+               <property name="text">
+                <string>190 points</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="authorLabel">
+             <property name="styleSheet">
+              <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 14px;
+color: #555555;
+margin-bottom:11px;</string>
+             </property>
+             <property name="text">
+              <string>author</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>1</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Shape::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Shadow::Raised</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="postTitle">
+           <property name="styleSheet">
+            <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 21px;
+color: #1A1A1B;
+margin:5px;
+margin-top:10px;
+</string>
+           </property>
+           <property name="text">
+            <string>Had a car accident, could use some advice</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextBrowser" name="textBrowserContent">
+           <property name="minimumSize">
+            <size>
+             <width>715</width>
+             <height>95</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>715</width>
+             <height>95</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 16px;
+color: #1A1A1B;
+background: transparent;
+border: none;
+margin-left:6px;</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::NoFrame</enum>
+           </property>
+           <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+           </property>
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+           </property>
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Raleway'; font-size:14px; font-weight:500; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#1a1a1b;&quot;&gt;Hey everyone, I'm reaching out because I'm feeling a bit overwhelmed after being in a car accident, and I could really use some advice or just to hear from others who might have gone through something similar.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#1a1a1b;&quot;&gt;So, here's what happened: I was driving home from work the other day, just like any other day, when out of nowhere, a car ran a red light and slammed into the front of my vehicle. Honestly, I'm still kind of in shock.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#1a1a1b;&quot;&gt;The damage to my car is significant, especially to the bumper and fender, but thankfully, I wasn't seriously hurt—just some soreness and a few bruises. It's a relief, but it's still been a lot to process.&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
+&lt;li style=&quot; color:#1a1a1b;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Insurance confusion: I've filed the claim, but I'm not really sure what to expect next. The insurance company mentioned something about a &amp;quot;coverage assessment,&amp;quot; and I'm feeling kind of lost in the whole process. Anyone been through this?&lt;/li&gt;
+&lt;li style=&quot; color:#1a1a1b;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Car repair worries: My car definitely needs some work, and I'm trying to figure out where to go for repairs. I want to make sure I find a good place that won't rip me off, but I'm just not sure how to go about it.&lt;/li&gt;
+&lt;li style=&quot; color:#1a1a1b;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Emotional stuff: Honestly, I didn't expect this part to hit me so hard, but I've been feeling pretty anxious and shaken up. I'm nervous about getting back behind the wheel. Has anyone experienced this after an accident? How did you get through it?&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#1a1a1b;&quot;&gt;I know I'm lucky that things weren't worse, but it's still a lot to handle. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="footerLayout">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="likeButton">
+             <property name="minimumSize">
+              <size>
+               <width>13</width>
+               <height>13</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>13</width>
+               <height>13</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: #1A1A1B;
+border: 1.5px solid #D9D9D9;
+border-radius: 6px;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="likeCount">
+             <property name="styleSheet">
+              <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 12px;
+color: #1A1A1B;
+margin-left:5px;</string>
+             </property>
+             <property name="text">
+              <string>103</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="commentButton">
+             <property name="minimumSize">
+              <size>
+               <width>13</width>
+               <height>12</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>13</width>
+               <height>12</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: #1A1A1B;
+border: 1.5px solid #D9D9D9;
+border-radius: 6px;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="commentCount">
+             <property name="styleSheet">
+              <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 12px;
+color: #1A1A1B;
+margin-left:5px;
+margin-right:10px;</string>
+             </property>
+             <property name="text">
+              <string>25</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextBrowser" name="tagsBrowser">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>1</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>645</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>645</width>
+               <height>50</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 12px;
+color: rgba(85, 85, 85, 0.7);
+background: transparent;
+border: none;</string>
+             </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Raleway'; font-size:10px; font-weight:500; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;adadadad&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame_3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>1</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Shape::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Shadow::Raised</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="divider">
+        <property name="minimumSize">
+         <size>
+          <width>1</width>
+          <height>213</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>1</width>
+          <height>213</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 1px solid rgba(85, 85, 85, 0.7);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::VLine</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Plain</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="commentsWidget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>330</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>348</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">margins-left:-20px;
+</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="spacing">
+          <number>10</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="commentSectionLabel">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 14px;
+color: #555555;</string>
+           </property>
+           <property name="text">
+            <string>Comment Section</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="widget" native="true">
+           <widget class="QTextBrowser" name="commentContent">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>50</y>
+              <width>291</width>
+              <height>91</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 16px;
+color: #1A1A1B;
+background: transparent;
+border: none;
+margin-left:6px;</string>
+            </property>
+            <property name="html">
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Raleway'; font-size:14px; font-weight:500; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400;&quot;&gt;I totally get what you’re going through. I had a similar experience last year, and the aftermath can be just as tough as the accident itself. The insurance process was confusing...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>8</y>
+              <width>190</width>
+              <height>50</height>
+             </rect>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLabel" name="icon">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="pixmap">
+                <pixmap>../../../images/userIcon1.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_5">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="username_2">
+                 <property name="styleSheet">
+                  <string notr="true">/* Gaudy3!p */
+
+position: absolute;
+width: 44px;
+height: 15px;
+left: 70px;
+top: 576.64px;
+
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 8px;
+
+color:black;
+
+</string>
+                 </property>
+                 <property name="text">
+                  <string>PrestonAvy</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="pointsLabel">
+                 <property name="styleSheet">
+                  <string notr="true">/* 102 points */
+background-color: rgba(255, 255, 255, 0);
+
+position: absolute;
+width: 33px;
+height: 14px;
+left: 70px;
+top: 706.64px;
+
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 6px;
+
+color: black;
+
+</string>
+                 </property>
+                 <property name="text">
+                  <string>102 points</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QLabel" name="postTime_2">
+               <property name="styleSheet">
+                <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 12px;
+color: #555555;
+margin-bottom:20px;</string>
+               </property>
+               <property name="text">
+                <string>1h ago</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QLabel" name="commentCount_2">
+            <property name="geometry">
+             <rect>
+              <x>53</x>
+              <y>101</y>
+              <width>30</width>
+              <height>50</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 12px;
+color: #1A1A1B;
+margin-left:5px;
+margin-right:10px;</string>
+            </property>
+            <property name="text">
+             <string>25</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="commentButton_2">
+            <property name="geometry">
+             <rect>
+              <x>40</x>
+              <y>120</y>
+              <width>13</width>
+              <height>12</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>13</width>
+              <height>12</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>13</width>
+              <height>12</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background: #1A1A1B;
+border: 1.5px solid #D9D9D9;
+border-radius: 6px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="likeButton_2">
+            <property name="geometry">
+             <rect>
+              <x>7</x>
+              <y>118</y>
+              <width>13</width>
+              <height>13</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>13</width>
+              <height>13</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>13</width>
+              <height>13</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background: #1A1A1B;
+border: 1.5px solid #D9D9D9;
+border-radius: 6px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QLabel" name="likeCount_2">
+            <property name="geometry">
+             <rect>
+              <x>20</x>
+              <y>100</y>
+              <width>25</width>
+              <height>50</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 12px;
+color: #1A1A1B;
+margin-left:5px;</string>
+            </property>
+            <property name="text">
+             <string>103</string>
+            </property>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

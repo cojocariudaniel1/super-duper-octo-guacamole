@@ -16,14 +16,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QLayout, QPushButton, QSizePolicy, QTextEdit,
-    QVBoxLayout, QWidget)
+    QLayout, QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_DetailedPostView(object):
     def setupUi(self, DetailedPostView):
         if not DetailedPostView.objectName():
             DetailedPostView.setObjectName(u"DetailedPostView")
-        DetailedPostView.resize(1206, 385)
+        DetailedPostView.resize(1206, 264)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -90,35 +89,6 @@ class Ui_DetailedPostView(object):
 
         self.verticalLayout.addWidget(self.content_label)
 
-        self.comments_layout = QVBoxLayout()
-        self.comments_layout.setObjectName(u"comments_layout")
-
-        self.verticalLayout.addLayout(self.comments_layout)
-
-        self.comment_input = QTextEdit(DetailedPostView)
-        self.comment_input.setObjectName(u"comment_input")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.MinimumExpanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.comment_input.sizePolicy().hasHeightForWidth())
-        self.comment_input.setSizePolicy(sizePolicy2)
-        self.comment_input.setMinimumSize(QSize(0, 50))
-        self.comment_input.setStyleSheet(u"background: #444; color: #fff; border-radius: 5px; padding: 5px;\n"
-"font: 500 14pt \"Raleway\";\n"
-"\n"
-"")
-
-        self.verticalLayout.addWidget(self.comment_input)
-
-        self.submit_comment_button = QPushButton(DetailedPostView)
-        self.submit_comment_button.setObjectName(u"submit_comment_button")
-        self.submit_comment_button.setStyleSheet(u"background-color: #5a5a5a; color: white; border-radius: 5px;\n"
-"font: 500 14pt \"Raleway\";\n"
-"\n"
-"")
-
-        self.verticalLayout.addWidget(self.submit_comment_button)
-
 
         self.postLayout.addLayout(self.verticalLayout)
 
@@ -134,8 +104,6 @@ class Ui_DetailedPostView(object):
         self.timestamp_label.setText(QCoreApplication.translate("DetailedPostView", u"Timestamp", None))
         self.post_title_label.setText(QCoreApplication.translate("DetailedPostView", u"Post Title", None))
         self.content_label.setText(QCoreApplication.translate("DetailedPostView", u"Post content goes here...", None))
-        self.comment_input.setPlaceholderText(QCoreApplication.translate("DetailedPostView", u"Write a comment...", None))
-        self.submit_comment_button.setText(QCoreApplication.translate("DetailedPostView", u"Submit Comment", None))
         pass
     # retranslateUi
 

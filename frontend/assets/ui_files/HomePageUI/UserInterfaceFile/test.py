@@ -47,5 +47,5 @@ def download_playlist(playlist_url, output_path="downloads", max_workers=4):
 
 if __name__ == "__main__":
     # Replace with your playlist URL
-    playlist_url = "https://music.youtube.com/playlist?list=PLxjOMntBboYpv3jZ0hu3CNdMnHiOW7TSj"
+    playlist_url = "https://music.youtube.com/playlist?list=PLxjOMntBboYqZpt_jq_ST3izHD5acOIhW&si=AzzvzxuvMZB-9Jl-"
     download_playlist(playlist_url, max_workers=8)  # Adjust max_workers for more parallelism

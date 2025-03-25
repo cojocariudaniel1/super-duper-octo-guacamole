@@ -1,0 +1,42 @@
+// First clear the database
+MATCH ()-[r]->() DELETE r;
+MATCH (n) DELETE n;
+
+// Create constraints
+CREATE CONSTRAINT IF NOT EXISTS FOR (u:User) REQUIRE u.id IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (i:Interest) REQUIRE i.name IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (p:Post) REQUIRE p.id IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (c:Comment) REQUIRE c.id IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (com:Community) REQUIRE com.name IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (t:Tag) REQUIRE t.name IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (n:Notification) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (m:Message) REQUIRE m.id IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (s:Session) REQUIRE s.id IS UNIQUE;
+
+// Create users
+MERGE (user38599:User {id: '38599', username: 'user38599', points: 15, email: 'user38599@topikka.com', password: 'hashed_password', reputation: 15});
+MERGE (gaudy3ip:User {id: '45678', username: 'Gaudy3!p', points: 190, email: 'gaudy3ip@topikka.com', password: 'hashed_password', reputation: 190});
+MERGE (qualAnon:User {id: '12345', username: 'QualAnon', points: 550, email: 'qualanon@topikka.com', password: 'hashed_password', reputation: 550});
+
+// Create posts
+MERGE (post1:Post {
+  id: '101',
+  title: 'When photoshop goes horribly wrong',
+  content: '<p>So, I was trying to help my friend out by editing a photo for her social media, but what I thought would be a simple touch-up turned into a full-on disaster. 😅</p><p>I was trying to smooth out some skin imperfections, but somehow I ended up overdoing it. Instead of subtle editing, I ended up with a weirdly smooth, almost cartoonish face. Her eyes became huge, her nose disappeared, and her smile... let\'s just say it looked like it was drawn by a 5-year-old. 😂</p><p>At first, I tried to fix it by adding some shadows, but I ended up making things look even worse. I couldn\'t stop laughing at the mess I created, but I felt so bad, so I sent it to her with the caption: "How do you like your new animated version?"</p><p>She didn\'t find it as funny as I did, but hey, at least we laughed about it afterward. Anyone else had a Photoshop fail that went completely off the rails? I could use some comfort!</p>',
+  timestamp: datetime() - duration('P3D'),
+  likes: 103,
+  dislikes: 25,
+  comments: 107,
+  visibility: 'PUBLIC'
+});
+
+MERGE (post2:Post {
+  id: '102',
+  title: 'Had a car accident, could use some advice',
+  content: '<p>Hey everyone, I\'m reaching out because I\'m feeling a bit overwhelmed after being in a car accident, and I could really use some advice or just to hear from others who might have gone through something similar.</p><p>So, here\'s what happened: I was driving home from work the other day, just like any other day, when out of nowhere, a car ran a red light and slammed into the front of my vehicle. Honestly, I\'m still kind of in shock.</p><p>The damage to my car is significant, especially to the bumper and fender, but thankfully, I wasn\'t seriously hurt—just some soreness and a few bruises. It\'s a relief, but it\'s still been a lot to process.</p><ul><li>Insurance confusion: I\'ve filed the claim, but I\'m not really sure what to expect next. The insurance company mentioned something about a "coverage assessment," and I\'m feeling kind of lost in the whole process. Anyone been through this?</li><li>Car repair worries: My car definitely needs some work, and I\'m trying to figure out where to go for repairs. I want to make sure I find a good place that won\'t rip me off, but I\'m just not sure how to go about it.</li><li>Emotional stuff: Honestly, I didn\'t expect this part to hit me so hard, but I\'ve been feeling pretty anxious and shaken up. I\'m nervous about getting back behind the wheel. Has anyone experienced this after an accident? How did you get through it?</li></ul><p>I know I\'m lucky that things weren\'t worse, but it\'s still a lot to handle.</p>',
+  timestamp: datetime() - duration('PT1H'),
+  likes: 20,
+  dislikes: 5,
+  comments: 20,
+  visibility: 'PUBLIC'
+});

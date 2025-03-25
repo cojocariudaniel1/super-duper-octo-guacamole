@@ -22,6 +22,9 @@ class CommunityRepository:
         return delete_community(self.driver, name)
 
 
+
+
+
 def create_community(driver, name, description, privacy_level, reputation_required, banner_image):
     """
     Create a new community node in the Neo4j database if a community with the same name doesn't already exist.

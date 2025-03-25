@@ -1,5 +1,7 @@
 import sys
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QMainWindow
+
+
 from frontend.assets.ui_files.loginUI.controller.noLoginWindow import NoLoginWindow
 from neo4j_data.database_connect import Neo4jDriverSingleton
 
@@ -11,3 +13,7 @@ if __name__ == "__main__":
     window = NoLoginWindow()
     window.show()
     sys.exit(app.exec())
+
+
+
+

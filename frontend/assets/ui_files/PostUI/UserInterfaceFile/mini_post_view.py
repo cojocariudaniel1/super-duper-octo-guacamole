@@ -16,13 +16,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QLayout, QSizePolicy, QVBoxLayout, QWidget)
+    QLayout, QSizePolicy, QTextBrowser, QVBoxLayout,
+    QWidget)
 
 class Ui_MiniViewPost(object):
     def setupUi(self, MiniViewPost):
         if not MiniViewPost.objectName():
             MiniViewPost.setObjectName(u"MiniViewPost")
-        MiniViewPost.resize(1206, 242)
+        MiniViewPost.resize(1206, 235)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -79,24 +80,11 @@ class Ui_MiniViewPost(object):
 
         self.verticalLayout.addWidget(self.title_label)
 
-        self.content_label = QLabel(MiniViewPost)
-        self.content_label.setObjectName(u"content_label")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.content_label.sizePolicy().hasHeightForWidth())
-        self.content_label.setSizePolicy(sizePolicy2)
-        self.content_label.setMinimumSize(QSize(0, 0))
-        self.content_label.setMaximumSize(QSize(16777215, 16777215))
-        self.content_label.setStyleSheet(u"background: #1A1A1B;\n"
-"font: 500 14pt \"Raleway\";\n"
-"\n"
-"")
-        self.content_label.setTextFormat(Qt.TextFormat.RichText)
-        self.content_label.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
-        self.content_label.setWordWrap(True)
+        self.browserContent = QTextBrowser(MiniViewPost)
+        self.browserContent.setObjectName(u"browserContent")
+        self.browserContent.setStyleSheet(u"font: 14pt \"Raleway\";")
 
-        self.verticalLayout.addWidget(self.content_label)
+        self.verticalLayout.addWidget(self.browserContent)
 
 
         self.postLayout.addLayout(self.verticalLayout)
@@ -112,7 +100,15 @@ class Ui_MiniViewPost(object):
         self.label_2.setText(QCoreApplication.translate("MiniViewPost", u"TextLabel", None))
         self.label.setText(QCoreApplication.translate("MiniViewPost", u"16 min. ago", None))
         self.title_label.setText(QCoreApplication.translate("MiniViewPost", u"TextLabel", None))
-        self.content_label.setText(QCoreApplication.translate("MiniViewPost", u"TextLabel", None))
+        self.browserContent.setHtml(QCoreApplication.translate("MiniViewPost", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Raleway'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Segoe UI'; font-size:9pt;\">Text</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:9pt;\"><br /></p></body></html>", None))
         pass
     # retranslateUi
 

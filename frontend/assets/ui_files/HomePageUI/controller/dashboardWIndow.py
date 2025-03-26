@@ -83,7 +83,7 @@ class DashboardWindow(QWidget):
         self.loading_bar.hide()
 
         # Set max width for side panels
-        self.ui.communityList.setMaximumWidth(300)
+        # self.ui.communityList.setMaximumWidth(300)
         self.ui.recentPostsList.setMaximumWidth(300)
 
         # Variables for pagination

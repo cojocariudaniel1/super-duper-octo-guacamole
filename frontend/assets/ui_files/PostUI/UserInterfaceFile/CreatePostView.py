@@ -16,9 +16,9 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFontComboBox, QLabel,
-    QLineEdit, QPushButton, QSizePolicy, QTextEdit,
-    QToolBar, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFontComboBox, QFrame,
+    QHBoxLayout, QLineEdit, QPushButton, QSizePolicy,
+    QTextBrowser, QToolBar, QVBoxLayout, QWidget)
 
 class Ui_CreatePostView(object):
     def setupUi(self, CreatePostView):
@@ -45,39 +45,21 @@ class Ui_CreatePostView(object):
         self.strikeAction.setObjectName(u"strikeAction")
         self.strikeAction.setCheckable(True)
         self.strikeAction.setFont(font)
-        self.verticalLayout = QVBoxLayout(CreatePostView)
+        self.layoutWidget = QWidget(CreatePostView)
+        self.layoutWidget.setObjectName(u"layoutWidget")
+        self.layoutWidget.setGeometry(QRect(9, 9, 771, 591))
+        self.verticalLayout = QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.titleInput = QLineEdit(CreatePostView)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.titleInput = QLineEdit(self.layoutWidget)
         self.titleInput.setObjectName(u"titleInput")
-        self.titleInput.setStyleSheet(u"font: 14pt \"Raleway\"; padding: 10px; border-radius: 5px; border: 1px solid #ccc; color:white;")
+        self.titleInput.setStyleSheet(u"font: 14pt \"Raleway\"; padding: 10px; border-radius: 5px; border: 1px solid #ccc; color:black;")
 
         self.verticalLayout.addWidget(self.titleInput)
 
-        self.fontSizeComboBox = QComboBox(CreatePostView)
-        self.fontSizeComboBox.setObjectName(u"fontSizeComboBox")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.fontSizeComboBox.sizePolicy().hasHeightForWidth())
-        self.fontSizeComboBox.setSizePolicy(sizePolicy)
-        self.fontSizeComboBox.setMinimumSize(QSize(100, 0))
-        self.fontSizeComboBox.setStyleSheet(u"    font: 500 11pt \"Raleway\";\n"
-"    border: 2px solid rgb(85, 170, 255);  /* Border color */\n"
-"    background-color: transparent;  /* Remove background */\n"
-"    color: white;  /* Text color */")
-
-        self.verticalLayout.addWidget(self.fontSizeComboBox)
-
-        self.fontComboBox = QFontComboBox(CreatePostView)
-        self.fontComboBox.setObjectName(u"fontComboBox")
-        sizePolicy.setHeightForWidth(self.fontComboBox.sizePolicy().hasHeightForWidth())
-        self.fontComboBox.setSizePolicy(sizePolicy)
-        self.fontComboBox.setMinimumSize(QSize(0, 30))
-        self.fontComboBox.setStyleSheet(u"font: 500 11pt \"Raleway\"; color:white;")
-
-        self.verticalLayout.addWidget(self.fontComboBox)
-
-        self.formattingToolbar = QToolBar(CreatePostView)
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.formattingToolbar = QToolBar(self.layoutWidget)
         self.formattingToolbar.setObjectName(u"formattingToolbar")
         self.formattingToolbar.setStyleSheet(u"\n"
 "       QToolBar {\n"
@@ -100,28 +82,62 @@ class Ui_CreatePostView(object):
 "       }\n"
 "      ")
 
-        self.verticalLayout.addWidget(self.formattingToolbar)
+        self.horizontalLayout.addWidget(self.formattingToolbar)
 
-        self.bodyInput = QTextEdit(CreatePostView)
+        self.fontSizeComboBox = QComboBox(self.layoutWidget)
+        self.fontSizeComboBox.setObjectName(u"fontSizeComboBox")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.fontSizeComboBox.sizePolicy().hasHeightForWidth())
+        self.fontSizeComboBox.setSizePolicy(sizePolicy)
+        self.fontSizeComboBox.setMinimumSize(QSize(100, 0))
+        self.fontSizeComboBox.setStyleSheet(u"    font: 500 11pt \"Raleway\";\n"
+"    border: 2px solid rgb(85, 170, 255);  /* Border color */\n"
+"    background-color: transparent;  /* Remove background */\n"
+"    color: black;  /* Text color */")
+
+        self.horizontalLayout.addWidget(self.fontSizeComboBox)
+
+        self.fontComboBox = QFontComboBox(self.layoutWidget)
+        self.fontComboBox.setObjectName(u"fontComboBox")
+        sizePolicy.setHeightForWidth(self.fontComboBox.sizePolicy().hasHeightForWidth())
+        self.fontComboBox.setSizePolicy(sizePolicy)
+        self.fontComboBox.setMinimumSize(QSize(0, 30))
+        self.fontComboBox.setStyleSheet(u"font: 500 11pt \"Raleway\"; color:black;")
+
+        self.horizontalLayout.addWidget(self.fontComboBox)
+
+        self.uploadImageButton = QPushButton(self.layoutWidget)
+        self.uploadImageButton.setObjectName(u"uploadImageButton")
+        self.uploadImageButton.setMaximumSize(QSize(100, 16777215))
+        self.uploadImageButton.setStyleSheet(u"font: 12pt \"Raleway\"; padding: 10px; border-radius: 5px; background-color: #0079D3; color: white;")
+
+        self.horizontalLayout.addWidget(self.uploadImageButton)
+
+        self.frame = QFrame(self.layoutWidget)
+        self.frame.setObjectName(u"frame")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(1)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(sizePolicy1)
+        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Shadow.Raised)
+
+        self.horizontalLayout.addWidget(self.frame)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
+
+        self.bodyInput = QTextBrowser(self.layoutWidget)
         self.bodyInput.setObjectName(u"bodyInput")
-        self.bodyInput.setStyleSheet(u"font: 12pt \"Raleway\"; padding: 10px; border-radius: 5px; border: 1px solid #ccc; color:white;")
+        self.bodyInput.setStyleSheet(u"color:black;")
+        self.bodyInput.setReadOnly(False)
 
         self.verticalLayout.addWidget(self.bodyInput)
 
-        self.uploadImageButton = QPushButton(CreatePostView)
-        self.uploadImageButton.setObjectName(u"uploadImageButton")
-        self.uploadImageButton.setStyleSheet(u"font: 12pt \"Raleway\"; padding: 10px; border-radius: 5px; background-color: #0079D3; color: white;")
-
-        self.verticalLayout.addWidget(self.uploadImageButton)
-
-        self.imagePreview = QLabel(CreatePostView)
-        self.imagePreview.setObjectName(u"imagePreview")
-        self.imagePreview.setStyleSheet(u"border: 2px dashed #ccc; padding: 10px; border-radius: 5px;")
-        self.imagePreview.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.verticalLayout.addWidget(self.imagePreview)
-
-        self.submitButton = QPushButton(CreatePostView)
+        self.submitButton = QPushButton(self.layoutWidget)
         self.submitButton.setObjectName(u"submitButton")
         self.submitButton.setStyleSheet(u"font: 12pt \"Raleway\"; padding: 10px; border-radius: 5px; background-color: #0079D3; color: white;")
 
@@ -161,8 +177,7 @@ class Ui_CreatePostView(object):
         self.strikeAction.setToolTip(QCoreApplication.translate("CreatePostView", u"Strikethrough", None))
 #endif // QT_CONFIG(tooltip)
         self.titleInput.setPlaceholderText(QCoreApplication.translate("CreatePostView", u"Title", None))
-        self.bodyInput.setPlaceholderText(QCoreApplication.translate("CreatePostView", u"Text (optional)", None))
-        self.uploadImageButton.setText(QCoreApplication.translate("CreatePostView", u"Upload Image", None))
+        self.uploadImageButton.setText(QCoreApplication.translate("CreatePostView", u"UP", None))
         self.submitButton.setText(QCoreApplication.translate("CreatePostView", u"Submit", None))
     # retranslateUi
 

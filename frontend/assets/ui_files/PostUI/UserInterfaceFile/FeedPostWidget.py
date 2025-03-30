@@ -26,7 +26,7 @@ class Ui_FeedPostWidget(object):
         FeedPostWidget.resize(1167, 259)
         FeedPostWidget.setMinimumSize(QSize(1167, 259))
         FeedPostWidget.setMaximumSize(QSize(1167, 259))
-        FeedPostWidget.setStyleSheet(u"background: #D9D9D9;\n"
+        FeedPostWidget.setStyleSheet(u"background-color: #1E1E1E;\n"
 "border-radius: 18px;\n"
 "")
         FeedPostWidget.setFrameShape(QFrame.Shape.StyledPanel)
@@ -55,7 +55,7 @@ class Ui_FeedPostWidget(object):
         self.communityIcon.setObjectName(u"communityIcon")
         self.communityIcon.setMinimumSize(QSize(13, 13))
         self.communityIcon.setMaximumSize(QSize(13, 13))
-        self.communityIcon.setStyleSheet(u"background: #555555;\n"
+        self.communityIcon.setStyleSheet(u"background: white;\n"
 "border-radius: 6px;")
 
         self.headerLayout.addWidget(self.communityIcon)
@@ -73,7 +73,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 10px;\n"
 "line-height: 12px;\n"
-"color: #1A1A1B;\n"
+"color: white;\n"
 "margin:5px;\n"
 "")
 
@@ -86,7 +86,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 10px;\n"
 "line-height: 12px;\n"
-"color: #555555;\n"
+"color:white;\n"
 "margin:5px;")
 
         self.headerLayout.addWidget(self.postTime)
@@ -113,7 +113,7 @@ class Ui_FeedPostWidget(object):
         self.authorIcon.setObjectName(u"authorIcon")
         self.authorIcon.setMinimumSize(QSize(31, 30))
         self.authorIcon.setMaximumSize(QSize(31, 30))
-        self.authorIcon.setStyleSheet(u"background: #1A1A1B;\n"
+        self.authorIcon.setStyleSheet(u"background:white;\n"
 "border-radius: 15px;\n"
 "")
 
@@ -129,7 +129,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 600;\n"
 "font-size: 12px;\n"
 "line-height: 14px;\n"
-"color: #1A1A1B;\n"
+"color:white;\n"
 "margin-left:2px;\n"
 "margin-top:3px;\n"
 "margin-bottom:3px;")
@@ -143,7 +143,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 10px;\n"
 "line-height: 12px;\n"
-"color: #1A1A1B;\n"
+"color:white;\n"
 "margin-left:5px;\n"
 "")
 
@@ -159,7 +159,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 12px;\n"
 "line-height: 14px;\n"
-"color: #555555;\n"
+"color:white;\n"
 "margin-bottom:11px;")
 
         self.authorLayout.addWidget(self.authorLabel)
@@ -183,7 +183,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 700;\n"
 "font-size: 18px;\n"
 "line-height: 21px;\n"
-"color: #1A1A1B;\n"
+"color:white;\n"
 "margin:5px;\n"
 "margin-top:10px;\n"
 "")
@@ -199,7 +199,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 14px;\n"
 "line-height: 16px;\n"
-"color: #1A1A1B;\n"
+"color:white;\n"
 "background: transparent;\n"
 "border: none;\n"
 "margin-left:6px;")
@@ -229,7 +229,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 10px;\n"
 "line-height: 12px;\n"
-"color: #1A1A1B;\n"
+"color:white;\n"
 "margin-left:5px;")
 
         self.footerLayout.addWidget(self.likeCount)
@@ -251,7 +251,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 10px;\n"
 "line-height: 12px;\n"
-"color: #1A1A1B;\n"
+"color:white;\n"
 "margin-left:5px;\n"
 "margin-right:10px;")
 
@@ -271,7 +271,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 10px;\n"
 "line-height: 12px;\n"
-"color: rgba(85, 85, 85, 0.7);\n"
+"color:white;\n"
 "background: transparent;\n"
 "border: none;")
 
@@ -319,7 +319,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 12px;\n"
 "line-height: 14px;\n"
-"color: #555555;")
+"color:white;")
 
         self.verticalLayout_4.addWidget(self.commentSectionLabel)
 
@@ -333,7 +333,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 14px;\n"
 "line-height: 16px;\n"
-"color: #1A1A1B;\n"
+"color:white;\n"
 "background: transparent;\n"
 "border: none;\n"
 "margin-left:6px;")
@@ -369,7 +369,7 @@ class Ui_FeedPostWidget(object):
 "font-size: 14px;\n"
 "line-height: 8px;\n"
 "\n"
-"color:black;\n"
+"color:white;\n"
 "\n"
 "")
 
@@ -392,7 +392,7 @@ class Ui_FeedPostWidget(object):
 "font-size: 12px;\n"
 "line-height: 6px;\n"
 "\n"
-"color: black;\n"
+"color: white;\n"
 "\n"
 "")
 
@@ -408,7 +408,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 10px;\n"
 "line-height: 12px;\n"
-"color: #555555;\n"
+"color: white;\n"
 "margin-bottom:20px;")
 
         self.horizontalLayout_2.addWidget(self.postTime_2)
@@ -421,7 +421,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 10px;\n"
 "line-height: 12px;\n"
-"color: #1A1A1B;\n"
+"color:white;\n"
 "margin-left:5px;\n"
 "margin-right:10px;")
         self.commentButton_2 = QPushButton(self.widget)
@@ -430,7 +430,7 @@ class Ui_FeedPostWidget(object):
         self.commentButton_2.setMinimumSize(QSize(13, 12))
         self.commentButton_2.setMaximumSize(QSize(13, 12))
         self.commentButton_2.setStyleSheet(u"background: #1A1A1B;\n"
-"border: 1.5px solid #D9D9D9;\n"
+"border: 1.5px solid white;\n"
 "border-radius: 6px;")
         self.likeButton_2 = QPushButton(self.widget)
         self.likeButton_2.setObjectName(u"likeButton_2")
@@ -448,7 +448,7 @@ class Ui_FeedPostWidget(object):
 "font-weight: 500;\n"
 "font-size: 10px;\n"
 "line-height: 12px;\n"
-"color: #1A1A1B;\n"
+"color:white;\n"
 "margin-left:5px;")
 
         self.verticalLayout_4.addWidget(self.widget)
@@ -479,17 +479,17 @@ class Ui_FeedPostWidget(object):
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Raleway'; font-size:14px; font-weight:500; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#1a1a1b;\">Hey everyone, I'm reaching out because I'm feeling a bit overwhelmed after being in a car accident, and I could really use some advice or just to hear from others who might have gone through something similar.</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#1a"
-                        "1a1b;\">So, here's what happened: I was driving home from work the other day, just like any other day, when out of nowhere, a car ran a red light and slammed into the front of my vehicle. Honestly, I'm still kind of in shock.</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#1a1a1b;\">The damage to my car is significant, especially to the bumper and fender, but thankfully, I wasn't seriously hurt\u2014just some soreness and a few bruises. It's a relief, but it's still been a lot to process.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Hey everyone, I'm reaching out because I'm feeling a bit overwhelmed after being in a car accident, and I could really use some advice or just to hear from others who might have gone through something similar.</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ff"
+                        "ffff;\">So, here's what happened: I was driving home from work the other day, just like any other day, when out of nowhere, a car ran a red light and slammed into the front of my vehicle. Honestly, I'm still kind of in shock.</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">The damage to my car is significant, especially to the bumper and fender, but thankfully, I wasn't seriously hurt\u2014just some soreness and a few bruises. It's a relief, but it's still been a lot to process.</span></p>\n"
 "<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\">\n"
-"<li style=\" color:#1a1a1b;\" style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Insurance confusion: I've filed the claim, but I'm not really sure what to expect next. The insurance company mentioned something about a &quo"
+"<li style=\" color:#ffffff;\" style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Insurance confusion: I've filed the claim, but I'm not really sure what to expect next. The insurance company mentioned something about a &quo"
                         "t;coverage assessment,&quot; and I'm feeling kind of lost in the whole process. Anyone been through this?</li>\n"
-"<li style=\" color:#1a1a1b;\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Car repair worries: My car definitely needs some work, and I'm trying to figure out where to go for repairs. I want to make sure I find a good place that won't rip me off, but I'm just not sure how to go about it.</li>\n"
-"<li style=\" color:#1a1a1b;\" style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Emotional stuff: Honestly, I didn't expect this part to hit me so hard, but I've been feeling pretty anxious and shaken up. I'm nervous about getting back behind the wheel. Has anyone experienced this after an accident? How did you get through it?</li></ul>\n"
+"<li style=\" color:#ffffff;\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Car repair worries: My car definitely needs some work, and I'm trying to figure out where to go for repairs. I want to make sure I find a good place that won't rip me off, but I'm just not sure how to go about it.</li>\n"
+"<li style=\" color:#ffffff;\" style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Emotional stuff: Honestly, I didn't expect this part to hit me so hard, but I've been feeling pretty anxious and shaken up. I'm nervous about getting back behind the wheel. Has anyone experienced this after an accident? How did you get through it?</li></ul>\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span"
-                        " style=\" color:#1a1a1b;\">I know I'm lucky that things weren't worse, but it's still a lot to handle. </span></p></body></html>", None))
+                        " style=\" color:#ffffff;\">I know I'm lucky that things weren't worse, but it's still a lot to handle. </span></p></body></html>", None))
         self.likeButton.setText("")
         self.likeCount.setText(QCoreApplication.translate("FeedPostWidget", u"103", None))
         self.commentButton.setText("")

@@ -1,5 +1,6 @@
 import os
-from PySide6.QtWidgets import QFrame, QSizePolicy
+
+from PySide6.QtWidgets import QFrame
 from PySide6.QtCore import Signal, Qt, QSize
 from PySide6.QtGui import QTextOption, QPixmap, QIcon
 
@@ -17,14 +18,13 @@ class FeedPostWidget(QFrame):
         self.ui = Ui_FeedPostWidget()
         self.ui.setupUi(self)
 
-        # Set size constraints - fixed width, flexible height
-        self.setMinimumSize(QSize(1167, 0))  # Minimum width 1167px, height can vary
-        self.setMaximumSize(QSize(1167, 16777215))  # Max width 1167px, flexible height
-        self.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.MinimumExpanding)
+        # Set fixed size constraints
+        self.setFixedSize(1167, 259)
+        self.setMinimumSize(1167, 259)
+        self.setMaximumSize(1167, 259)
 
         # Configure widget properties
         self.setCursor(Qt.CursorShape.PointingHandCursor)
-
         # Initialize with post data
         self._initialize_post_data(post_data)
         self._setup_ui_styles()
@@ -37,15 +37,10 @@ class FeedPostWidget(QFrame):
             browser.setWordWrapMode(QTextOption.WrapMode.WordWrap)
             browser.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
             browser.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-            browser.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.MinimumExpanding)
 
-        # Adjust content text browser dimensions
-        self.ui.textBrowserContent.setMinimumSize(150, 0)  # Minimum width 150px, flexible height
-        self.ui.textBrowserContent.setMaximumSize(700, 16777215)  # Max width 700px, flexible height
-
-        # Make buttons transparent
-        for button in [self.ui.likeButton, self.ui.commentButton]:
-            button.setStyleSheet("background: transparent; border: none;")
+        # # Make buttons transparent
+        # for button in [self.ui.likeButton, self.ui.commentButton]:
+        #     button.setStyleSheet("background: transparent; border: none;")
 
     def _initialize_post_data(self, post_data):
         """Initialize widget with post data"""
@@ -70,44 +65,15 @@ class FeedPostWidget(QFrame):
         self.ui.username.setText(self.author)
         self.ui.usernamePoints.setText(f"{self.points} points")
         self.ui.postTitle.setText(self.title)
-
-        # Check if content has images
-        has_images = '<img' in self.content.lower()
-
+        print(f"Tags {self.tags}")
         # Set content with HTML formatting
-        content_style = """
-            <style>
-                img {
-                    max-width: 100%;
-                    height: auto;
-                }
-                div.content {
-                    font-family: Raleway; 
-                    font-weight: 500; 
-                    font-size: 14px; 
-                    line-height: 16px; 
-                    color: #1A1A1B;
-                }
-            </style>
-        """
-        self.ui.textBrowserContent.setHtml(f"""
-            {content_style}
-            <div class="content">
+        self.ui.textBrowserContent.setHtml(f"""  
                 {self.content}
-            </div>
         """)
-
-        # Adjust size based on content
-        if has_images:
-            self.ui.textBrowserContent.setMinimumSize(700, 0)  # Wider for images
-        else:
-            self.ui.textBrowserContent.setMinimumSize(150, 0)  # Narrower for text-only
 
         # Set tags with HTML formatting
         self.ui.tagsBrowser.setHtml(f"""
-            <div style='font-family: Raleway; font-weight: 500; font-size: 10px; line-height: 12px; color: rgba(85, 85, 85, 0.7);'>
-                {self.tags}
-            </div>
+            {self.tags}
         """)
 
         # Set counts if available
@@ -115,9 +81,6 @@ class FeedPostWidget(QFrame):
             self.ui.likeCount.setText(str(post_data["likes"]))
         if "comments" in post_data:
             self.ui.commentCount.setText(str(post_data["comments"]))
-
-        # Adjust widget height based on content
-        self.adjustSize()
 
     def _format_timestamp(self, timestamp):
         """Format timestamp to relative time"""
@@ -151,14 +114,3 @@ class FeedPostWidget(QFrame):
     def update_comments_count(self, count):
         """Update the comments count display"""
         self.ui.commentCount.setText(str(count))
-
-    def sizeHint(self):
-        """Provide a size hint based on content"""
-        # Calculate required height based on content
-        doc = self.ui.textBrowserContent.document()
-        content_height = doc.size().height()
-
-        # Add heights of other fixed elements
-        fixed_elements_height = 150  # Approximate height of header, title, footer
-
-        return QSize(1167, content_height + fixed_elements_height)

@@ -4,6 +4,7 @@ from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QStackedWidget, QScrollArea, QPushButton
 from PySide6.QtCore import QTimer, Qt, Signal, Slot, QThread, QObject
 
+from backend.global_path import get_absolute_file_path
 from frontend.PySide6_GUI.customWidget.LoadingBar import LoadingBar
 from frontend.assets.ui_files.HomePageUI.UserInterfaceFile.dashboard import Ui_DashBoardView
 from frontend.assets.ui_files.HomePageUI.controller.createPostWidget import CreatePostWidget
@@ -48,6 +49,11 @@ class DashboardWindow(QWidget):
         self.ui = Ui_DashBoardView()
         self.ui.setupUi(self)
 
+        self.set_image(self.ui.logoLabel, "logo.png")
+        self.set_button_icon(self.ui.notificationButton, "ButtonNotificationImage.png")
+        self.set_button_icon(self.ui.profileButton, "UserSettings.png")
+        self.set_button_icon(self.ui.shortcutSettingsButton, "ProfileSettingsShortcut.png")
+
         # Initialize database
         self.driver = Neo4jDriverSingleton.get_driver()
         self.post_repo = PostRepository(self.driver)
@@ -82,10 +88,6 @@ class DashboardWindow(QWidget):
         self.loading_bar.setGeometry(0, 0, self.width(), 4)
         self.loading_bar.hide()
 
-        # Set max width for side panels
-        # self.ui.communityList.setMaximumWidth(300)
-        self.ui.recentPostsList.setMaximumWidth(300)
-
         # Variables for pagination
         self.current_offset = 0
         self.posts_per_page = 10
@@ -97,32 +99,57 @@ class DashboardWindow(QWidget):
 
         # Initialize worker thread
         self.worker_thread = None
-
+        self.initialize_custom_style()
         # Load posts (initial batch)
         self.load_posts()
 
+    def set_button_icon(self, button, icon_name, fallback_size=(32, 32)):
+        """
+        Sets an icon from the assets folder to a QPushButton
 
+        Args:
+            button (QPushButton): The button to set the icon to
+            icon_name (str): Name of the icon file in assets/images/
+            fallback_size (tuple): Size for fallback blank icon (width, height)
+        """
+        # Construct the full path
+        icon_path = get_absolute_file_path(f"frontend/assets/images/{icon_name}")
+
+        if os.path.exists(icon_path):
+            icon = QIcon(icon_path)
+            if not icon.isNull():
+                button.setIcon(icon)
+                return
+
+        # Fallback if icon not found
+        print(f"Icon not found: {icon_path}")
+        blank_pixmap = QPixmap(fallback_size[0], fallback_size[1])
+        button.setIcon(QIcon(blank_pixmap))
+
+    def set_image(self, label, image_name):
+        """
+        Sets an image from the assets folder to a QLabel
+
+        Args:
+            label (QLabel): The label to set the image to
+            image_name (str): Name of the image file in assets/images/
+        """
+        # Construct the full path
+        image_path = get_absolute_file_path(f"frontend/assets/images/{image_name}")
+
+        if os.path.exists(image_path):
+            pixmap = QPixmap(image_path)
+            if not pixmap.isNull():
+                label.setPixmap(pixmap)
+                return
+
+        # Fallback if image not found
+        print(f"Image not found: {image_path}")
+        label.setPixmap(QPixmap(label.size()))  # Bla
 
     def setup_scroll_area(self):
         """Set up scroll area properties."""
         self.ui.ContentPosts_ScrollArea.setWidgetResizable(True)
-        self.ui.ContentPosts_ScrollArea.setStyleSheet("""
-            QScrollBar:vertical {
-                background: #2e2e2e;
-                width: 12px;
-                border-radius: 6px;
-            }
-            QScrollBar::handle:vertical {
-                background: #5a5a5a;
-                border-radius: 6px;
-            }
-            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-                height: 0px;
-            }
-            QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-                background: #3a3a3a;
-            }
-        """)
 
     def create_feed_container(self):
         """Create and return the feed container."""
@@ -213,7 +240,12 @@ class DashboardWindow(QWidget):
 
         # Add spacing between posts
         self.posts_layout.addWidget(post_widget)
-        self.posts_layout.addSpacing(10)  # Add 10px spacing between posts
+        # Add delimiter line between posts
+        delimiter = QWidget()
+        delimiter.setFixedHeight(1)
+        delimiter.setStyleSheet("background-color: #3a3a3a;")
+        self.posts_layout.addWidget(delimiter)
+        self.posts_layout.addSpacing(5)  # Reduced spacing since we have the delimiter
 
     def show_post_detail(self, post_id):
         """Switch to the detailed post view."""
@@ -242,3 +274,58 @@ class DashboardWindow(QWidget):
     def show_feed(self):
         """Switch back to the feed view."""
         self.stack.setCurrentIndex(0)
+
+    def initialize_custom_style(self):
+        """Apply custom styles with proper isolation"""
+        # Base style for the entire application
+        base_style = """
+            QWidget {
+                background: transparent;
+                border: none;
+            }
+        """
+        self.setStyleSheet(base_style)
+
+        # Define border style with proper string formatting
+        border_style = """
+            QWidget#{name} {{
+                border: 1px solid #3a3a3a;
+                background: transparent;
+            }}
+        """
+
+        # Apply to main containers
+        containers = [
+            "leftSideBar",
+            "middleBar",
+            "topNavBar",
+            "ContentPosts_ScrollArea",
+            "delimiter1",
+            "delimiter2"
+        ]
+
+        for container in containers:
+            widget = getattr(self.ui, container)
+            # Use double braces for literal braces in the format string
+            widget.setStyleSheet(border_style.format(name=container))
+
+        # Special case for scroll area to prevent inner widget borders
+        self.ui.ContentPosts_ScrollArea.setStyleSheet("""
+            QScrollArea#ContentPosts_ScrollArea {
+                border-top: 1px solid #3a3a3a;
+            }
+            QScrollArea#ContentPosts_ScrollArea > QWidget > QWidget {
+                border: none;
+            }
+        """)
+
+        # Post widget styling to prevent inheritance
+        post_style = """
+            FeedPostWidget {
+                background: #2a2a2a;
+                border-radius: 4px;
+                border: none;
+                margin: 5px 0;
+            }
+        """
+        self.setStyleSheet(self.styleSheet() + post_style)

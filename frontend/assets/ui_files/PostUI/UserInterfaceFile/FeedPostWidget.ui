@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #D9D9D9;
+   <string notr="true">background-color: #1E1E1E;
 border-radius: 18px;
 </string>
   </property>
@@ -105,7 +105,7 @@ border-radius: 18px;
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">background: #555555;
+              <string notr="true">background: white;
 border-radius: 6px;</string>
              </property>
             </widget>
@@ -130,7 +130,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 10px;
 line-height: 12px;
-color: #1A1A1B;
+color: white;
 margin:5px;
 </string>
              </property>
@@ -147,7 +147,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 10px;
 line-height: 12px;
-color: #555555;
+color:white;
 margin:5px;</string>
              </property>
              <property name="text">
@@ -193,7 +193,7 @@ margin:5px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">background: #1A1A1B;
+              <string notr="true">background:white;
 border-radius: 15px;
 </string>
              </property>
@@ -212,7 +212,7 @@ font-style: normal;
 font-weight: 600;
 font-size: 12px;
 line-height: 14px;
-color: #1A1A1B;
+color:white;
 margin-left:2px;
 margin-top:3px;
 margin-bottom:3px;</string>
@@ -230,7 +230,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 10px;
 line-height: 12px;
-color: #1A1A1B;
+color:white;
 margin-left:5px;
 </string>
                </property>
@@ -249,7 +249,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 12px;
 line-height: 14px;
-color: #555555;
+color:white;
 margin-bottom:11px;</string>
              </property>
              <property name="text">
@@ -283,7 +283,7 @@ font-style: normal;
 font-weight: 700;
 font-size: 18px;
 line-height: 21px;
-color: #1A1A1B;
+color:white;
 margin:5px;
 margin-top:10px;
 </string>
@@ -313,7 +313,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 14px;
 line-height: 16px;
-color: #1A1A1B;
+color:white;
 background: transparent;
 border: none;
 margin-left:6px;</string>
@@ -335,14 +335,14 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Raleway'; font-size:14px; font-weight:500; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#1a1a1b;&quot;&gt;Hey everyone, I'm reaching out because I'm feeling a bit overwhelmed after being in a car accident, and I could really use some advice or just to hear from others who might have gone through something similar.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#1a1a1b;&quot;&gt;So, here's what happened: I was driving home from work the other day, just like any other day, when out of nowhere, a car ran a red light and slammed into the front of my vehicle. Honestly, I'm still kind of in shock.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#1a1a1b;&quot;&gt;The damage to my car is significant, especially to the bumper and fender, but thankfully, I wasn't seriously hurt—just some soreness and a few bruises. It's a relief, but it's still been a lot to process.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Hey everyone, I'm reaching out because I'm feeling a bit overwhelmed after being in a car accident, and I could really use some advice or just to hear from others who might have gone through something similar.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;So, here's what happened: I was driving home from work the other day, just like any other day, when out of nowhere, a car ran a red light and slammed into the front of my vehicle. Honestly, I'm still kind of in shock.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;The damage to my car is significant, especially to the bumper and fender, but thankfully, I wasn't seriously hurt—just some soreness and a few bruises. It's a relief, but it's still been a lot to process.&lt;/span&gt;&lt;/p&gt;
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
-&lt;li style=&quot; color:#1a1a1b;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Insurance confusion: I've filed the claim, but I'm not really sure what to expect next. The insurance company mentioned something about a &amp;quot;coverage assessment,&amp;quot; and I'm feeling kind of lost in the whole process. Anyone been through this?&lt;/li&gt;
-&lt;li style=&quot; color:#1a1a1b;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Car repair worries: My car definitely needs some work, and I'm trying to figure out where to go for repairs. I want to make sure I find a good place that won't rip me off, but I'm just not sure how to go about it.&lt;/li&gt;
-&lt;li style=&quot; color:#1a1a1b;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Emotional stuff: Honestly, I didn't expect this part to hit me so hard, but I've been feeling pretty anxious and shaken up. I'm nervous about getting back behind the wheel. Has anyone experienced this after an accident? How did you get through it?&lt;/li&gt;&lt;/ul&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#1a1a1b;&quot;&gt;I know I'm lucky that things weren't worse, but it's still a lot to handle. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;li style=&quot; color:#ffffff;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Insurance confusion: I've filed the claim, but I'm not really sure what to expect next. The insurance company mentioned something about a &amp;quot;coverage assessment,&amp;quot; and I'm feeling kind of lost in the whole process. Anyone been through this?&lt;/li&gt;
+&lt;li style=&quot; color:#ffffff;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Car repair worries: My car definitely needs some work, and I'm trying to figure out where to go for repairs. I want to make sure I find a good place that won't rip me off, but I'm just not sure how to go about it.&lt;/li&gt;
+&lt;li style=&quot; color:#ffffff;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Emotional stuff: Honestly, I didn't expect this part to hit me so hard, but I've been feeling pretty anxious and shaken up. I'm nervous about getting back behind the wheel. Has anyone experienced this after an accident? How did you get through it?&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;I know I'm lucky that things weren't worse, but it's still a lot to handle. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -383,7 +383,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 10px;
 line-height: 12px;
-color: #1A1A1B;
+color:white;
 margin-left:5px;</string>
              </property>
              <property name="text">
@@ -423,7 +423,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 10px;
 line-height: 12px;
-color: #1A1A1B;
+color:white;
 margin-left:5px;
 margin-right:10px;</string>
              </property>
@@ -458,7 +458,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 10px;
 line-height: 12px;
-color: rgba(85, 85, 85, 0.7);
+color:white;
 background: transparent;
 border: none;</string>
              </property>
@@ -556,7 +556,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 12px;
 line-height: 14px;
-color: #555555;</string>
+color:white;</string>
            </property>
            <property name="text">
             <string>Comment Section</string>
@@ -580,7 +580,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 14px;
 line-height: 16px;
-color: #1A1A1B;
+color:white;
 background: transparent;
 border: none;
 margin-left:6px;</string>
@@ -641,7 +641,7 @@ font-weight: 600;
 font-size: 14px;
 line-height: 8px;
 
-color:black;
+color:white;
 
 </string>
                  </property>
@@ -668,7 +668,7 @@ font-weight: 500;
 font-size: 12px;
 line-height: 6px;
 
-color: black;
+color: white;
 
 </string>
                  </property>
@@ -687,7 +687,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 10px;
 line-height: 12px;
-color: #555555;
+color: white;
 margin-bottom:20px;</string>
                </property>
                <property name="text">
@@ -712,7 +712,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 10px;
 line-height: 12px;
-color: #1A1A1B;
+color:white;
 margin-left:5px;
 margin-right:10px;</string>
             </property>
@@ -743,7 +743,7 @@ margin-right:10px;</string>
             </property>
             <property name="styleSheet">
              <string notr="true">background: #1A1A1B;
-border: 1.5px solid #D9D9D9;
+border: 1.5px solid white;
 border-radius: 6px;</string>
             </property>
             <property name="text">
@@ -795,7 +795,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 10px;
 line-height: 12px;
-color: #1A1A1B;
+color:white;
 margin-left:5px;</string>
             </property>
             <property name="text">

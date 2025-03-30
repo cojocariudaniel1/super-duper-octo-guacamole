@@ -14,8 +14,8 @@ class Neo4jDriverSingleton:
 
 def read_nodes_in_batches(driver, batch_size=1000):
     query = """
-    MATCH (n:Node)
-    RETURN n.id AS id, n
+    MATCH (n)
+    RETURN n
     SKIP $skip
     LIMIT $limit
     """
@@ -33,14 +33,15 @@ def read_nodes_in_batches(driver, batch_size=1000):
             # Process the batch of nodes
             for record in nodes:
                 data.append(record)
+                print(record)
+
             skip += batch_size  # Move to the next batch of nodes
 
-        print(data)
 if __name__ == "__main__":
     # Initialize the Neo4j driver singleton
     driver = Neo4jDriverSingleton(uri="bolt://localhost:7687", user="neo4j", password="12345678")
     while True:
         read_nodes_in_batches(driver)
-        time.sleep(980)
+        time.sleep(30)
     # Run the node reading function in batches
 

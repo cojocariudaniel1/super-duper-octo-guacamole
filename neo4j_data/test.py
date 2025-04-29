@@ -1,47 +1,38 @@
-import time
-
+import base64
+import uuid
 from neo4j import GraphDatabase
 
 
-class Neo4jDriverSingleton:
-    _instance = None
+def save_default_user_icon(driver, image_path):
+    with open(image_path, 'rb') as image_file:
+        encoded_icon = base64.b64encode(image_file.read()).decode('utf-8')
 
-    def __new__(cls, uri, user, password):
-        if not cls._instance:
-            cls._instance = GraphDatabase.driver(uri, auth=(user, password))
-        return cls._instance
+    icon_id = str(uuid.uuid4())
 
-
-def read_nodes_in_batches(driver, batch_size=1000):
     query = """
-    MATCH (n)
-    RETURN n
-    SKIP $skip
-    LIMIT $limit
+    MERGE (icon:UserIconDefault {id: $id})
+    SET icon.image = $image
+    RETURN icon
     """
-    data = []
     with driver.session() as session:
-        skip = 0
-        while True:
-            # Fetch nodes in batches
-            result = session.run(query, skip=skip, limit=batch_size)
-            nodes = list(result)
+        result = session.run(query, id=icon_id, image=encoded_icon)
+        saved_icon = result.single()[0]
+        print(f"Icon saved with ID: {icon_id}")
+        return saved_icon
 
-            if not nodes:  # Exit if no more nodes are returned
-                break
 
-            # Process the batch of nodes
-            for record in nodes:
-                data.append(record)
-                print(record)
-
-            skip += batch_size  # Move to the next batch of nodes
-
+# Exemplu de utilizare:
 if __name__ == "__main__":
-    # Initialize the Neo4j driver singleton
-    driver = Neo4jDriverSingleton(uri="bolt://localhost:7687", user="neo4j", password="12345678")
-    while True:
-        read_nodes_in_batches(driver)
-        time.sleep(30)
-    # Run the node reading function in batches
+    from neo4j import GraphDatabase
 
+    # Înlocuiește cu detaliile tale de conexiune
+    URI = "bolt://localhost:7687"
+    USER = "neo4j"
+    PASSWORD = "12345678"
+
+    driver = GraphDatabase.driver(URI, auth=(USER, PASSWORD))
+
+    icon_path = "default_icon.png"  # Calea către fișierul PNG
+    save_default_user_icon(driver, icon_path)
+
+    driver.close()

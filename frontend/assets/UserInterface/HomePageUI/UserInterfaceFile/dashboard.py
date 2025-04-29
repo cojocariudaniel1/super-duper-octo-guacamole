@@ -53,7 +53,7 @@ class Ui_DashBoardView(object):
         self.logoLabel.setObjectName(u"logoLabel")
         self.logoLabel.setMinimumSize(QSize(0, 50))
         self.logoLabel.setStyleSheet(u"color:white;\n"
-"border-bottom:1px solid #3a3a3a;")
+"background-color: rgba(255, 255, 255, 0);")
         self.logoLabel.setPixmap(QPixmap(u"../../../images/logo.png"))
         self.logoLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -135,7 +135,7 @@ class Ui_DashBoardView(object):
 
         self.notificationButton = QPushButton(self.topNavBar)
         self.notificationButton.setObjectName(u"notificationButton")
-        self.notificationButton.setStyleSheet(u"background: #1A1A1B;\n"
+        self.notificationButton.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);\n"
 "border-radius: 6px;\n"
 "border:none;")
         icon = QIcon()
@@ -161,7 +161,7 @@ class Ui_DashBoardView(object):
 
         self.profileButton = QPushButton(self.topNavBar)
         self.profileButton.setObjectName(u"profileButton")
-        self.profileButton.setStyleSheet(u"background: #1A1A1B;\n"
+        self.profileButton.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);\n"
 "border-radius: 6px;\n"
 "border:none;")
         icon1 = QIcon()
@@ -173,7 +173,7 @@ class Ui_DashBoardView(object):
 
         self.shortcutSettingsButton = QPushButton(self.topNavBar)
         self.shortcutSettingsButton.setObjectName(u"shortcutSettingsButton")
-        self.shortcutSettingsButton.setStyleSheet(u"background: #1A1A1B;\n"
+        self.shortcutSettingsButton.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);\n"
 "border-radius: 6px;\n"
 "border:none;")
         icon2 = QIcon()
@@ -311,7 +311,7 @@ class Ui_DashBoardView(object):
         self.ContentPosts_ScrollArea.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(1, 1, 1136, 719))
+        self.scrollAreaWidgetContents.setGeometry(QRect(1, 1, 1136, 721))
         self.postsLayout = QVBoxLayout(self.scrollAreaWidgetContents)
         self.postsLayout.setSpacing(20)
         self.postsLayout.setObjectName(u"postsLayout")

@@ -1,10 +1,9 @@
 from PySide6.QtWidgets import QWidget, QMessageBox
-from PySide6.QtCore import QTimer, QThread, Signal
-from frontend.PySide6_GUI.customWidget.LoadingBar import LoadingBar
+from PySide6.QtCore import QThread, Signal
 from frontend.assets.UserInterface.HomePageUI.controller.dashboardWIndow import DashboardWindow
 
 from frontend.assets.UserInterface.loginUI.UserInterfaceFile.login import Ui_Form
-from neo4j_data.Repository.UserRepository import UserRepository, read_user
+from neo4j_data.Repository.UserRepository import UserRepository
 from neo4j_data.database_connect import Neo4jDriverSingleton
 
 

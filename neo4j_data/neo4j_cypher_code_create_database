@@ -14,7 +14,7 @@ CREATE CONSTRAINT IF NOT EXISTS FOR (m:Message) REQUIRE m.id IS UNIQUE;
 CREATE CONSTRAINT IF NOT EXISTS FOR (s:Session) REQUIRE s.id IS UNIQUE;
 
 // Create users
-MERGE (user38599:User {id: '38599', username: 'user38599', points: 15, email: 'user38599@topikka.com', password: 'hashed_password', reputation: 15});
+MERGE (user38599:User {id: '38599', username: 'user38599', points: 15, email: 'user38599@topikka.com', password: 'hashed_password', reputation: 15, });
 MERGE (gaudy3ip:User {id: '45678', username: 'Gaudy3!p', points: 190, email: 'gaudy3ip@topikka.com', password: 'hashed_password', reputation: 190});
 MERGE (qualAnon:User {id: '12345', username: 'QualAnon', points: 550, email: 'qualanon@topikka.com', password: 'hashed_password', reputation: 550});
 

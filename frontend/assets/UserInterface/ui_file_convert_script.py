@@ -4,7 +4,7 @@ import subprocess
 from backend.global_path import get_absolute_file_path
 
 # Specifică folderul care conține fișierele .ui
-folder_path = get_absolute_file_path(r"frontend\assets\ui_files")
+folder_path = get_absolute_file_path(r"frontend\assets\UserInterface")
 
 # Parcurge toate fișierele din folder și subfoldere
 for root, _, files in os.walk(folder_path):

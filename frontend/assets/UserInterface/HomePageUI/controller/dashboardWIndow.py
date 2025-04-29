@@ -1,11 +1,11 @@
 import os
 
 from PySide6.QtGui import QPixmap, QIcon
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QStackedWidget, QScrollArea, QPushButton
-from PySide6.QtCore import QTimer, Qt, Signal, Slot, QThread, QObject
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QStackedWidget, QPushButton
+from PySide6.QtCore import QTimer, Signal, Slot, QThread, QObject
 
 from backend.global_path import get_absolute_file_path
-from frontend.PySide6_GUI.customWidget.LoadingBar import LoadingBar
+from frontend.assets.customWidget.LoadingBar import LoadingBar
 from frontend.assets.UserInterface.HomePageUI.UserInterfaceFile.dashboard import Ui_DashBoardView
 from frontend.assets.UserInterface.HomePageUI.controller.createPostWidget import CreatePostWidget
 from frontend.assets.UserInterface.PostUI.PythonUI.DetaliedPostWidget import DetailedPostWidget

@@ -5,7 +5,7 @@ def get_absolute_file_path(relative_path):
     Obține calea absolută pentru un fișier, pornind de la directorul rădăcină al aplicației.
 
     Args:
-    - relative_path (str): Calea relativă către fișier (ex: 'frontend/assets/ui_files/test.ui').
+    - relative_path (str): Calea relativă către fișier (ex: 'frontend/assets/UserInterface/test.ui').
 
     Returns:
     - str: Calea absolută către fișier.

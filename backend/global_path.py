@@ -1,5 +1,3 @@
-base_dir = "D:\GithubReositories\GitHub\super-duper-octo-guacamole"
-
 import os
 
 def get_absolute_file_path(relative_path):

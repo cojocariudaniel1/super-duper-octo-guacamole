@@ -137,3 +137,4 @@ class CommentRepository:
                 return record["upvotes"]
             else:
                 raise ValueError("Comment not found.")
+

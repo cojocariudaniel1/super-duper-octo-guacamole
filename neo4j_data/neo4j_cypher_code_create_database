@@ -14,18 +14,18 @@ CREATE CONSTRAINT IF NOT EXISTS FOR (m:Message) REQUIRE m.id IS UNIQUE;
 CREATE CONSTRAINT IF NOT EXISTS FOR (s:Session) REQUIRE s.id IS UNIQUE;
 
 // Create users
-MERGE (user38599:User {id: '38599', username: 'user38599', points: 15, email: 'user38599@topikka.com', password: 'hashed_password', reputation: 15, });
+MERGE (user38599:User {id: '38599', username: 'user38599', points: 15, email: 'user38599@topikka.com', password: 'hashed_password', reputation: 15});
 MERGE (gaudy3ip:User {id: '45678', username: 'Gaudy3!p', points: 190, email: 'gaudy3ip@topikka.com', password: 'hashed_password', reputation: 190});
 MERGE (qualAnon:User {id: '12345', username: 'QualAnon', points: 550, email: 'qualanon@topikka.com', password: 'hashed_password', reputation: 550});
 
 // Create communities
-MERGE (conspiracyCircle:Community {name: 'ConspiracyCircle', description: 'Discuss all conspiracy theories here'});
-MERGE (gamingGrounds:Community {name: 'GamingGrounds', description: 'Everything about gaming'});
-MERGE (popCulturePulse:Community {name: 'PopCulturePulse', description: 'Latest in pop culture'});
-MERGE (theBackrooms:Community {name: 'TheBackrooms', description: 'Creepy backroom stories'});
-MERGE (memethis:Community {name: 'Memethis', description: 'Meme sharing community'});
-MERGE (photoshoppingFails:Community {name: 'PhotoshoppingFails', description: 'Funny photoshop disasters'});
-MERGE (roadAccidents:Community {name: 'RoadAccidents', description: 'Discuss road safety and accidents'});
+MERGE (conspiracyCircle:Community {name: 'ConspiracyCircle', description: 'Discuss all conspiracy theories here', icon: 'communityIcons/communityIcon1.png'});
+MERGE (gamingGrounds:Community {name: 'GamingGrounds', description: 'Everything about gaming', icon: 'communityIcons/communityIcon2.png'});
+MERGE (popCulturePulse:Community {name: 'PopCulturePulse', description: 'Latest in pop culture', icon: 'communityIcons/communityIcon3.png'});
+MERGE (theBackrooms:Community {name: 'TheBackrooms', description: 'Creepy backroom stories', icon: 'communityIcons/communityIcon4.png'});
+MERGE (memethis:Community {name: 'Memethis', description: 'Meme sharing community', icon: 'communityIcons/communityIcon1.png'});
+MERGE (photoshoppingFails:Community {name: 'PhotoshoppingFails', description: 'Funny photoshop disasters', icon: 'communityIcons/communityIcon1.png'});
+MERGE (roadAccidents:Community {name: 'RoadAccidents', description: 'Discuss road safety and accidents', icon: 'communityIcons/communityIcon1.png'});
 
 // Create posts
 MERGE (post1:Post {
@@ -105,7 +105,7 @@ MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT1H')}]->(p);
 
 // Tag posts
 MATCH (p:Post {id: '101'}), (t1:Tag {name: 'WhatDoYouThink'}),
-      (t2:Tag {name: 'AnonymousConfessions'}), (t3:Tag {name: 'fail'}),
+      (t2:Tag {name: 'AnonymousConfessons'}), (t3:Tag {name: 'fail'}),
       (t4:Tag {name: 'photoshop'})
 MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P3D')}]->(t1)
 MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P3D')}]->(t2)
@@ -188,13 +188,14 @@ MERGE (post4:Post {
 MERGE (post5:Post {
   id: '105',
   title: 'My creepy backrooms experience - I swear this happened',
-  content: '<p>I know how this sounds, but I need to share what happened last night. I was working late in my office building (23rd floor) when I went to the bathroom around 2am.</p><p>When I came out, the hallway was... different. The lights were flickering and the carpet was this ugly yellow pattern I\'d never seen before. The air smelled stale, like an old hotel.</p><p>I walked toward where the elevators should be but the hallway just kept going. No doors, no exits, just this endless yellow hallway with buzzing fluorescent lights.</p><p>After what felt like 20 minutes of walking (but my phone showed only 3 minutes had passed), I turned a corner and suddenly I was back in the normal office. Has anyone else experienced something like this?</p>',
+  content: '</p><p>After what felt like 20 minutes of walking (but my phone showed only 3 minutes had passed), I turned a corner and suddenly I was back in the normal office. Has anyone else experienced something like this?</p>',
   timestamp: datetime() - duration('PT8H'),
   likes: 540,
   dislikes: 38,
   comments: 192,
   visibility: 'PUBLIC'
 });
+
 
 // Connect new posts to communities
 MATCH (c:Community {name: 'ConspiracyCircle'}), (p:Post {id: '103'})
@@ -205,6 +206,8 @@ MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT5H')}]->(p);
 
 MATCH (c:Community {name: 'TheBackrooms'}), (p:Post {id: '105'})
 MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT8H')}]->(p);
+
+
 
 // Tag new posts
 MATCH (p:Post {id: '103'}),

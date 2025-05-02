@@ -1,46 +1,91 @@
 import os
 
-from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QFrame, QSizePolicy
 from PySide6.QtCore import Signal, Qt, QSize
 from PySide6.QtGui import QTextOption, QPixmap, QIcon
 
 from frontend.assets.UserInterface.PostUI.UserInterfaceFile.FeedPostWidget import Ui_FeedPostWidget
 
 
+import image_utils
+from image_config import ImageType
+
+
 class FeedPostWidget(QFrame):
-    post_clicked = Signal(str)  # Emits post ID
-    like_clicked = Signal(str)  # Emits post ID
-    comment_clicked = Signal(str)  # Emits post ID
-    reply_clicked = Signal(str)  # Emits post ID
+    post_clicked = Signal(str)
+    like_clicked = Signal(str)
+    comment_clicked = Signal(str)
+    reply_clicked = Signal(str)
 
     def __init__(self, post_data, parent=None):
         super().__init__(parent)
         self.ui = Ui_FeedPostWidget()
         self.ui.setupUi(self)
 
-        # Set fixed size constraints
-        self.setFixedSize(1167, 259)
-        self.setMinimumSize(1167, 259)
-        self.setMaximumSize(1167, 259)
-
-        # Configure widget properties
         self.setCursor(Qt.CursorShape.PointingHandCursor)
-        # Initialize with post data
         self._initialize_post_data(post_data)
         self._setup_ui_styles()
         self._connect_signals()
+        self._setup_images(post_data)
+
+    def _setup_images(self, post_data):
+        """Configure all images in the post widget"""
+        # User avatar
+        image_utils.set_configured_image(
+            item=self.ui.userAvatar,
+            image_name=post_data.get("author_avatar", "default_user.png"),
+            image_type=ImageType.POST_AVATAR,
+            item_type="label"
+        )
+
+        # Community icon if available
+        if "community_icon" in post_data:
+            image_utils.set_configured_image(
+                item=self.ui.communityIcon,
+                image_name=post_data["community_icon"],
+                image_type=ImageType.COMMUNITY_AVATAR_MINI,
+            item_type="label"
+            )
+        else:
+            image_utils.set_configured_image(
+                item=self.ui.communityIcon,
+                image_name="communityIcon1.png",
+                image_type=ImageType.COMMUNITY_AVATAR_MINI,
+                item_type="label"
+            )
+
+        # Button icons
+        image_utils.set_configured_image(
+            item=self.ui.likeButtonIcon,
+            image_name="like_icon.png",
+            image_type=ImageType.BUTTON_ICON,
+            item_type="button"
+        )
+
+        image_utils.set_configured_image(
+            item=self.ui.commentButtonIcon,
+            image_name="comment_icon.png",
+            image_type=ImageType.BUTTON_ICON,
+            item_type="button"
+        )
+
+        # Status indicator if needed
+        image_utils.set_configured_image(
+            item=self.ui.replyCommentButtonIcon,
+            image_name="replyButtonIcon.png",
+            image_type=ImageType.BUTTON_ICON,
+            item_type="button"
+        )
 
     def _setup_ui_styles(self):
         """Configure UI styling and behavior"""
-        # Configure text browsers
-        for browser in [self.ui.textBrowserContent, self.ui.tagsBrowser, self.ui.commentContent]:
+        for browser in [self.ui.textBrowserContent]:
             browser.setWordWrapMode(QTextOption.WrapMode.WordWrap)
             browser.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
             browser.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+            browser.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
-        # # Make buttons transparent
-        # for button in [self.ui.likeButton, self.ui.commentButton]:
-        #     button.setStyleSheet("background: transparent; border: none;")
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.MinimumExpanding)
 
     def _initialize_post_data(self, post_data):
         """Initialize widget with post data"""
@@ -50,37 +95,34 @@ class FeedPostWidget(QFrame):
         self.author = post_data["author_name"]
         self.timestamp = post_data["timestamp"]
 
-        # Calculate points (likes - dislikes)
         likes = post_data.get("likes", 0)
         dislikes = post_data.get("dislikes", 0)
         self.points = likes - dislikes
 
-        # Format community tags
         community = post_data.get("community_name", "")
         self.tags = f"#{community.replace(' ', '')}" if community else ""
 
-        # Set UI elements
         self.ui.communityName.setText(community if community else "General")
         self.ui.postTime.setText(self._format_timestamp(self.timestamp))
         self.ui.username.setText(self.author)
         self.ui.usernamePoints.setText(f"{self.points} points")
         self.ui.postTitle.setText(self.title)
-        print(f"Tags {self.tags}")
-        # Set content with HTML formatting
-        self.ui.textBrowserContent.setHtml(f"""  
-                {self.content}
-        """)
+        self.ui.textBrowserContent.setHtml(self.content)
 
-        # Set tags with HTML formatting
-        self.ui.tagsBrowser.setHtml(f"""
-            {self.tags}
-        """)
-
-        # Set counts if available
         if "likes" in post_data:
             self.ui.likeCount.setText(str(post_data["likes"]))
         if "comments" in post_data:
             self.ui.commentCount.setText(str(post_data["comments"]))
+
+    def _formatTags(self, tags):
+        tags_string = ""
+        if len(tags) > 0:
+            for tag in tags:
+                tags_string += tag
+        else:
+            tags_string = "No tags"
+
+        return tags_string
 
     def _format_timestamp(self, timestamp):
         """Format timestamp to relative time"""
@@ -89,8 +131,8 @@ class FeedPostWidget(QFrame):
 
     def _connect_signals(self):
         """Connect all widget signals"""
-        self.ui.likeButton.clicked.connect(self._on_like_clicked)
-        self.ui.commentButton.clicked.connect(self._on_comment_clicked)
+        self.ui.likeButtonIcon.clicked.connect(self._on_like_clicked)
+        self.ui.commentButtonIcon.clicked.connect(self._on_comment_clicked)
         # self.doubleClicked.connect(self._on_post_clicked)
 
     def _on_post_clicked(self):
@@ -114,3 +156,16 @@ class FeedPostWidget(QFrame):
     def update_comments_count(self, count):
         """Update the comments count display"""
         self.ui.commentCount.setText(str(count))
+
+    def sizeHint(self):
+        """Provide a size hint based on content"""
+        # Calculate the height based on content
+        height = (
+                self.ui.headerLayout.sizeHint().height() +
+                self.ui.authorLayout.sizeHint().height() +
+                self.ui.postTitle.sizeHint().height() +
+                self.ui.textBrowserContent.document().size().height() +
+                self.ui.footerLayout.sizeHint().height() +
+                40  # Additional padding
+        )
+        return QSize(super().sizeHint().width(), height)

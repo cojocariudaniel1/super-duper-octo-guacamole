@@ -1,3 +1,4 @@
+import logging
 import os
 
 from PySide6.QtGui import QPixmap, QIcon
@@ -10,6 +11,10 @@ from frontend.assets.UserInterface.HomePageUI.UserInterfaceFile.dashboard import
 from frontend.assets.UserInterface.HomePageUI.controller.createPostWidget import CreatePostWidget
 from frontend.assets.UserInterface.PostUI.PythonUI.DetaliedPostWidget import DetailedPostWidget
 from frontend.assets.UserInterface.PostUI.PythonUI.FeedPostWidget import FeedPostWidget
+from frontend.assets.customWidget.communitiesWidgetCW import CommunityWidget
+from frontend.assets.customWidget.offlineFriendsCW import OfflineFriendWidget
+from frontend.assets.customWidget.onlineFriendsCW import OnlineFriendWidget
+from neo4j_data.Repository.CommunityRepository import CommunityRepository
 
 from neo4j_data.database_connect import Neo4jDriverSingleton
 from neo4j_data.Repository.PostRepository import PostRepository
@@ -57,10 +62,7 @@ class DashboardWindow(QWidget):
         # Initialize database
         self.driver = Neo4jDriverSingleton.get_driver()
         self.post_repo = PostRepository(self.driver)
-
-        # Set ScrollArea properties
-        self.setup_scroll_area()
-
+        self.community_repo = CommunityRepository(self.driver)
         # Create stacked widget for view switching
         self.stack = QStackedWidget(self)
 
@@ -81,7 +83,8 @@ class DashboardWindow(QWidget):
         self.stack.addWidget(self.post_container)
         self.stack.addWidget(self.create_post_container)
 
-        self.ui.ContentPosts_ScrollArea.setWidget(self.stack)
+        # Add stack to the post area layout
+        self.ui.postAreea.addWidget(self.stack)
 
         # -------------------- LOADING BAR --------------------
         self.loading_bar = LoadingBar(self)
@@ -95,13 +98,15 @@ class DashboardWindow(QWidget):
         # Create a button to show the Create Post page
         self.create_post_button = QPushButton("Create Post")
         self.create_post_button.clicked.connect(self.show_create_post)
-        self.ui.topNavLayout.addWidget(self.create_post_button)
+        self.ui.HeaderBar.addWidget(self.create_post_button)
 
         # Initialize worker thread
         self.worker_thread = None
-        self.initialize_custom_style()
         # Load posts (initial batch)
         self.load_posts()
+        self.load_friends_widgets()
+        self.load_communities_acces_link()
+        self.initialize_custom_style()
 
     def set_button_icon(self, button, icon_name, fallback_size=(32, 32)):
         """
@@ -146,10 +151,6 @@ class DashboardWindow(QWidget):
         # Fallback if image not found
         print(f"Image not found: {image_path}")
         label.setPixmap(QPixmap(label.size()))  # Bla
-
-    def setup_scroll_area(self):
-        """Set up scroll area properties."""
-        self.ui.ContentPosts_ScrollArea.setWidgetResizable(True)
 
     def create_feed_container(self):
         """Create and return the feed container."""
@@ -275,57 +276,78 @@ class DashboardWindow(QWidget):
         """Switch back to the feed view."""
         self.stack.setCurrentIndex(0)
 
-    def initialize_custom_style(self):
-        """Apply custom styles with proper isolation"""
-        # Base style for the entire application
-        base_style = """
-            QWidget {
-                background: transparent;
-                border: none;
-            }
-        """
-        self.setStyleSheet(base_style)
+    def load_communities_acces_link(self):
+        """Load top communities from database and display them"""
+        try:
+            # Clear existing layout
+            while self.ui.communitiesWidgetLayout.count():
+                item = self.ui.communitiesWidgetLayout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
 
-        # Define border style with proper string formatting
-        border_style = """
-            QWidget#{name} {{
-                border: 1px solid #3a3a3a;
-                background: transparent;
-            }}
-        """
+            # Get top 4 communities from database
+            communities = self.community_repo.get_top_communities(limit=4)
 
-        # Apply to main containers
-        containers = [
-            "leftSideBar",
-            "middleBar",
-            "topNavBar",
-            "ContentPosts_ScrollArea",
-            "delimiter1",
-            "delimiter2"
+            # Add community widgets
+            for community in communities:
+                community_widget = CommunityWidget(
+                    communityName=community["name"],
+                    icon=community.get("icon")  # Pass the base64 icon from database
+                )
+                self.ui.communitiesWidgetLayout.addWidget(community_widget)
+
+            self.ui.communitiesWidgetLayout.addStretch(1)
+
+        except Exception as e:
+            logging.critical(f"Error loading communities: {e}")
+
+    def load_friends_widgets(self):
+        """Load and display a list of online and offline friends in the UI."""
+        # Example mock data (name + profile image, if applicable)
+        friends_data = [
+            {"username": "Andrei","img": "avatars/av1.png" ,"status": "online"},
+            {"username": "Bob","img": "avatars/av2.png", "status": "online"},
+            {"username": "Daniel", "img": "avatars/av3.png", "status": "online"},
+            {"username": "Ana", "img": "avatars/av3.png", "status": "online"},
+            {"username": "Alexandru", "img": "avatars/av3.png", "status": "online"},
+            {"username": "Charlie", "status": "offline"},
+            {"username": "Dinaaaaaaaaa", "status": "offline"},
         ]
+        try:
+            # Clear existing online friends layout
+            while self.ui.onlineFriendsLayout.count():
+                item = self.ui.onlineFriendsLayout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
 
-        for container in containers:
-            widget = getattr(self.ui, container)
-            # Use double braces for literal braces in the format string
-            widget.setStyleSheet(border_style.format(name=container))
+            # Clear existing offline friends layout
+            while self.ui.offlineFriendsLayout.count():
+                item = self.ui.offlineFriendsLayout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
 
-        # Special case for scroll area to prevent inner widget borders
-        self.ui.ContentPosts_ScrollArea.setStyleSheet("""
-            QScrollArea#ContentPosts_ScrollArea {
-                border-top: 1px solid #3a3a3a;
-            }
-            QScrollArea#ContentPosts_ScrollArea > QWidget > QWidget {
-                border: none;
+            # Add each friend to the appropriate layout
+            for friend in friends_data:
+                if friend["status"] == "online":
+                    logging.critical("add widget friends onlinee")
+                    friend_widget = OnlineFriendWidget(friend["username"], friend["img"])
+                    self.ui.onlineFriendsLayout.addWidget(friend_widget)
+                else:
+                    logging.critical("add widget friends offline")
+                    friend_widget = OfflineFriendWidget(friend["username"])
+                    self.ui.offlineFriendsLayout.addWidget(friend_widget)
+            # Stretch for alignment
+            self.ui.onlineFriendsLayout.addStretch(1)
+            self.ui.offlineFriendsLayout.addStretch(1)
+
+        except Exception as e:
+            logging.error(f"Unexpected error: {e}")
+
+    def initialize_custom_style(self):
+        # Hide scroll bars for a cleaner look since we now have a main scroll area
+        self.ui.MainWindowScrollArea.setStyleSheet("""
+            QScrollBar:vertical, QScrollBar:horizontal {
+                width: 0px;
+                height: 0px;
             }
         """)
-
-        # Post widget styling to prevent inheritance
-        post_style = """
-            FeedPostWidget {
-                background: #2a2a2a;
-                border-radius: 4px;
-                border: none;
-                margin: 5px 0;
-            }
-        """
-        self.setStyleSheet(self.styleSheet() + post_style)

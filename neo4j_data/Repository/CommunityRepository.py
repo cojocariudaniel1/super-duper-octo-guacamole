@@ -1,152 +1,167 @@
-import uuid  # For generating unique community IDs
+from neo4j_data.database_connect import Neo4jDriverSingleton
+from datetime import datetime
 
 
 class CommunityRepository:
     def __init__(self, driver):
         self.driver = driver
 
-    def create(self, name, description, privacy_level="public", reputation_required=0, banner_image=None):
-        print(f"Debug: Creating community '{name}' with privacy level '{privacy_level}'")
-        return create_community(self.driver, name, description, privacy_level, reputation_required, banner_image)
-
-    def read(self, community_name):
-        community = read_community(self.driver, community_name)
-        if community:
-            print(f"Debug: Retrieved community '{community['name']}'")
-        return community
-
-    def update(self, name=None, description=None, privacy_level=None, reputation_required=None, banner_image=None):
-        return update_community(self.driver, name, description, privacy_level, reputation_required, banner_image)
-
-    def delete(self, name):
-        return delete_community(self.driver, name)
-
-
-
-
-
-def create_community(driver, name, description, privacy_level, reputation_required, banner_image):
-    """
-    Create a new community node in the Neo4j database if a community with the same name doesn't already exist.
-    :param driver: Neo4j driver instance
-    :param name: Name of the community
-    :param description: Description of the community
-    :param privacy_level: Privacy level of the community (default: "public")
-    :param reputation_required: Minimum reputation required to join (default: 0)
-    :param banner_image: URL for the community's banner image (optional)
-    :return: The created community node or None if the community already exists
-    """
-    with driver.session() as session:
-        with session.begin_transaction() as tx:
-            # Check if a community with the same name already exists
-            existing_community_query = """
-            MATCH (c:Community {name: $name})
-            RETURN c
-            """
-            existing_community = tx.run(existing_community_query, name=name).single()
-
-            if existing_community:
-                print("Community already exists")
-                return None  # Community already exists
-            else:
-                create_query = """
-                CREATE (c:Community {
-                    id: $id,
-                    name: $name,
-                    description: $description,
-                    privacy_level: $privacy_level,
-                    reputation_required: $reputation_required,
-                    banner_image: $banner_image,
-                    created_at: timestamp()
-                })
+    def create_community(self, name, description, privacy_level="public", reputation_required=0, banner_image=None, icon=None):
+        """
+        Create a new community if it doesn't exist already.
+        """
+        with self.driver.session() as session:
+            result = session.run("""
+                MERGE (c:Community {name: $name})
+                ON CREATE SET 
+                    c.id = apoc.create.uuid(),
+                    c.description = $description,
+                    c.privacy_level = $privacy_level,
+                    c.reputation_required = $reputation_required,
+                    c.banner_image = $banner_image,
+                    c.icon = $icon,
+                    c.created_at = datetime()
                 RETURN c
-                """
-                community_id = str(uuid.uuid4())  # Generate a unique ID
-                result = tx.run(create_query, id=community_id, name=name, description=description,
-                                privacy_level=privacy_level, reputation_required=reputation_required, banner_image=banner_image)
-                return result.single()[0]
-
-
-def read_community(driver, community_name):
-    """
-    Retrieve a community node based on the community name.
-    :param driver: Neo4j driver instance
-    :param community_name: Name of the community
-    :return: The community node or None if not found
-    """
-    with driver.session() as session:
-        with session.begin_transaction() as tx:
-            read_query = """
-            MATCH (c:Community {name: $community_name})
-            RETURN c.id AS id, c.name AS name, c.description AS description,
-                   c.privacy_level AS privacy_level, c.reputation_required AS reputation_required,
-                   c.banner_image AS banner_image, c.created_at AS created_at
-            """
-            result = tx.run(read_query, community_name=community_name)
-            community = result.single()
-            if community:
-                return {
-                    "id": community["id"],
-                    "name": community["name"],
-                    "description": community["description"],
-                    "privacy_level": community["privacy_level"],
-                    "reputation_required": community["reputation_required"],
-                    "banner_image": community["banner_image"],
-                    "created_at": community["created_at"],
-                }
-            return None
-
-
-def update_community(driver, name=None, description=None, privacy_level=None, reputation_required=None, banner_image=None):
-    """
-    Update a community's information.
-    :param driver: Neo4j driver instance
-    :param name: New name for the community (optional)
-    :param description: New description for the community (optional)
-    :param privacy_level: New privacy level for the community (optional)
-    :param reputation_required: New reputation required for the community (optional)
-    :param banner_image: New banner image URL for the community (optional)
-    :return: The updated community node or None if not found
-    """
-    with driver.session() as session:
-        with session.begin_transaction() as tx:
-            update_query = """
-            MATCH (c:Community {name: $name})
-            SET 
-                c.name = COALESCE($name, c.name),
-                c.description = COALESCE($description, c.description),
-                c.privacy_level = COALESCE($privacy_level, c.privacy_level),
-                c.reputation_required = COALESCE($reputation_required, c.reputation_required),
-                c.banner_image = COALESCE($banner_image, c.banner_image)
-            RETURN c
-            """
-            result = tx.run(update_query, name=name, description=description,
-                            privacy_level=privacy_level, reputation_required=reputation_required,
-                            banner_image=banner_image)
-
-            # Check if the result has a value
+            """, {
+                "name": name,
+                "description": description,
+                "privacy_level": privacy_level,
+                "reputation_required": reputation_required,
+                "banner_image": banner_image,
+                "icon": icon
+            })
             record = result.single()
             if record:
-                return record["c"]  # Return the community node
-            else:
-                print(f"Debug: No community found with the name {name}")
-                return None
+                return self._format_community(record["c"])
+            return None
 
+    def get_community(self, name):
+        """
+        Retrieve a community by name.
+        """
+        with self.driver.session() as session:
+            result = session.run("""
+                MATCH (c:Community {name: $name})
+                RETURN c
+            """, {"name": name})
+            record = result.single()
+            return self._format_community(record["c"]) if record else None
 
-def delete_community(driver, name):
-    """
-    Delete a community node based on the community name.
-    :param driver: Neo4j driver instance
-    :param name: Name of the community
-    :return: True if deletion was successful, False otherwise
-    """
-    with driver.session() as session:
-        with session.begin_transaction() as tx:
-            delete_query = """
-            MATCH (c:Community {name: $name})
-            DELETE c
-            RETURN COUNT(c) AS deleted_count
-            """
-            result = tx.run(delete_query, name=name)
-            deleted_count = result.single()["deleted_count"]
-            return deleted_count > 0  # Returns True if deletion was successful
+    def update_community(self, name, description=None, privacy_level=None, reputation_required=None, banner_image=None, icon=None):
+        """
+        Update an existing community.
+        """
+        updates = []
+        if description is not None:
+            updates.append("c.description = $description")
+        if privacy_level is not None:
+            updates.append("c.privacy_level = $privacy_level")
+        if reputation_required is not None:
+            updates.append("c.reputation_required = $reputation_required")
+        if banner_image is not None:
+            updates.append("c.banner_image = $banner_image")
+        if icon is not None:
+            updates.append("c.icon = $icon")
+
+        if not updates:
+            return None  # No fields to update
+
+        set_clause = ", ".join(updates)
+
+        with self.driver.session() as session:
+            result = session.run(f"""
+                MATCH (c:Community {{name: $name}})
+                SET {set_clause}
+                RETURN c
+            """, {
+                "name": name,
+                "description": description,
+                "privacy_level": privacy_level,
+                "reputation_required": reputation_required,
+                "banner_image": banner_image,
+                "icon": icon
+            })
+            record = result.single()
+            return self._format_community(record["c"]) if record else None
+
+    def delete_community(self, name):
+        """
+        Delete a community by name.
+        """
+        with self.driver.session() as session:
+            result = session.run("""
+                MATCH (c:Community {name: $name})
+                DETACH DELETE c
+                RETURN COUNT(*) AS deleted_count
+            """, {"name": name})
+            record = result.single()
+            return record["deleted_count"] > 0
+
+    def get_all_communities(self, limit=10, offset=0):
+        """
+        Retrieve a list of communities with pagination.
+        """
+        with self.driver.session() as session:
+            result = session.run("""
+                MATCH (c:Community)
+                RETURN c
+                ORDER BY c.created_at DESC
+                SKIP $offset LIMIT $limit
+            """, {"offset": offset, "limit": limit})
+            return [self._format_community(record["c"]) for record in result]
+
+    def _format_community(self, node):
+        """
+        Format the community node data into a dictionary.
+        """
+        created_at = node.get("created_at")
+        return {
+            "id": node.get("id"),
+            "name": node.get("name"),
+            "description": node.get("description"),
+            "privacy_level": node.get("privacy_level"),
+            "reputation_required": node.get("reputation_required", 0),
+            "banner_image": node.get("banner_image"),
+            "icon": node.get("icon"),
+            "created_at": self._format_timestamp(created_at) if created_at else None
+        }
+
+    def _format_timestamp(self, timestamp):
+        """
+        Format timestamp to a human-readable relative time.
+        """
+        if hasattr(timestamp, 'to_native'):
+            timestamp = timestamp.to_native()
+        elif isinstance(timestamp, str):
+            timestamp = datetime.fromisoformat(timestamp)
+
+        now = datetime.now(timestamp.tzinfo if timestamp.tzinfo else None)
+        delta = now - timestamp
+
+        if delta.days > 365:
+            return f"{delta.days // 365} years ago"
+        if delta.days > 30:
+            return f"{delta.days // 30} months ago"
+        if delta.days > 0:
+            return f"{delta.days} days ago"
+        if delta.seconds > 3600:
+            return f"{delta.seconds // 3600} hours ago"
+        if delta.seconds > 60:
+            return f"{delta.seconds // 60} minutes ago"
+        return "Just now"
+
+    # In CommunityRepository class
+    def get_top_communities(self, limit=4):
+        """
+        Retrieve top communities by member count with optional limit.
+        """
+        with self.driver.session() as session:
+            result = session.run("""
+                MATCH (c:Community)
+                OPTIONAL MATCH (c)<-[:MEMBER_OF]-(u:User)
+                WITH c, COUNT(u) AS member_count
+                RETURN c
+                ORDER BY member_count DESC
+                LIMIT $limit
+            """, {"limit": limit})
+            return [self._format_community(record["c"]) for record in result]

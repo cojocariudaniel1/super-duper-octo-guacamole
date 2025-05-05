@@ -541,31 +541,40 @@ color: rgb(160, 160, 160);</string>
                </item>
                <item>
                 <widget class="QWidget" name="topCommunitiesGridWidget" native="true">
-                 <layout class="QGridLayout" name="topCommunitiesGridLayout_2">
+                 <layout class="QVBoxLayout" name="verticalLayout_2">
+                  <property name="spacing">
+                   <number>9</number>
+                  </property>
                   <property name="leftMargin">
-                   <number>0</number>
+                   <number>9</number>
                   </property>
                   <property name="topMargin">
-                   <number>40</number>
+                   <number>9</number>
                   </property>
                   <property name="rightMargin">
-                   <number>0</number>
+                   <number>9</number>
                   </property>
                   <property name="bottomMargin">
-                   <number>0</number>
+                   <number>9</number>
                   </property>
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_2">
-                    <property name="styleSheet">
-                     <string notr="true">color:yellow;</string>
+                  <item>
+                   <layout class="QHBoxLayout" name="CommRow_1">
+                    <property name="bottomMargin">
+                     <number>0</number>
                     </property>
-                    <property name="text">
-                     <string>TextLabel</string>
-                    </property>
-                   </widget>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="CommRow_2"/>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="CommRow_3"/>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="CommRow_4"/>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="CommRow_5"/>
                   </item>
                  </layout>
                 </widget>
@@ -636,35 +645,162 @@ color: rgb(160, 160, 160);</string>
                 </widget>
                </item>
                <item>
-                <widget class="QWidget" name="popularHashtagsLayoutWidget" native="true">
-                 <layout class="QGridLayout" name="popularHashtagsLayout_2">
-                  <property name="leftMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>40</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_4">
-                    <property name="styleSheet">
-                     <string notr="true">color:yellow;</string>
-                    </property>
-                    <property name="text">
-                     <string>TextLabel</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
+                <layout class="QVBoxLayout" name="popularHashtagsLayoutWidget">
+                 <property name="spacing">
+                  <number>9</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>9</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>9</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>9</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>9</number>
+                 </property>
+                 <item>
+                  <layout class="QHBoxLayout" name="popularHashtagsLayoutWidgetFirstRow">
+                   <property name="spacing">
+                    <number>6</number>
+                   </property>
+                   <item>
+                    <widget class="QLabel" name="label">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>37</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>60</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">font: 500 12pt &quot;Raleway&quot;;
+background-color: rgb(58, 58, 58);
+border-radius:18px;
+color:white;
+padding-left:5px;
+padding-right:5px;</string>
+                     </property>
+                     <property name="text">
+                      <string>#TextLabel</string>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>false</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QFrame" name="firstRowSpacer">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>1</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">border:none;</string>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Shape::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Shadow::Raised</enum>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="popularHashtagsLayoutWidgetSecondRow">
+                   <property name="spacing">
+                    <number>6</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QLabel" name="label_5">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>37</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>60</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">font: 500 12pt &quot;Raleway&quot;;
+background-color: rgb(58, 58, 58);
+border-radius:18px;
+color:white;
+padding-left:5px;
+padding-right:5px;</string>
+                     </property>
+                     <property name="text">
+                      <string>#TextLabelAAAAAAAA</string>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>false</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QFrame" name="firstRowSpacer_2">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>1</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">border:none;</string>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Shape::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Shadow::Raised</enum>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -703,7 +839,10 @@ color: rgb(160, 160, 160);</string>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout">
               <property name="rightMargin">
-               <number>50</number>
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>30</number>
               </property>
               <item>
                <widget class="QLabel" name="recommendedPostsLabel">
@@ -740,33 +879,79 @@ color: rgb(160, 160, 160);</string>
                </widget>
               </item>
               <item>
-               <widget class="QWidget" name="recommendFeedHWidget" native="true">
+               <widget class="QScrollArea" name="RecommendedFeedScrollArea">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                   <horstretch>1</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background: transparent;</string>
+                 <string notr="true">border: none;
+background: transparent;
+</string>
                 </property>
-                <layout class="QHBoxLayout" name="recommendFeedHLayout_2">
-                 <property name="spacing">
-                  <number>0</number>
+                <property name="horizontalScrollBarPolicy">
+                 <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+                </property>
+                <property name="sizeAdjustPolicy">
+                 <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustToContents</enum>
+                </property>
+                <property name="widgetResizable">
+                 <bool>true</bool>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignmentFlag::AlignCenter</set>
+                </property>
+                <widget class="QWidget" name="recommendFeedScrollAreaWidget">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>579</width>
+                   <height>176</height>
+                  </rect>
                  </property>
-                 <property name="leftMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                </layout>
+                 <layout class="QHBoxLayout" name="postsLayout_2">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <layout class="QHBoxLayout" name="recommendFeedHWidget">
+                    <property name="spacing">
+                     <number>12</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>9</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>9</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>9</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>9</number>
+                    </property>
+                   </layout>
+                  </item>
+                 </layout>
+                </widget>
                </widget>
               </item>
              </layout>

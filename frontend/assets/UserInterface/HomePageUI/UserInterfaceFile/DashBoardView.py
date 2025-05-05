@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'dashboard.ui'
+## Form generated from reading UI file 'DashBoardView.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -15,7 +15,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
+from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QFrame, QHBoxLayout,
     QLabel, QLayout, QLineEdit, QPushButton,
     QScrollArea, QSizePolicy, QVBoxLayout, QWidget)
 
@@ -293,15 +293,35 @@ class Ui_DashBoardView(object):
 
         self.topCommunitiesGridWidget = QWidget(self.topCommunnitiesPopularHashTagLayoutWidget)
         self.topCommunitiesGridWidget.setObjectName(u"topCommunitiesGridWidget")
-        self.topCommunitiesGridLayout_2 = QGridLayout(self.topCommunitiesGridWidget)
-        self.topCommunitiesGridLayout_2.setSpacing(0)
-        self.topCommunitiesGridLayout_2.setObjectName(u"topCommunitiesGridLayout_2")
-        self.topCommunitiesGridLayout_2.setContentsMargins(0, 40, 0, 0)
-        self.label_2 = QLabel(self.topCommunitiesGridWidget)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setStyleSheet(u"color:yellow;")
+        self.verticalLayout_2 = QVBoxLayout(self.topCommunitiesGridWidget)
+        self.verticalLayout_2.setSpacing(9)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(9, 9, 9, 9)
+        self.CommRow_1 = QHBoxLayout()
+        self.CommRow_1.setObjectName(u"CommRow_1")
+        self.CommRow_1.setContentsMargins(-1, -1, -1, 0)
 
-        self.topCommunitiesGridLayout_2.addWidget(self.label_2, 0, 0, 1, 1)
+        self.verticalLayout_2.addLayout(self.CommRow_1)
+
+        self.CommRow_2 = QHBoxLayout()
+        self.CommRow_2.setObjectName(u"CommRow_2")
+
+        self.verticalLayout_2.addLayout(self.CommRow_2)
+
+        self.CommRow_3 = QHBoxLayout()
+        self.CommRow_3.setObjectName(u"CommRow_3")
+
+        self.verticalLayout_2.addLayout(self.CommRow_3)
+
+        self.CommRow_4 = QHBoxLayout()
+        self.CommRow_4.setObjectName(u"CommRow_4")
+
+        self.verticalLayout_2.addLayout(self.CommRow_4)
+
+        self.CommRow_5 = QHBoxLayout()
+        self.CommRow_5.setObjectName(u"CommRow_5")
+
+        self.verticalLayout_2.addLayout(self.CommRow_5)
 
 
         self.topCommunnitiesPopularHashTagLayout_2.addWidget(self.topCommunitiesGridWidget)
@@ -334,20 +354,82 @@ class Ui_DashBoardView(object):
 
         self.topCommunnitiesPopularHashTagLayout_2.addWidget(self.PopularHashtagsLabel)
 
-        self.popularHashtagsLayoutWidget = QWidget(self.topCommunnitiesPopularHashTagLayoutWidget)
+        self.popularHashtagsLayoutWidget = QVBoxLayout()
+        self.popularHashtagsLayoutWidget.setSpacing(9)
         self.popularHashtagsLayoutWidget.setObjectName(u"popularHashtagsLayoutWidget")
-        self.popularHashtagsLayout_2 = QGridLayout(self.popularHashtagsLayoutWidget)
-        self.popularHashtagsLayout_2.setSpacing(0)
-        self.popularHashtagsLayout_2.setObjectName(u"popularHashtagsLayout_2")
-        self.popularHashtagsLayout_2.setContentsMargins(0, 40, 0, 0)
-        self.label_4 = QLabel(self.popularHashtagsLayoutWidget)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setStyleSheet(u"color:yellow;")
+        self.popularHashtagsLayoutWidget.setContentsMargins(9, 9, 9, 9)
+        self.popularHashtagsLayoutWidgetFirstRow = QHBoxLayout()
+        self.popularHashtagsLayoutWidgetFirstRow.setSpacing(6)
+        self.popularHashtagsLayoutWidgetFirstRow.setObjectName(u"popularHashtagsLayoutWidgetFirstRow")
+        self.label = QLabel(self.topCommunnitiesPopularHashTagLayoutWidget)
+        self.label.setObjectName(u"label")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy4)
+        self.label.setMinimumSize(QSize(0, 37))
+        self.label.setMaximumSize(QSize(16777215, 60))
+        self.label.setStyleSheet(u"font: 500 12pt \"Raleway\";\n"
+"background-color: rgb(58, 58, 58);\n"
+"border-radius:18px;\n"
+"color:white;\n"
+"padding-left:5px;\n"
+"padding-right:5px;")
+        self.label.setScaledContents(False)
 
-        self.popularHashtagsLayout_2.addWidget(self.label_4, 0, 0, 1, 1)
+        self.popularHashtagsLayoutWidgetFirstRow.addWidget(self.label)
+
+        self.firstRowSpacer = QFrame(self.topCommunnitiesPopularHashTagLayoutWidget)
+        self.firstRowSpacer.setObjectName(u"firstRowSpacer")
+        sizePolicy2.setHeightForWidth(self.firstRowSpacer.sizePolicy().hasHeightForWidth())
+        self.firstRowSpacer.setSizePolicy(sizePolicy2)
+        self.firstRowSpacer.setMaximumSize(QSize(16777215, 20))
+        self.firstRowSpacer.setStyleSheet(u"border:none;")
+        self.firstRowSpacer.setFrameShape(QFrame.Shape.StyledPanel)
+        self.firstRowSpacer.setFrameShadow(QFrame.Shadow.Raised)
+
+        self.popularHashtagsLayoutWidgetFirstRow.addWidget(self.firstRowSpacer)
 
 
-        self.topCommunnitiesPopularHashTagLayout_2.addWidget(self.popularHashtagsLayoutWidget)
+        self.popularHashtagsLayoutWidget.addLayout(self.popularHashtagsLayoutWidgetFirstRow)
+
+        self.popularHashtagsLayoutWidgetSecondRow = QHBoxLayout()
+        self.popularHashtagsLayoutWidgetSecondRow.setSpacing(6)
+        self.popularHashtagsLayoutWidgetSecondRow.setObjectName(u"popularHashtagsLayoutWidgetSecondRow")
+        self.popularHashtagsLayoutWidgetSecondRow.setContentsMargins(-1, -1, -1, 0)
+        self.label_5 = QLabel(self.topCommunnitiesPopularHashTagLayoutWidget)
+        self.label_5.setObjectName(u"label_5")
+        sizePolicy4.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
+        self.label_5.setSizePolicy(sizePolicy4)
+        self.label_5.setMinimumSize(QSize(0, 37))
+        self.label_5.setMaximumSize(QSize(16777215, 60))
+        self.label_5.setStyleSheet(u"font: 500 12pt \"Raleway\";\n"
+"background-color: rgb(58, 58, 58);\n"
+"border-radius:18px;\n"
+"color:white;\n"
+"padding-left:5px;\n"
+"padding-right:5px;")
+        self.label_5.setScaledContents(False)
+
+        self.popularHashtagsLayoutWidgetSecondRow.addWidget(self.label_5)
+
+        self.firstRowSpacer_2 = QFrame(self.topCommunnitiesPopularHashTagLayoutWidget)
+        self.firstRowSpacer_2.setObjectName(u"firstRowSpacer_2")
+        sizePolicy2.setHeightForWidth(self.firstRowSpacer_2.sizePolicy().hasHeightForWidth())
+        self.firstRowSpacer_2.setSizePolicy(sizePolicy2)
+        self.firstRowSpacer_2.setMaximumSize(QSize(16777215, 20))
+        self.firstRowSpacer_2.setStyleSheet(u"border:none;")
+        self.firstRowSpacer_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.firstRowSpacer_2.setFrameShadow(QFrame.Shadow.Raised)
+
+        self.popularHashtagsLayoutWidgetSecondRow.addWidget(self.firstRowSpacer_2)
+
+
+        self.popularHashtagsLayoutWidget.addLayout(self.popularHashtagsLayoutWidgetSecondRow)
+
+
+        self.topCommunnitiesPopularHashTagLayout_2.addLayout(self.popularHashtagsLayoutWidget)
 
 
         self.RecommendFeedLayout_2.addWidget(self.topCommunnitiesPopularHashTagLayoutWidget)
@@ -366,7 +448,7 @@ class Ui_DashBoardView(object):
 
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(-1, -1, 50, -1)
+        self.verticalLayout.setContentsMargins(-1, -1, 0, 30)
         self.recommendedPostsLabel = QLabel(self.TopFeedWidgetParent)
         self.recommendedPostsLabel.setObjectName(u"recommendedPostsLabel")
         sizePolicy2.setHeightForWidth(self.recommendedPostsLabel.sizePolicy().hasHeightForWidth())
@@ -383,17 +465,35 @@ class Ui_DashBoardView(object):
 
         self.verticalLayout.addWidget(self.recommendedPostsLabel)
 
-        self.recommendFeedHWidget = QWidget(self.TopFeedWidgetParent)
+        self.RecommendedFeedScrollArea = QScrollArea(self.TopFeedWidgetParent)
+        self.RecommendedFeedScrollArea.setObjectName(u"RecommendedFeedScrollArea")
+        sizePolicy.setHeightForWidth(self.RecommendedFeedScrollArea.sizePolicy().hasHeightForWidth())
+        self.RecommendedFeedScrollArea.setSizePolicy(sizePolicy)
+        self.RecommendedFeedScrollArea.setStyleSheet(u"border: none;\n"
+"background: transparent;\n"
+"")
+        self.RecommendedFeedScrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.RecommendedFeedScrollArea.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
+        self.RecommendedFeedScrollArea.setWidgetResizable(True)
+        self.RecommendedFeedScrollArea.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.recommendFeedScrollAreaWidget = QWidget()
+        self.recommendFeedScrollAreaWidget.setObjectName(u"recommendFeedScrollAreaWidget")
+        self.recommendFeedScrollAreaWidget.setGeometry(QRect(0, 0, 579, 176))
+        self.postsLayout_2 = QHBoxLayout(self.recommendFeedScrollAreaWidget)
+        self.postsLayout_2.setSpacing(0)
+        self.postsLayout_2.setObjectName(u"postsLayout_2")
+        self.postsLayout_2.setSizeConstraint(QLayout.SizeConstraint.SetNoConstraint)
+        self.postsLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.recommendFeedHWidget = QHBoxLayout()
+        self.recommendFeedHWidget.setSpacing(12)
         self.recommendFeedHWidget.setObjectName(u"recommendFeedHWidget")
-        sizePolicy2.setHeightForWidth(self.recommendFeedHWidget.sizePolicy().hasHeightForWidth())
-        self.recommendFeedHWidget.setSizePolicy(sizePolicy2)
-        self.recommendFeedHWidget.setStyleSheet(u"background: transparent;")
-        self.recommendFeedHLayout_2 = QHBoxLayout(self.recommendFeedHWidget)
-        self.recommendFeedHLayout_2.setSpacing(0)
-        self.recommendFeedHLayout_2.setObjectName(u"recommendFeedHLayout_2")
-        self.recommendFeedHLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.recommendFeedHWidget.setContentsMargins(9, 9, 9, 9)
 
-        self.verticalLayout.addWidget(self.recommendFeedHWidget)
+        self.postsLayout_2.addLayout(self.recommendFeedHWidget)
+
+        self.RecommendedFeedScrollArea.setWidget(self.recommendFeedScrollAreaWidget)
+
+        self.verticalLayout.addWidget(self.RecommendedFeedScrollArea)
 
 
         self.RecommendFeedLayout_2.addLayout(self.verticalLayout)
@@ -583,9 +683,9 @@ class Ui_DashBoardView(object):
         self.settingsBtn.setText(QCoreApplication.translate("DashBoardView", u"Settings", None))
         self.disconnectBtn.setText(QCoreApplication.translate("DashBoardView", u"Disconnect", None))
         self.TopCommunitiesLabel.setText(QCoreApplication.translate("DashBoardView", u"Top communities", None))
-        self.label_2.setText(QCoreApplication.translate("DashBoardView", u"TextLabel", None))
         self.PopularHashtagsLabel.setText(QCoreApplication.translate("DashBoardView", u"POPUlAR HASHTAGS", None))
-        self.label_4.setText(QCoreApplication.translate("DashBoardView", u"TextLabel", None))
+        self.label.setText(QCoreApplication.translate("DashBoardView", u"#TextLabel", None))
+        self.label_5.setText(QCoreApplication.translate("DashBoardView", u"#TextLabelAAAAAAAA", None))
         self.recommendedPostsLabel.setText(QCoreApplication.translate("DashBoardView", u"RECOMMENDED POSTS", None))
         self.friendsTitleLabel.setText(QCoreApplication.translate("DashBoardView", u"Friends", None))
         self.searchBarFriends.setInputMask("")

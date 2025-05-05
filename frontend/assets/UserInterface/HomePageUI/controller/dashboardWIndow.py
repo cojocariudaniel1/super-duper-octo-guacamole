@@ -2,23 +2,25 @@ import logging
 import os
 
 from PySide6.QtGui import QPixmap, QIcon
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QStackedWidget, QPushButton
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QStackedWidget, QPushButton, QGridLayout, QLabel, QSizePolicy, \
+    QFrame
 from PySide6.QtCore import QTimer, Signal, Slot, QThread, QObject
 
 from backend.global_path import get_absolute_file_path
 from frontend.assets.customWidget.LoadingBar import LoadingBar
-from frontend.assets.UserInterface.HomePageUI.UserInterfaceFile.dashboard import Ui_DashBoardView
+from frontend.assets.UserInterface.HomePageUI.UserInterfaceFile.DashBoardView import Ui_DashBoardView
 from frontend.assets.UserInterface.HomePageUI.controller.createPostWidget import CreatePostWidget
 from frontend.assets.UserInterface.PostUI.PythonUI.DetaliedPostWidget import DetailedPostWidget
 from frontend.assets.UserInterface.PostUI.PythonUI.FeedPostWidget import FeedPostWidget
 from frontend.assets.customWidget.communitiesWidgetCW import CommunityWidget
 from frontend.assets.customWidget.offlineFriendsCW import OfflineFriendWidget
 from frontend.assets.customWidget.onlineFriendsCW import OnlineFriendWidget
+from frontend.assets.customWidget.popularHashTagsCW import PopularHashTagsWidget
 from neo4j_data.Repository.CommunityRepository import CommunityRepository
 
 from neo4j_data.database_connect import Neo4jDriverSingleton
 from neo4j_data.Repository.PostRepository import PostRepository
-
+from frontend.assets.UserInterface.PostUI.PythonUI.RecommendedPostsWidget import RecommendedPostsWidget
 
 class PostWorker(QObject):
     finished = Signal(list)
@@ -106,6 +108,9 @@ class DashboardWindow(QWidget):
         self.load_posts()
         self.load_friends_widgets()
         self.load_communities_acces_link()
+        self.load_popular_tags()
+        self.load_top_communities_grid()
+        self.load_recommended_posts()
         self.initialize_custom_style()
 
     def set_button_icon(self, button, icon_name, fallback_size=(32, 32)):
@@ -305,8 +310,8 @@ class DashboardWindow(QWidget):
         """Load and display a list of online and offline friends in the UI."""
         # Example mock data (name + profile image, if applicable)
         friends_data = [
-            {"username": "Andrei","img": "avatars/av1.png" ,"status": "online"},
-            {"username": "Bob","img": "avatars/av2.png", "status": "online"},
+            {"username": "Andrei", "img": "avatars/av1.png", "status": "online"},
+            {"username": "Bob", "img": "avatars/av2.png", "status": "online"},
             {"username": "Daniel", "img": "avatars/av3.png", "status": "online"},
             {"username": "Ana", "img": "avatars/av3.png", "status": "online"},
             {"username": "Alexandru", "img": "avatars/av3.png", "status": "online"},
@@ -329,11 +334,9 @@ class DashboardWindow(QWidget):
             # Add each friend to the appropriate layout
             for friend in friends_data:
                 if friend["status"] == "online":
-                    logging.critical("add widget friends onlinee")
                     friend_widget = OnlineFriendWidget(friend["username"], friend["img"])
                     self.ui.onlineFriendsLayout.addWidget(friend_widget)
                 else:
-                    logging.critical("add widget friends offline")
                     friend_widget = OfflineFriendWidget(friend["username"])
                     self.ui.offlineFriendsLayout.addWidget(friend_widget)
             # Stretch for alignment
@@ -343,11 +346,168 @@ class DashboardWindow(QWidget):
         except Exception as e:
             logging.error(f"Unexpected error: {e}")
 
+    def load_popular_tags(self):
+        logging.debug("Start load_popular_tags")
+        tags_data = [
+            {"tagname": "Music"},
+            {"tagname": "MidnightTech"},
+            {"tagname": "WhatDoYouThink"},
+            {"tagname": "ConspiracyCornerStories"},
+            {"tagname": "AIRevolution"},
+            {"tagname": "Health"},
+            {"tagname": "QuantumLeap"},
+            {"tagname": "SpaceTalk"},
+            {"tagname": "EcoFuture"}
+        ]
+
+        try:
+            while self.ui.popularHashtagsLayoutWidgetFirstRow.count():
+                item = self.ui.popularHashtagsLayoutWidgetFirstRow.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
+
+            while self.ui.popularHashtagsLayoutWidgetSecondRow.count():
+                item = self.ui.popularHashtagsLayoutWidgetSecondRow.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
+
+            # Add tags to rows
+            max_per_row = 4
+            for index, tag in enumerate(tags_data[:8]):  # Max 8 tags (4 per row)
+                tag_label = QLabel(f"#{tag['tagname']}")
+
+                # Apply stylesheet
+                tag_label.setStyleSheet("""
+                    font: 500 12pt "Raleway";
+                    background-color: rgb(58, 58, 58);
+                    border-radius: 18px;
+                    color: white;
+                    padding-left: 5px;
+                """)
+
+                # Set size policies
+                tag_label.setMinimumHeight(37)
+                tag_label.setSizePolicy(
+                    QSizePolicy.Policy.MinimumExpanding,  # Horizontal
+                    QSizePolicy.Policy.Fixed  # Vertical
+                )
+
+                # Add to appropriate row
+                if index < max_per_row:
+                    self.ui.popularHashtagsLayoutWidgetFirstRow.addWidget(tag_label)
+                else:
+                    self.ui.popularHashtagsLayoutWidgetSecondRow.addWidget(tag_label)
+            self.ui.popularHashtagsLayoutWidgetFirstRow.addWidget(self._horizontal_spacer())
+            self.ui.popularHashtagsLayoutWidgetSecondRow.addWidget(self._horizontal_spacer())
+
+        except Exception as e:
+            logging.critical(f"Error in load_popular_tags: {e}")
+
+    def load_top_communities_grid(self):
+        """Load top communities into 5 separate horizontal layout rows"""
+        logging.debug("Start load_top_communities_grid")
+
+        try:
+            # Lista layout-urilor din UI pentru cele 5 rânduri
+            layout_rows = [
+                self.ui.CommRow_1,
+                self.ui.CommRow_2,
+                self.ui.CommRow_3,
+                self.ui.CommRow_4,
+                self.ui.CommRow_5
+            ]
+
+            # Golește toate layout-urile existente
+            for layout in layout_rows:
+                while layout.count():
+                    item = layout.takeAt(0)
+                    if item.widget():
+                        item.widget().deleteLater()
+
+            # Încarcă comunitățile din baza de date (ex: maxim 20 comunități)
+            communities = [
+                {"name": "PythonDev", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "AIResearch", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "CryptoWorld", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "MovieTalks", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "SpaceXFanClub", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "EcoWarriors", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "FutureTech", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "HealthHacks", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "Mindfulness", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "StartupIdeas", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "MidnightCoders", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "BookWorms", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "QuantumTalk", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "ConspiracyLounge", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "VRGaming", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "OpenSource", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "MusicMakers", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "UXDesigners", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "GadgetGeeks", "icon": "communityIcons/communityIcon1.png"},
+                {"name": "TheWritersRoom", "icon": "communityIcons/communityIcon1.png"}
+            ]
+
+            # Parametru: max 4 pe rând
+            max_per_row = 4
+
+            # Adaugă comunitățile în rânduri
+            for index, community in enumerate(communities):
+                community_widget = CommunityWidget(
+                    communityName=community["name"],
+                    icon=community.get("icon")
+                )
+                row_index = index // max_per_row
+                if row_index < len(layout_rows):
+
+                    community_widget.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+                    community_widget.setMinimumWidth(0)
+                    community_widget.updateGeometry()
+                    layout_rows[row_index].addWidget(community_widget)
+
+            # Adaugă spacere orizontale pentru aliniere frumoasă
+            for layout in layout_rows:
+                layout.addWidget(self._horizontal_spacer())
+
+        except Exception as e:
+            logging.critical(f"Error in load_top_communities_grid: {e}")
+
+    def _horizontal_spacer(self):
+        spacer = QFrame()
+        spacer.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Fixed
+        )
+        return spacer
+
     def initialize_custom_style(self):
-        # Hide scroll bars for a cleaner look since we now have a main scroll area
-        self.ui.MainWindowScrollArea.setStyleSheet("""
-            QScrollBar:vertical, QScrollBar:horizontal {
-                width: 0px;
-                height: 0px;
-            }
-        """)
+        pass
+
+
+    def load_recommended_posts(self):
+        """Load recommended posts into the horizontal layout"""
+        try:
+            # Clear existing widgets
+            while self.ui.recommendFeedHWidget.count():
+                item = self.ui.recommendFeedHWidget.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
+
+            # Get some posts to recommend (using the same data as feed for now)
+            recommended_posts = self.post_repo.get_all_posts(limit=5)  # Adjust limit as needed
+
+            # Add recommended post widgets
+            for post in recommended_posts:
+                post_widget = RecommendedPostsWidget(post)
+                post_widget.post_clicked.connect(self.show_post_detail)
+                post_widget.like_clicked.connect(self.handle_like)
+                post_widget.comment_clicked.connect(self.handle_comment)
+
+                # Add to horizontal layout
+                self.ui.recommendFeedHWidget.addWidget(post_widget)
+
+            # Add a spacer at the end
+            self.ui.recommendFeedHWidget.addStretch()
+
+        except Exception as e:
+            logging.error(f"Error loading recommended posts: {e}")

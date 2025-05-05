@@ -4,14 +4,15 @@ from PySide6.QtWidgets import QFrame, QSizePolicy
 from PySide6.QtCore import Signal, Qt, QSize
 from PySide6.QtGui import QTextOption, QPixmap, QIcon
 
-from frontend.assets.UserInterface.PostUI.UserInterfaceFile.FeedPostWidget import Ui_FeedPostWidget
+
 
 
 import image_utils
+from frontend.assets.UserInterface.PostUI.UserInterfaceFile.RecommendedPosts import Ui_RecommendedPostsWidget
 from image_config import ImageType
 
 
-class FeedPostWidget(QFrame):
+class RecommendedPostsWidget(QFrame):
     post_clicked = Signal(str)
     like_clicked = Signal(str)
     comment_clicked = Signal(str)
@@ -19,7 +20,7 @@ class FeedPostWidget(QFrame):
 
     def __init__(self, post_data, parent=None):
         super().__init__(parent)
-        self.ui = Ui_FeedPostWidget()
+        self.ui = Ui_RecommendedPostsWidget()
         self.ui.setupUi(self)
 
         self.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -134,12 +135,7 @@ class FeedPostWidget(QFrame):
         """Connect all widget signals"""
         self.ui.likeButtonIcon.clicked.connect(self._on_like_clicked)
         self.ui.commentButtonIcon.clicked.connect(self._on_comment_clicked)
-
-    def mouseDoubleClickEvent(self, event):
-        """Emit post_clicked signal on double click"""
-        if event.button() == Qt.MouseButton.LeftButton:
-            self._on_post_clicked()
-        super().mouseDoubleClickEvent(event)
+        # self.doubleClicked.connect(self._on_post_clicked)
 
     def _on_post_clicked(self):
         """Handle post click event"""

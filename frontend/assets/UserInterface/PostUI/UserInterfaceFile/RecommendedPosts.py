@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'FeedPostWidget.ui'
+## Form generated from reading UI file 'RecommendedPosts.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -19,26 +19,28 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QPushButton, QSizePolicy, QTextBrowser, QVBoxLayout,
     QWidget)
 
-class Ui_FeedPostWidget(object):
-    def setupUi(self, FeedPostWidget):
-        if not FeedPostWidget.objectName():
-            FeedPostWidget.setObjectName(u"FeedPostWidget")
-        FeedPostWidget.resize(421, 498)
-        FeedPostWidget.setMinimumSize(QSize(0, 0))
-        FeedPostWidget.setMaximumSize(QSize(16777215, 16777215))
-        FeedPostWidget.setStyleSheet(u"background-color: #1E1E1E;\n"
+class Ui_RecommendedPostsWidget(object):
+    def setupUi(self, RecommendedPostsWidget):
+        if not RecommendedPostsWidget.objectName():
+            RecommendedPostsWidget.setObjectName(u"RecommendedPostsWidget")
+        RecommendedPostsWidget.resize(350, 346)
+        RecommendedPostsWidget.setMinimumSize(QSize(350, 0))
+        RecommendedPostsWidget.setMaximumSize(QSize(350, 346))
+        RecommendedPostsWidget.setStyleSheet(u"background-color: rgb(37, 37, 37);\n"
 "border-radius: 18px;\n"
 "")
-        FeedPostWidget.setFrameShape(QFrame.Shape.StyledPanel)
-        self.verticalLayout = QVBoxLayout(FeedPostWidget)
+        RecommendedPostsWidget.setFrameShape(QFrame.Shape.StyledPanel)
+        self.verticalLayout = QVBoxLayout(RecommendedPostsWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.contentWidget = QWidget(FeedPostWidget)
+        self.contentWidget = QWidget(RecommendedPostsWidget)
         self.contentWidget.setObjectName(u"contentWidget")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.contentWidget.sizePolicy().hasHeightForWidth())
         self.contentWidget.setSizePolicy(sizePolicy)
+        self.contentWidget.setMinimumSize(QSize(0, 0))
+        self.contentWidget.setMaximumSize(QSize(16777215, 16777215))
         self.contentWidget.setStyleSheet(u"background: transparent;")
         self.horizontalLayout = QHBoxLayout(self.contentWidget)
         self.horizontalLayout.setSpacing(0)
@@ -48,6 +50,7 @@ class Ui_FeedPostWidget(object):
         self.postContentWidget.setObjectName(u"postContentWidget")
         sizePolicy.setHeightForWidth(self.postContentWidget.sizePolicy().hasHeightForWidth())
         self.postContentWidget.setSizePolicy(sizePolicy)
+        self.postContentWidget.setMinimumSize(QSize(0, 0))
         self.verticalLayout_2 = QVBoxLayout(self.postContentWidget)
         self.verticalLayout_2.setSpacing(9)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -151,18 +154,6 @@ class Ui_FeedPostWidget(object):
 
         self.authorLayout.addLayout(self.verticalLayout_3)
 
-        self.authorLabel = QLabel(self.postContentWidget)
-        self.authorLabel.setObjectName(u"authorLabel")
-        self.authorLabel.setStyleSheet(u"font-family: 'Raleway';\n"
-"font-style: normal;\n"
-"font-weight: 500;\n"
-"font-size: 12px;\n"
-"line-height: 14px;\n"
-"color:white;\n"
-"margin-bottom:11px;")
-
-        self.authorLayout.addWidget(self.authorLabel)
-
         self.frame_2 = QFrame(self.postContentWidget)
         self.frame_2.setObjectName(u"frame_2")
         sizePolicy.setHeightForWidth(self.frame_2.sizePolicy().hasHeightForWidth())
@@ -177,6 +168,11 @@ class Ui_FeedPostWidget(object):
 
         self.postTitle = QLabel(self.postContentWidget)
         self.postTitle.setObjectName(u"postTitle")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.postTitle.sizePolicy().hasHeightForWidth())
+        self.postTitle.setSizePolicy(sizePolicy2)
         self.postTitle.setStyleSheet(u"font-family: 'Raleway';\n"
 "font-style: normal;\n"
 "font-weight: 700;\n"
@@ -186,16 +182,17 @@ class Ui_FeedPostWidget(object):
 "margin:5px;\n"
 "margin-top:10px;\n"
 "")
+        self.postTitle.setWordWrap(True)
 
         self.verticalLayout_2.addWidget(self.postTitle)
 
         self.textBrowserContent = QTextBrowser(self.postContentWidget)
         self.textBrowserContent.setObjectName(u"textBrowserContent")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy2.setHorizontalStretch(1)
-        sizePolicy2.setVerticalStretch(1)
-        sizePolicy2.setHeightForWidth(self.textBrowserContent.sizePolicy().hasHeightForWidth())
-        self.textBrowserContent.setSizePolicy(sizePolicy2)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy3.setHorizontalStretch(1)
+        sizePolicy3.setVerticalStretch(1)
+        sizePolicy3.setHeightForWidth(self.textBrowserContent.sizePolicy().hasHeightForWidth())
+        self.textBrowserContent.setSizePolicy(sizePolicy3)
         self.textBrowserContent.setStyleSheet(u"font-family: 'Raleway';\n"
 "font-style: normal;\n"
 "font-weight: 500;\n"
@@ -321,22 +318,21 @@ class Ui_FeedPostWidget(object):
         self.verticalLayout.addWidget(self.contentWidget)
 
 
-        self.retranslateUi(FeedPostWidget)
+        self.retranslateUi(RecommendedPostsWidget)
 
-        QMetaObject.connectSlotsByName(FeedPostWidget)
+        QMetaObject.connectSlotsByName(RecommendedPostsWidget)
     # setupUi
 
-    def retranslateUi(self, FeedPostWidget):
-        self.communityName.setText(QCoreApplication.translate("FeedPostWidget", u"RoadAccidents", None))
-        self.postTime.setText(QCoreApplication.translate("FeedPostWidget", u"1h ago", None))
-        self.username.setText(QCoreApplication.translate("FeedPostWidget", u"Gaudy3!p", None))
-        self.usernamePoints.setText(QCoreApplication.translate("FeedPostWidget", u"190 points", None))
-        self.authorLabel.setText(QCoreApplication.translate("FeedPostWidget", u"author", None))
-        self.postTitle.setText(QCoreApplication.translate("FeedPostWidget", u"Had a car accident, could use some advice", None))
+    def retranslateUi(self, RecommendedPostsWidget):
+        self.communityName.setText(QCoreApplication.translate("RecommendedPostsWidget", u"RoadAccidents", None))
+        self.postTime.setText(QCoreApplication.translate("RecommendedPostsWidget", u"1h ago", None))
+        self.username.setText(QCoreApplication.translate("RecommendedPostsWidget", u"Gaudy3!p", None))
+        self.usernamePoints.setText(QCoreApplication.translate("RecommendedPostsWidget", u"190 points", None))
+        self.postTitle.setText(QCoreApplication.translate("RecommendedPostsWidget", u"Had a car accident, could use some advice", None))
         self.likeButtonIcon.setText("")
-        self.likeCount.setText(QCoreApplication.translate("FeedPostWidget", u"103", None))
+        self.likeCount.setText(QCoreApplication.translate("RecommendedPostsWidget", u"103", None))
         self.commentButtonIcon.setText("")
-        self.commentCount.setText(QCoreApplication.translate("FeedPostWidget", u"25", None))
+        self.commentCount.setText(QCoreApplication.translate("RecommendedPostsWidget", u"25", None))
         self.replyCommentButtonIcon.setText("")
         self.mockLabel1.setText("")
         pass

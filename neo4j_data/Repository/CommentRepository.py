@@ -1,140 +1,200 @@
+import logging
+
 from neo4j_data.database_connect import Neo4jDriverSingleton
+from datetime import datetime
 
 
 class CommentRepository:
     def __init__(self, driver):
         self.driver = driver
 
-    def get_comments_by_post(self, post_id, sort_by="timestamp_desc"):
+    def get_comments_for_post(self, post_id):
         """
-        Fetch comments for a specific post with optional sorting.
-        :param post_id: ID of the post
-        :param sort_by: Sorting option ("timestamp_desc", "timestamp_asc", "upvotes_desc")
-        :return: List of comments as dictionaries
-        """
-        with self.driver.session() as session:
-            # Base query
-            query = """
-            // Find comments that reply directly to the post
-            MATCH (p:Post {id: $post_id})<-[:REPLY_TO]-(c:Comment)
-            OPTIONAL MATCH (c)-[:REPLY_TO]->(reply_to:Comment)
-            OPTIONAL MATCH (u:User)-[:CREATED]->(c)
-            RETURN c.id AS id, c.text AS text, c.timestamp AS timestamp,
-                   coalesce(u.name, 'Unknown') AS author_name, 
-                   coalesce(u.id, '') AS author_id,
-                   reply_to.id AS reply_to_id, 
-                   coalesce(c.reputation, 0) AS upvotes
-
-            UNION
-
-            // Find comments that reply to other comments
-            MATCH (p:Post {id: $post_id})<-[:HAS_COMMENT]-(parent:Comment)<-[:REPLY_TO*0..]-(c:Comment)
-            OPTIONAL MATCH (c)-[:REPLY_TO]->(reply_to:Comment)
-            OPTIONAL MATCH (u:User)-[:CREATED]->(c)
-            RETURN c.id AS id, c.text AS text, c.timestamp AS timestamp,
-                   coalesce(u.name, 'Unknown') AS author_name, 
-                   coalesce(u.id, '') AS author_id,
-                   reply_to.id AS reply_to_id, 
-                   coalesce(c.reputation, 0) AS upvotes
-            """
-
-            # Add sorting based on parameter
-            if sort_by == "timestamp_desc":
-                query += "\nORDER BY c.timestamp DESC"
-            elif sort_by == "timestamp_asc":
-                query += "\nORDER BY c.timestamp ASC"
-            elif sort_by == "upvotes_desc":
-                query += "\nORDER BY c.reputation DESC"
-
-            result = session.run(query, post_id=post_id)
-            return [dict(record) for record in result]
-
-    def create_comment(self, post_id, user_id, text, reply_to_id=None):
-        """
-        Create a new comment on a post or as a reply to another comment.
-        :param post_id: ID of the post.
-        :param user_id: ID of the user creating the comment.
-        :param text: Text content of the comment.
-        :param reply_to_id: ID of the comment being replied to (optional).
-        :return: The created comment as a dictionary.
+        Fetch all comments for a post with their hierarchy and author information
         """
         with self.driver.session() as session:
             query = """
             MATCH (p:Post {id: $post_id})
-            MATCH (u:User {id: $user_id})
-            CREATE (c:Comment {id: apoc.create.uuid(), text: $text, timestamp: datetime(), reputation: 0})
-            CREATE (u)-[:CREATED]->(c)
-            CREATE (c)-[:REPLY_TO]->(p)
-            WITH c, u
-            OPTIONAL MATCH (reply_to:Comment {id: $reply_to_id})
-            FOREACH (ignore IN CASE WHEN reply_to IS NOT NULL THEN [1] ELSE [] END |
-                CREATE (c)-[:REPLY_TO]->(reply_to)
-            )
-            RETURN c.id AS id, c.text AS text, c.timestamp AS timestamp,
-                   u.name AS author_name, u.id AS author_id,
-                   reply_to.id AS reply_to_id, c.reputation AS upvotes
+            OPTIONAL MATCH (c:Comment)-[:COMMENT_ON]->(p)
+            OPTIONAL MATCH (c)-[:REPLY_TO]->(parent:Comment)
+            OPTIONAL MATCH (u:User)-[:CREATED]->(c)
+            RETURN c.id AS id,
+                   c.text AS text,
+                   c.timestamp AS timestamp,
+                   c.likes AS likes,
+                   c.dislikes AS dislikes,
+                   u.username AS author_name,
+                   u.id AS author_id,
+                   parent.id AS parent_id
+            ORDER BY c.timestamp ASC
             """
-            result = session.run(query, post_id=post_id, user_id=user_id, text=text, reply_to_id=reply_to_id)
-            record = result.single()
-            if record:
-                comment = {
+            result = session.run(query, post_id=post_id)
+
+            comments = []
+            for record in result:
+                if record["id"] is None:  # Skip if no comments found
+                    continue
+
+                comments.append({
                     "id": record["id"],
                     "text": record["text"],
-                    "timestamp": record["timestamp"],
+                    "timestamp": self._format_timestamp(record["timestamp"]),
+                    "likes": record.get("likes", 0),
+                    "dislikes": record.get("dislikes", 0),
                     "author_name": record["author_name"],
                     "author_id": record["author_id"],
-                    "reply_to_id": record["reply_to_id"],
-                    "upvotes": record["upvotes"] if record["upvotes"] is not None else 0,  # Default to 0 if reputation is missing
+                    "parent_id": record.get("parent_id")
+                })
+            return self._build_comment_tree(comments)
+
+    def add_comment_to_post(self, post_id, user_id, text, parent_comment_id=None):
+        """
+        Add a comment to a post or as a reply to another comment
+        """
+        with self.driver.session() as session:
+            comment_id = str(datetime.now().timestamp())  # Simple unique ID for demo
+
+            if parent_comment_id:
+                # For replies to existing comments
+                query = """
+                MATCH (u:User {id: $user_id})
+                MATCH (parent:Comment {id: $parent_comment_id})
+                MATCH (p:Post {id: $post_id})
+                CREATE (c:Comment {
+                    id: $comment_id,
+                    text: $text,
+                    timestamp: datetime(),
+                    likes: 0,
+                    dislikes: 0
+                })
+                CREATE (u)-[:CREATED]->(c)
+                CREATE (c)-[:REPLY_TO]->(parent)
+                CREATE (c)-[:COMMENT_ON]->(p)
+                RETURN c.id AS id,
+                       c.text AS text,
+                       c.timestamp AS timestamp,
+                       u.username AS author_name,
+                       u.id AS author_id,
+                       parent.id AS parent_id
+                """
+                params = {
+                    "post_id": post_id,
+                    "user_id": user_id,
+                    "text": text,
+                    "parent_comment_id": parent_comment_id,
+                    "comment_id": comment_id
                 }
-                return comment
             else:
-                raise ValueError("Failed to create comment.")
+                # For top-level comments on posts
+                query = """
+                MATCH (u:User {id: $user_id})
+                MATCH (p:Post {id: $post_id})
+                CREATE (c:Comment {
+                    id: $comment_id,
+                    text: $text,
+                    timestamp: datetime(),
+                    likes: 0,
+                    dislikes: 0
+                })
+                CREATE (u)-[:CREATED]->(c)
+                CREATE (c)-[:COMMENT_ON]->(p)
 
-    def delete_comment(self, comment_id):
-        """
-        Delete a comment by its ID.
-        :param comment_id: ID of the comment to delete.
-        """
-        with self.driver.session() as session:
-            query = """
-            MATCH (c:Comment {id: $comment_id})
-            DETACH DELETE c
-            """
-            session.run(query, comment_id=comment_id)
+                // Update post comment count
+                SET p.comments = coalesce(p.comments, 0) + 1
 
-    def upvote_comment(self, comment_id):
-        """
-        Increment the reputation (upvotes) of a comment.
-        :param comment_id: ID of the comment to upvote.
-        """
-        with self.driver.session() as session:
-            query = """
-            MATCH (c:Comment {id: $comment_id})
-            SET c.reputation = c.reputation + 1
-            RETURN c.reputation AS upvotes
-            """
-            result = session.run(query, comment_id=comment_id)
+                RETURN c.id AS id,
+                       c.text AS text,
+                       c.timestamp AS timestamp,
+                       u.username AS author_name,
+                       u.id AS author_id,
+                       null AS parent_id
+                """
+                params = {
+                    "post_id": post_id,
+                    "user_id": user_id,
+                    "text": text,
+                    "comment_id": comment_id
+                }
+
+            result = session.run(query, params)
             record = result.single()
             if record:
-                return record["upvotes"]
+                return {
+                    "id": record["id"],
+                    "text": record["text"],
+                    "timestamp": self._format_timestamp(record["timestamp"]),
+                    "author_name": record["author_name"],
+                    "author_id": record["author_id"],
+                    "parent_id": record.get("parent_id")
+                }
             else:
-                raise ValueError("Comment not found.")
+                logging.critical("Records is null")
 
-    def downvote_comment(self, comment_id):
+    def increment_comment_points(self, comment_id, increment=1, is_like=True):
         """
-        Decrement the reputation (upvotes) of a comment.
-        :param comment_id: ID of the comment to downvote.
+        Increment or decrement a comment's points
         """
         with self.driver.session() as session:
-            query = """
-            MATCH (c:Comment {id: $comment_id})
-            SET c.reputation = c.reputation - 1
-            RETURN c.reputation AS upvotes
+            field = "likes" if is_like else "dislikes"
+            query = f"""
+            MATCH (c:Comment {{id: $comment_id}})
+            SET c.{field} = coalesce(c.{field}, 0) + $increment
+            RETURN c.{field} AS points
             """
-            result = session.run(query, comment_id=comment_id)
+            result = session.run(query, comment_id=comment_id, increment=increment)
             record = result.single()
-            if record:
-                return record["upvotes"]
-            else:
-                raise ValueError("Comment not found.")
+            return record["points"]
 
+    def _build_comment_tree(self, comments):
+        """
+        Convert flat list of comments into hierarchical tree structure
+        """
+        comment_map = {}
+        root_comments = []
+
+        # First pass: create map of all comments
+        for comment in comments:
+            comment["replies"] = []
+            comment_map[comment["id"]] = comment
+
+        # Second pass: build hierarchy
+        for comment in comments:
+            if comment["parent_id"]:
+                parent = comment_map.get(comment["parent_id"])
+                if parent:
+                    parent["replies"].append(comment)
+            else:
+                root_comments.append(comment)
+
+        return root_comments
+
+    def _format_timestamp(self, timestamp):
+        """
+        Format timestamp to relative time string
+        """
+        if hasattr(timestamp, 'to_native'):
+            timestamp = timestamp.to_native()
+        elif isinstance(timestamp, str):
+            timestamp = datetime.fromisoformat(timestamp)
+
+        now = datetime.now(timestamp.tzinfo if timestamp.tzinfo else None)
+        delta = now - timestamp
+
+        if delta.days > 365:
+            return f"{delta.days // 365} years ago"
+        if delta.days > 30:
+            return f"{delta.days // 30} months ago"
+        if delta.days > 0:
+            return f"{delta.days} days ago"
+        if delta.seconds > 3600:
+            return f"{delta.seconds // 3600} hours ago"
+        if delta.seconds > 60:
+            return f"{delta.seconds // 60} minutes ago"
+        return "Just now"
+
+if __name__ == "__main__":
+    Neo4jDriverSingleton(uri="bolt://localhost:7687", user="neo4j", password="12345678")
+    comment_repo = CommentRepository(Neo4jDriverSingleton.get_driver())
+    data = comment_repo.add_comment_to_post("post123", "user1", "Text", "8e002e7b-5fa7-42e3-9009-f64469167972")
+    comments = comment_repo.get_comments_for_post("post123")
+    print(comments)

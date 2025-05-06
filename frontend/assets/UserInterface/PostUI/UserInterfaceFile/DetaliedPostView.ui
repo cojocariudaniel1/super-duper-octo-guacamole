@@ -17,9 +17,12 @@
    <string notr="true">background-color: #1A1A1B;
 </string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <property name="spacing">
     <number>0</number>
+   </property>
+   <property name="sizeConstraint">
+    <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
    </property>
    <property name="leftMargin">
     <number>0</number>
@@ -31,7 +34,7 @@
     <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>40</number>
    </property>
    <item>
     <widget class="QScrollArea" name="MainWindowScrollArea">
@@ -58,10 +61,10 @@ background: transparent;
         <x>0</x>
         <y>0</y>
         <width>1424</width>
-        <height>955</height>
+        <height>915</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="postsLayout" stretch="0,0,1">
+      <layout class="QVBoxLayout" name="MainWindowLayout" stretch="0,0,0">
        <property name="spacing">
         <number>0</number>
        </property>
@@ -82,6 +85,9 @@ background: transparent;
        </property>
        <item>
         <layout class="QHBoxLayout" name="HeaderBar">
+         <property name="sizeConstraint">
+          <enum>QLayout::SizeConstraint::SetFixedSize</enum>
+         </property>
          <property name="leftMargin">
           <number>35</number>
          </property>
@@ -286,7 +292,7 @@ border:none;</string>
           <number>40</number>
          </property>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout">
+          <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -300,9 +306,12 @@ border:none;</string>
             <number>0</number>
            </property>
            <item>
-            <layout class="QVBoxLayout" name="accesLinksLayout_2">
+            <layout class="QVBoxLayout" name="accesLinksLayout">
              <property name="spacing">
               <number>12</number>
+             </property>
+             <property name="sizeConstraint">
+              <enum>QLayout::SizeConstraint::SetFixedSize</enum>
              </property>
              <property name="topMargin">
               <number>0</number>
@@ -314,29 +323,7 @@ border:none;</string>
               <number>0</number>
              </property>
              <item>
-              <widget class="QFrame" name="acessLinkSpacingFrame_2">
-               <property name="minimumSize">
-                <size>
-                 <width>245</width>
-                 <height>1</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>245</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::Shape::StyledPanel</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Shadow::Raised</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="homeBtn_2">
+              <widget class="QPushButton" name="homeBtn">
                <property name="styleSheet">
                 <string notr="true">background:none;
 background-color: rgba(255, 255, 255, 0);
@@ -352,7 +339,7 @@ padding-left:30px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="recommendedBtn_2">
+              <widget class="QPushButton" name="recommendedBtn">
                <property name="styleSheet">
                 <string notr="true">background:none;
 background-color: rgba(255, 255, 255, 0);
@@ -367,7 +354,7 @@ padding-left:30px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="communitiesBtn_2">
+              <widget class="QPushButton" name="communitiesBtn">
                <property name="styleSheet">
                 <string notr="true">background:none;
 background-color: rgba(255, 255, 255, 0);
@@ -382,9 +369,12 @@ padding-left:30px;</string>
               </widget>
              </item>
              <item>
-              <layout class="QVBoxLayout" name="communitiesWidgetLayout_2">
+              <layout class="QVBoxLayout" name="communitiesWidgetLayout">
                <property name="spacing">
                 <number>6</number>
+               </property>
+               <property name="sizeConstraint">
+                <enum>QLayout::SizeConstraint::SetFixedSize</enum>
                </property>
                <property name="leftMargin">
                 <number>28</number>
@@ -401,7 +391,7 @@ padding-left:30px;</string>
               </layout>
              </item>
              <item>
-              <widget class="QPushButton" name="myProfileBtn_2">
+              <widget class="QPushButton" name="myProfileBtn">
                <property name="styleSheet">
                 <string notr="true">background:none;
 background-color: rgba(255, 255, 255, 0);
@@ -416,7 +406,7 @@ padding-left:30px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="settingsBtn_2">
+              <widget class="QPushButton" name="settingsBtn">
                <property name="styleSheet">
                 <string notr="true">background:none;
 background-color: rgba(255, 255, 255, 0);
@@ -431,7 +421,7 @@ padding-left:30px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="disconnectBtn_2">
+              <widget class="QPushButton" name="disconnectBtn">
                <property name="styleSheet">
                 <string notr="true">background:none;
 background-color: rgba(255, 255, 255, 0);
@@ -462,6 +452,12 @@ padding-left:30px;</string>
                <height>1</height>
               </size>
              </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>1</height>
+              </size>
+             </property>
              <property name="styleSheet">
               <string notr="true">background-color: rgb(82, 255, 19);</string>
              </property>
@@ -474,7 +470,7 @@ padding-left:30px;</string>
             </widget>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="FriendsLayout_2">
+            <layout class="QVBoxLayout" name="FriendsLayout">
              <property name="spacing">
               <number>12</number>
              </property>
@@ -513,7 +509,7 @@ padding-left:30px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QFrame" name="titleFriendsLayout_2">
+              <widget class="QFrame" name="titleFriendsLayout">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -552,7 +548,7 @@ padding-left:30px;</string>
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="friendsTitleLabel_2">
+                 <widget class="QLabel" name="friendsTitleLabel">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -576,7 +572,7 @@ margin-left:13px;</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="searchBarFriends_2">
+                 <widget class="QLineEdit" name="searchBarFriends">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -660,7 +656,7 @@ margin-left:13px;</string>
               </widget>
              </item>
              <item>
-              <layout class="QVBoxLayout" name="onlineFriendsLayout_2">
+              <layout class="QVBoxLayout" name="onlineFriendsLayout">
                <property name="spacing">
                 <number>6</number>
                </property>
@@ -676,7 +672,7 @@ margin-left:13px;</string>
               </layout>
              </item>
              <item>
-              <layout class="QVBoxLayout" name="offlineFriendsLayout_2">
+              <layout class="QVBoxLayout" name="offlineFriendsLayout">
                <property name="spacing">
                 <number>0</number>
                </property>
@@ -688,7 +684,7 @@ margin-left:13px;</string>
              <item>
               <widget class="QFrame" name="frame_5">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>1</verstretch>
                 </sizepolicy>
@@ -737,7 +733,7 @@ margin-left:13px;</string>
           </widget>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="postAreea" stretch="">
+          <layout class="QVBoxLayout" name="postAreea">
            <property name="topMargin">
             <number>20</number>
            </property>

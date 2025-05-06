@@ -1,3 +1,4 @@
+import logging
 import os
 
 from PySide6.QtWidgets import QFrame, QSizePolicy
@@ -135,14 +136,9 @@ class FeedPostWidget(QFrame):
         self.ui.likeButtonIcon.clicked.connect(self._on_like_clicked)
         self.ui.commentButtonIcon.clicked.connect(self._on_comment_clicked)
 
-    def mouseDoubleClickEvent(self, event):
-        """Emit post_clicked signal on double click"""
-        if event.button() == Qt.MouseButton.LeftButton:
-            self._on_post_clicked()
-        super().mouseDoubleClickEvent(event)
-
     def _on_post_clicked(self):
         """Handle post click event"""
+        logging.critical("_on_post_clicked")
         self.post_clicked.emit(self.post_id)
 
     def _on_like_clicked(self):
@@ -158,6 +154,13 @@ class FeedPostWidget(QFrame):
         self.points = points
         self.ui.usernamePoints.setText(f"{points} points")
         self.ui.likeCount.setText(str(points))
+
+    def mouseDoubleClickEvent(self, event):
+        """Emit post_clicked signal on double click"""
+        print("Double click detected!")  # Debug line
+        if event.button() == Qt.MouseButton.LeftButton:
+            self._on_post_clicked()
+        super().mouseDoubleClickEvent(event)
 
     def update_comments_count(self, count):
         """Update the comments count display"""

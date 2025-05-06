@@ -48,6 +48,46 @@ class PostRepository:
             print(f"PostRepository: PostData {posts}")
             return posts
 
+    def get_post_by_post_id(self, post_id):
+        """
+        Fetch a single post by its unique ID.
+        """
+        with self.driver.session() as session:
+            query = """
+            MATCH (p:Post {id: $post_id})<-[:CREATED]-(u:User)
+            OPTIONAL MATCH (p)-[:HAS_POST]->(c:Community)
+            RETURN p.id AS id, 
+                   p.title AS title, 
+                   p.content AS content, 
+                   p.timestamp AS timestamp,
+                   p.visibility AS visibility,
+                   p.likes AS likes,
+                   p.dislikes AS dislikes,
+                   p.comments AS comments,
+                   u.username AS author_name, 
+                   u.id AS author_id,
+                   c.name AS community_name
+            """
+            result = session.run(query, post_id=post_id)
+            record = result.single()
+
+            if record:
+                return {
+                    "id": record["id"],
+                    "title": record["title"],
+                    "content": record["content"],
+                    "timestamp": self._format_timestamp(record["timestamp"]),
+                    "visibility": record["visibility"],
+                    "likes": record.get("likes", 0),
+                    "dislikes": record.get("dislikes", 0),
+                    "comments": record.get("comments", 0),
+                    "author_name": record["author_name"],
+                    "author_id": record["author_id"],
+                    "community_name": record.get("community_name", "")
+                }
+            else:
+                return None
+
     def get_posts_by_user(self, user_id):
         """
         Fetch posts created by a specific user.
@@ -83,6 +123,7 @@ class PostRepository:
                 "author_id": record["author_id"],
                 "community_name": record.get("community_name", "")
             } for record in result]
+
 
     def create_post(self, user_id, title, content, visibility="PUBLIC", community_name=None):
         """

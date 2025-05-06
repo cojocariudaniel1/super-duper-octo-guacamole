@@ -11,6 +11,7 @@ class ImageType(Enum):
     STATUS_ICON = 6
     BACKGROUND_IMAGE = 7
     COMMUNITY_AVATAR_MINI = 8
+    COMMENT_DEPTH_ICON = 9
 
 @dataclass
 class ImageConfig:

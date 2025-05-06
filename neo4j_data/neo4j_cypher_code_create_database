@@ -270,3 +270,16 @@ MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT2H')}]->(c);
 MATCH (p:Post {id: '105'}), (c:Comment {id: '208'}), (u:User {username: 'QualAnon'})
 MERGE (p)-[:HAS_COMMENT]->(c)
 MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT4H')}]->(c);
+
+// Create comment replies
+MATCH (c1:Comment {id: '201'}), (c2:Comment {id: '206'}), (u:User {username: 'QualAnon'})
+MERGE (c2)-[:REPLY_TO {timestamp: datetime() - duration('PT17H')}]->(c1)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT17H')}]->(c2);
+
+MATCH (c1:Comment {id: '204'}), (c2:Comment {id: '207'}), (u:User {username: 'user38599'})
+MERGE (c2)-[:REPLY_TO {timestamp: datetime() - duration('PT2H')}]->(c1)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT2H')}]->(c2);
+
+MATCH (c1:Comment {id: '205'}), (c2:Comment {id: '208'}), (u:User {username: 'QualAnon'})
+MERGE (c2)-[:REPLY_TO {timestamp: datetime() - duration('PT4H')}]->(c1)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT4H')}]->(c2);

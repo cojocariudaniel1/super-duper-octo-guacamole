@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QWidget, QMessageBox
 from PySide6.QtCore import QThread, Signal
 from frontend.assets.UserInterface.HomePageUI.controller.dashboardWIndow import DashboardWindow
+from frontend.assets.UserInterface.HomePageUI.controller.mainwindow import MainWindow
 
 from frontend.assets.UserInterface.loginUI.UserInterfaceFile.login import Ui_Form
 from neo4j_data.Repository.UserRepository import UserRepository
@@ -65,7 +66,7 @@ class LoginWindow(QWidget):
             if self.user_repo.check_password(stored_password, password):
 
                 self.hide()
-                self.new_window = DashboardWindow(user["id"])
+                self.new_window = MainWindow(user["id"])
                 self.new_window.show()
             else:
                 QMessageBox.warning(self, "Login", "Invalid password!")

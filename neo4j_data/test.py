@@ -1,38 +1,41 @@
-import base64
-import uuid
-from neo4j import GraphDatabase
+from neo4j_data.Repository.CommentRepository import CommentRepository
+from neo4j_data.database_connect import Neo4jDriverSingleton
 
+# Connect to Neo4j
+driver = Neo4jDriverSingleton(uri="bolt://localhost:7687", user="neo4j", password="12345678").get_driver()
+repo = CommentRepository(driver)
 
-def save_default_user_icon(driver, image_path):
-    with open(image_path, 'rb') as image_file:
-        encoded_icon = base64.b64encode(image_file.read()).decode('utf-8')
-
-    icon_id = str(uuid.uuid4())
-
-    query = """
-    MERGE (icon:UserIconDefault {id: $id})
-    SET icon.image = $image
-    RETURN icon
-    """
+# Step 1: Setup test User and Post nodes
+def setup_test_data():
     with driver.session() as session:
-        result = session.run(query, id=icon_id, image=encoded_icon)
-        saved_icon = result.single()[0]
-        print(f"Icon saved with ID: {icon_id}")
-        return saved_icon
+        session.run("""
+        MERGE (u:User {id: 'user123'}) 
+        SET u.username = 'test_user'
+        """)
+        session.run("""
+        MERGE (p:Post {id: 'post123'}) 
+        SET p.title = 'Test Post'
+        """)
+    print("✔ Test User and Post created.")
 
+# Step 2: Test creating a comment
+def test_create_comment():
+    comment = repo.create_comment(post_id="post123", user_id="user123", text="This is a test comment.")
+    print("📝 Created Comment:", comment)
+    return comment["id"]
 
-# Exemplu de utilizare:
+# Step 3 (Optional): Test replying to the above comment
+def test_reply_to_comment(parent_comment_id):
+    reply = repo.create_comment(
+        post_id="post123",
+        user_id="user123",
+        text="This is a reply to the test comment.",
+        reply_to_id=parent_comment_id
+    )
+    print("↩️ Created Reply:", reply)
+
+# Run the test
 if __name__ == "__main__":
-    from neo4j import GraphDatabase
-
-    # Înlocuiește cu detaliile tale de conexiune
-    URI = "bolt://localhost:7687"
-    USER = "neo4j"
-    PASSWORD = "12345678"
-
-    driver = GraphDatabase.driver(URI, auth=(USER, PASSWORD))
-
-    icon_path = "default_icon.png"  # Calea către fișierul PNG
-    save_default_user_icon(driver, icon_path)
-
-    driver.close()
+    setup_test_data()
+    comment_id = test_create_comment()
+    test_reply_to_comment(comment_id)

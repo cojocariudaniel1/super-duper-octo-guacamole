@@ -4,7 +4,7 @@ import os
 from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QStackedWidget, QPushButton, QGridLayout, QLabel, QSizePolicy, \
     QFrame
-from PySide6.QtCore import QTimer, Signal, Slot, QThread, QObject
+from PySide6.QtCore import QTimer, Signal, Slot, QThread, QObject, QCoreApplication
 
 from backend.global_path import get_absolute_file_path
 from frontend.assets.customWidget.LoadingBar import LoadingBar
@@ -25,6 +25,7 @@ from frontend.assets.UserInterface.PostUI.PythonUI.RecommendedPostsWidget import
 class PostWorker(QObject):
     finished = Signal(list)
     error = Signal(str)
+
 
     def __init__(self, repository, user_id=None, community_name=None, limit=10, offset=0):
         super().__init__()
@@ -50,6 +51,7 @@ class PostWorker(QObject):
 
 
 class DashboardWindow(QWidget):
+    dashboard_post_clicked = Signal(str)
     def __init__(self, user_id):
         super().__init__()
         self.user_id = user_id
@@ -238,8 +240,10 @@ class DashboardWindow(QWidget):
     def add_post(self, post_data):
         """Add a new post to the feed layout."""
         post_widget = FeedPostWidget(post_data)
-        # Remove any manual size constraints to respect the .ui file settings
-        post_widget.post_clicked.connect(lambda post_id: self.show_post_detail(post_id))
+        # Connect the signals - make sure this line is present
+        post_widget.post_clicked.connect(self.show_post_detail)  # This is crucial
+
+        # Other connections
         post_widget.like_clicked.connect(self.handle_like)
         post_widget.comment_clicked.connect(self.handle_comment)
         post_widget.reply_clicked.connect(self.handle_reply)
@@ -251,16 +255,19 @@ class DashboardWindow(QWidget):
         delimiter.setFixedHeight(1)
         delimiter.setStyleSheet("background-color: #3a3a3a;")
         self.posts_layout.addWidget(delimiter)
-        self.posts_layout.addSpacing(5)  # Reduced spacing since we have the delimiter
+        self.posts_layout.addSpacing(5)
 
     def show_post_detail(self, post_id):
-        """Switch to the detailed post view."""
-        self.loading_bar.start_loading()
+        print(f"Emitting dashboard_post_clicked for post {post_id}")
+        try:
+            print(f"DashboardWindow emitting signal from instance: {id(self)}")
 
-        # Fetch the full post details here (implementation needed)
-        # For now, simulate loading
-        QTimer.singleShot(1000, lambda: self.loading_bar.stop_loading())
-        self.stack.setCurrentIndex(1)
+            self.dashboard_post_clicked.emit(post_id)
+            QCoreApplication.processEvents()
+            print("Emission successful")
+        except Exception as e:
+            print(f"Emission failed: {str(e)}")
+
 
     def handle_like(self, post_id):
         """Handle like button click."""
@@ -483,6 +490,33 @@ class DashboardWindow(QWidget):
     def initialize_custom_style(self):
         pass
 
+    def show_detailed_post(self, post_id):
+        # Hide the dashboard view
+        self.hide()
+
+        # Create or get the detailed post widget
+        if not hasattr(self, 'detailed_post_widget'):
+            self.detailed_post_widget = DetailedPostWidget()
+            self.detailed_post_widget.back_to_feed.connect(self.show_dashboard)
+            self.layout().addWidget(self.detailed_post_widget)
+
+        # Load and show the post
+        post_data = self.get_post_data(post_id)  # Implement this method to get post data
+        self.detailed_post_widget.set_post(
+            post_id=post_id,
+            title=post_data['title'],
+            content=post_data['content'],
+            author=post_data['author_name'],
+            timestamp=post_data['timestamp'],
+            user_id=self.current_user_id
+        )
+        self.detailed_post_widget.show()
+
+    def show_dashboard(self):
+        # Show the dashboard and hide the detailed view
+        self.dashboard_view.show()
+        if hasattr(self, 'detailed_post_widget'):
+            self.detailed_post_widget.hide()
 
     def load_recommended_posts(self):
         """Load recommended posts into the horizontal layout"""

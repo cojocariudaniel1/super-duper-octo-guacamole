@@ -1,7 +1,7 @@
 base_dir = "D:\GithubReositories\GitHub\super-duper-octo-guacamole"
 
 import os
-
+user_id = None
 def get_absolute_file_path(relative_path):
     """
     Obține calea absolută pentru un fișier, pornind de la directorul rădăcină al aplicației.

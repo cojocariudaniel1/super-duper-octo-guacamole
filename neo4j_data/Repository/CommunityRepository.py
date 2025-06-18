@@ -14,7 +14,7 @@ class CommunityRepository:
             result = session.run("""
                 MERGE (c:Community {name: $name})
                 ON CREATE SET 
-                    c.id = apoc.create.uuid(),
+                    c.id = randomUUID(),
                     c.description = $description,
                     c.privacy_level = $privacy_level,
                     c.reputation_required = $reputation_required,

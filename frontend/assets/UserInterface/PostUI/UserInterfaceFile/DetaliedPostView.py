@@ -147,7 +147,7 @@ class Ui_DetaliedPostView(object):
         self.HeaderDelimiter.setSizePolicy(sizePolicy2)
         self.HeaderDelimiter.setMinimumSize(QSize(0, 1))
         self.HeaderDelimiter.setMaximumSize(QSize(16777215, 1))
-        self.HeaderDelimiter.setStyleSheet(u"background-color: rgb(82, 255, 19);")
+        self.HeaderDelimiter.setStyleSheet(u"background-color: rgb(116, 116, 116);")
         self.HeaderDelimiter.setFrameShape(QFrame.Shape.StyledPanel)
         self.HeaderDelimiter.setFrameShadow(QFrame.Shadow.Raised)
 
@@ -249,7 +249,7 @@ class Ui_DetaliedPostView(object):
         self.HeaderDelimiter_2.setSizePolicy(sizePolicy2)
         self.HeaderDelimiter_2.setMinimumSize(QSize(0, 1))
         self.HeaderDelimiter_2.setMaximumSize(QSize(16777215, 1))
-        self.HeaderDelimiter_2.setStyleSheet(u"background-color: rgb(82, 255, 19);")
+        self.HeaderDelimiter_2.setStyleSheet(u"background-color: rgb(116, 116, 116);")
         self.HeaderDelimiter_2.setFrameShape(QFrame.Shape.StyledPanel)
         self.HeaderDelimiter_2.setFrameShadow(QFrame.Shadow.Raised)
 
@@ -372,7 +372,7 @@ class Ui_DetaliedPostView(object):
         self.friendsPostsDelimiteer.setSizePolicy(sizePolicy4)
         self.friendsPostsDelimiteer.setMinimumSize(QSize(2, 0))
         self.friendsPostsDelimiteer.setMaximumSize(QSize(2, 16777215))
-        self.friendsPostsDelimiteer.setStyleSheet(u"background-color: rgb(82, 255, 19);")
+        self.friendsPostsDelimiteer.setStyleSheet(u"background-color: rgb(116, 116, 116);")
         self.friendsPostsDelimiteer.setFrameShape(QFrame.Shape.StyledPanel)
         self.friendsPostsDelimiteer.setFrameShadow(QFrame.Shadow.Raised)
 
@@ -390,7 +390,7 @@ class Ui_DetaliedPostView(object):
         self.postAreaRecommendPostsDelimiter.setSizePolicy(sizePolicy4)
         self.postAreaRecommendPostsDelimiter.setMinimumSize(QSize(2, 0))
         self.postAreaRecommendPostsDelimiter.setMaximumSize(QSize(2, 16777215))
-        self.postAreaRecommendPostsDelimiter.setStyleSheet(u"background-color: rgb(82, 255, 19);")
+        self.postAreaRecommendPostsDelimiter.setStyleSheet(u"background-color: rgb(116, 116, 116);")
         self.postAreaRecommendPostsDelimiter.setFrameShape(QFrame.Shape.StyledPanel)
         self.postAreaRecommendPostsDelimiter.setFrameShadow(QFrame.Shadow.Raised)
 

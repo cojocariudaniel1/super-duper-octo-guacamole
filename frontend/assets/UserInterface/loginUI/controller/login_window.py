@@ -6,6 +6,7 @@ from frontend.assets.UserInterface.HomePageUI.controller.mainwindow import MainW
 from frontend.assets.UserInterface.loginUI.UserInterfaceFile.login import Ui_Form
 from neo4j_data.Repository.UserRepository import UserRepository
 from neo4j_data.database_connect import Neo4jDriverSingleton
+from neo4j_data.Repository.SessionRepository import SessionRepository
 
 
 class QueryThread(QThread):
@@ -17,10 +18,12 @@ class QueryThread(QThread):
         self.username = username
         self.password = password
         self.user_repo = user_repo
+        self.session_id = None  # Store active session ID
 
     def run(self):
         """Run the query in the background."""
         user = self.user_repo.read(self.username)  # Perform the query
+
         self.finished.emit(user)  # Emit the result to the main thread
 
 
@@ -35,6 +38,8 @@ class LoginWindow(QWidget):
         # Use the singleton instance of the Neo4j driver
         self.driver = Neo4jDriverSingleton.get_driver()
         self.user_repo = UserRepository(self.driver)
+        self.session_repo = SessionRepository(self.driver)
+        self.session_id = None  # Store active session ID
 
         # Add the loading bar
         self.ui.usernameInput.setText("user38599@topikka.com")
@@ -59,18 +64,21 @@ class LoginWindow(QWidget):
 
         if user:
             stored_password = user['password']
-            print(f"Debug: Stored password from DB: {stored_password}")
-
-            # Check the password
             password = self.ui.passwordInput.text().strip()
+
             if self.user_repo.check_password(stored_password, password):
+                try:
+                    # Create a new session
+                    self.session_id = self.session_repo.create_session(user["id"])
+                    print(f"Session started: {self.session_id}")
+                except Exception as e:
+                    QMessageBox.critical(self, "Session Error", f"Failed to create session: {str(e)}")
+                    return
 
                 self.hide()
-                self.new_window = MainWindow(user["id"])
+                self.new_window = MainWindow(user["id"], self.session_id)
                 self.new_window.show()
             else:
                 QMessageBox.warning(self, "Login", "Invalid password!")
-                print(f"Debug: Entered password does not match stored password.")
         else:
             QMessageBox.warning(self, "Login", "User not found!")
-            print(f"Debug: User not found in DB.")

@@ -105,7 +105,7 @@ class RecommendedPostsWidget(QFrame):
         self.tags = f"#{community.replace(' ', '')}" if community else ""
 
         self.ui.communityName.setText(community if community else "General")
-        self.ui.postTime.setText(self._format_timestamp(self.timestamp))
+        self.ui.postTime.setText(str(self._format_timestamp(self.timestamp)))
         self.ui.username.setText(self.author)
         self.ui.usernamePoints.setText(f"{self.points} points")
         self.ui.postTitle.setText(self.title)

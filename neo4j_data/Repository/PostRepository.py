@@ -133,7 +133,7 @@ class PostRepository:
             query = """
             MATCH (u:User {id: $user_id})
             CREATE (p:Post {
-                id: apoc.create.uuid(), 
+                id: randomUUID(), 
                 title: $title, 
                 content: $content, 
                 timestamp: datetime(), 
@@ -238,7 +238,7 @@ class PostRepository:
             MATCH (p:Post {id: $post_id})
             MATCH (u:User {id: $user_id})
             CREATE (c:Comment {
-                id: apoc.create.uuid(),
+                id:  randomUUID(),
                 content: $content,
                 timestamp: datetime(),
                 likes: 0,

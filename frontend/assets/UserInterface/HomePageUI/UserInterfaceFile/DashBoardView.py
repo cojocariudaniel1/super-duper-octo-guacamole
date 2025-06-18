@@ -144,7 +144,7 @@ class Ui_DashBoardView(object):
         sizePolicy2.setHeightForWidth(self.HeaderDelimiter.sizePolicy().hasHeightForWidth())
         self.HeaderDelimiter.setSizePolicy(sizePolicy2)
         self.HeaderDelimiter.setMinimumSize(QSize(0, 1))
-        self.HeaderDelimiter.setStyleSheet(u"background-color: rgb(82, 255, 19);")
+        self.HeaderDelimiter.setStyleSheet(u"background-color: rgb(116, 116, 116);")
         self.HeaderDelimiter.setFrameShape(QFrame.Shape.StyledPanel)
         self.HeaderDelimiter.setFrameShadow(QFrame.Shadow.Raised)
 
@@ -254,7 +254,7 @@ class Ui_DashBoardView(object):
         self.accesLinkRightDelimiteer.setSizePolicy(sizePolicy3)
         self.accesLinkRightDelimiteer.setMinimumSize(QSize(2, 0))
         self.accesLinkRightDelimiteer.setMaximumSize(QSize(2, 16777215))
-        self.accesLinkRightDelimiteer.setStyleSheet(u"background-color: rgb(82, 255, 19);")
+        self.accesLinkRightDelimiteer.setStyleSheet(u"background-color: rgb(116, 116, 116);")
         self.accesLinkRightDelimiteer.setFrameShape(QFrame.Shape.StyledPanel)
         self.accesLinkRightDelimiteer.setFrameShadow(QFrame.Shadow.Raised)
 
@@ -332,7 +332,7 @@ class Ui_DashBoardView(object):
         self.delimiterTopCommunitiesPopularTags.setSizePolicy(sizePolicy2)
         self.delimiterTopCommunitiesPopularTags.setMinimumSize(QSize(0, 2))
         self.delimiterTopCommunitiesPopularTags.setMaximumSize(QSize(16777215, 2))
-        self.delimiterTopCommunitiesPopularTags.setStyleSheet(u"background-color: rgb(82, 255, 19);")
+        self.delimiterTopCommunitiesPopularTags.setStyleSheet(u"background-color: rgb(116, 116, 116);")
         self.delimiterTopCommunitiesPopularTags.setFrameShape(QFrame.Shape.StyledPanel)
         self.delimiterTopCommunitiesPopularTags.setFrameShadow(QFrame.Shadow.Raised)
 
@@ -440,7 +440,7 @@ class Ui_DashBoardView(object):
         self.accesLinkRightDelimiter.setSizePolicy(sizePolicy3)
         self.accesLinkRightDelimiter.setMinimumSize(QSize(2, 0))
         self.accesLinkRightDelimiter.setMaximumSize(QSize(2, 16777215))
-        self.accesLinkRightDelimiter.setStyleSheet(u"background-color: rgb(82, 255, 19);")
+        self.accesLinkRightDelimiter.setStyleSheet(u"background-color: rgb(116, 116, 116);")
         self.accesLinkRightDelimiter.setFrameShape(QFrame.Shape.StyledPanel)
         self.accesLinkRightDelimiter.setFrameShadow(QFrame.Shadow.Raised)
 
@@ -460,8 +460,9 @@ class Ui_DashBoardView(object):
 "font-weight: 700;\n"
 "font-size: 14px;\n"
 "margin-left: 30px;\n"
-"border:none;\n"
-"color: rgb(160, 160, 160);")
+"border:0px;\n"
+"color: rgb(160, 160, 160);\n"
+"margin-top:5px;")
 
         self.verticalLayout.addWidget(self.recommendedPostsLabel)
 
@@ -509,7 +510,7 @@ class Ui_DashBoardView(object):
         sizePolicy2.setHeightForWidth(self.topContentDelmiter.sizePolicy().hasHeightForWidth())
         self.topContentDelmiter.setSizePolicy(sizePolicy2)
         self.topContentDelmiter.setMinimumSize(QSize(0, 1))
-        self.topContentDelmiter.setStyleSheet(u"background-color: rgb(82, 255, 19);")
+        self.topContentDelmiter.setStyleSheet(u"background-color: rgb(116, 116, 116);")
         self.topContentDelmiter.setFrameShape(QFrame.Shape.StyledPanel)
         self.topContentDelmiter.setFrameShadow(QFrame.Shadow.Raised)
 
@@ -626,7 +627,7 @@ class Ui_DashBoardView(object):
         self.friendsPostsDelimiteer.setSizePolicy(sizePolicy3)
         self.friendsPostsDelimiteer.setMinimumSize(QSize(2, 0))
         self.friendsPostsDelimiteer.setMaximumSize(QSize(2, 16777215))
-        self.friendsPostsDelimiteer.setStyleSheet(u"background-color: rgb(82, 255, 19);")
+        self.friendsPostsDelimiteer.setStyleSheet(u"background-color: rgb(116, 116, 116);")
         self.friendsPostsDelimiteer.setFrameShape(QFrame.Shape.StyledPanel)
         self.friendsPostsDelimiteer.setFrameShadow(QFrame.Shadow.Raised)
 
@@ -682,7 +683,7 @@ class Ui_DashBoardView(object):
         self.myProfileBtn.setText(QCoreApplication.translate("DashBoardView", u"My Profile", None))
         self.settingsBtn.setText(QCoreApplication.translate("DashBoardView", u"Settings", None))
         self.disconnectBtn.setText(QCoreApplication.translate("DashBoardView", u"Disconnect", None))
-        self.TopCommunitiesLabel.setText(QCoreApplication.translate("DashBoardView", u"Top communities", None))
+        self.TopCommunitiesLabel.setText(QCoreApplication.translate("DashBoardView", u"TOP COMMUNITIES", None))
         self.PopularHashtagsLabel.setText(QCoreApplication.translate("DashBoardView", u"POPUlAR HASHTAGS", None))
         self.label.setText(QCoreApplication.translate("DashBoardView", u"#TextLabel", None))
         self.label_5.setText(QCoreApplication.translate("DashBoardView", u"#TextLabelAAAAAAAA", None))

@@ -19,13 +19,13 @@ MERGE (gaudy3ip:User {id: '45678', username: 'Gaudy3!p', points: 190, email: 'ga
 MERGE (qualAnon:User {id: '12345', username: 'QualAnon', points: 550, email: 'qualanon@topikka.com', password: 'hashed_password', reputation: 550});
 
 // Create communities
-MERGE (conspiracyCircle:Community {name: 'ConspiracyCircle', description: 'Discuss all conspiracy theories here', icon: 'communityIcons/communityIcon1.png'});
-MERGE (gamingGrounds:Community {name: 'GamingGrounds', description: 'Everything about gaming', icon: 'communityIcons/communityIcon2.png'});
-MERGE (popCulturePulse:Community {name: 'PopCulturePulse', description: 'Latest in pop culture', icon: 'communityIcons/communityIcon3.png'});
-MERGE (theBackrooms:Community {name: 'TheBackrooms', description: 'Creepy backroom stories', icon: 'communityIcons/communityIcon4.png'});
-MERGE (memethis:Community {name: 'Memethis', description: 'Meme sharing community', icon: 'communityIcons/communityIcon1.png'});
-MERGE (photoshoppingFails:Community {name: 'PhotoshoppingFails', description: 'Funny photoshop disasters', icon: 'communityIcons/communityIcon1.png'});
-MERGE (roadAccidents:Community {name: 'RoadAccidents', description: 'Discuss road safety and accidents', icon: 'communityIcons/communityIcon1.png'});
+MERGE (conspiracyCircle:Community {name: 'ConspiracyCircle', description: 'Discuss all conspiracy theories here', points: '232', icon: 'communityIcons/communityIcon8.png'});
+MERGE (gamingGrounds:Community {name: 'GamingGrounds', description: 'Everything about gaming', points: '1024',  icon: 'communityIcons/communityIcon9.png'});
+MERGE (popCulturePulse:Community {name: 'PopCulturePulse', description: 'Latest in pop culture',  points: '553', icon: 'communityIcons/communityIcon10.png'});
+MERGE (theBackrooms:Community {name: 'TheBackrooms', description: 'Creepy backroom stories', points: '5099',  icon: 'communityIcons/communityIcon11.png'});
+MERGE (memethis:Community {name: 'Memethis', description: 'Meme sharing community',  points: '14', icon: 'communityIcons/communityIcon12.png'});
+MERGE (photoshoppingFails:Community {name: 'PhotoshoppingFails', description: 'Funny photoshop disasters', points: '187',  icon: 'communityIcons/communityIcon13.png'});
+MERGE (roadAccidents:Community {name: 'RoadAccidents', description: 'Discuss road safety and accidents',  points: '211', icon: 'communityIcons/communityIcon14.png'});
 
 // Create posts
 MERGE (post1:Post {

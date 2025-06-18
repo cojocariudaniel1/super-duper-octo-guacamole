@@ -17,6 +17,7 @@ from frontend.assets.customWidget.offlineFriendsCW import OfflineFriendWidget
 from frontend.assets.customWidget.onlineFriendsCW import OnlineFriendWidget
 from frontend.assets.customWidget.popularHashTagsCW import PopularHashTagsWidget
 from neo4j_data.Repository.CommunityRepository import CommunityRepository
+from neo4j_data.Repository.RecommendationService import RecommendationService
 
 from neo4j_data.database_connect import Neo4jDriverSingleton
 from neo4j_data.Repository.PostRepository import PostRepository
@@ -113,7 +114,7 @@ class DashboardWindow(QWidget):
         self.load_popular_tags()
         self.load_top_communities_grid()
         self.load_recommended_posts()
-        self.initialize_custom_style()
+
 
     def set_button_icon(self, button, icon_name, fallback_size=(32, 32)):
         """
@@ -271,6 +272,7 @@ class DashboardWindow(QWidget):
 
     def handle_like(self, post_id):
         """Handle like button click."""
+
         print(f"Like clicked for post {post_id}")
         # Implement like functionality here
 
@@ -434,25 +436,13 @@ class DashboardWindow(QWidget):
             # Încarcă comunitățile din baza de date (ex: maxim 20 comunități)
             communities = [
                 {"name": "PythonDev", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "AIResearch", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "CryptoWorld", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "MovieTalks", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "SpaceXFanClub", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "EcoWarriors", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "FutureTech", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "HealthHacks", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "Mindfulness", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "StartupIdeas", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "MidnightCoders", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "BookWorms", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "QuantumTalk", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "ConspiracyLounge", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "VRGaming", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "OpenSource", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "MusicMakers", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "UXDesigners", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "GadgetGeeks", "icon": "communityIcons/communityIcon1.png"},
-                {"name": "TheWritersRoom", "icon": "communityIcons/communityIcon1.png"}
+                {"name": "Star Citizen", "icon": "communityIcons/communityIcon2.png"},
+                {"name": "CasualRo", "icon": "communityIcons/communityIcon3.png"},
+                {"name": "CrackWatch", "icon": "communityIcons/communityIcon4.png"},
+                {"name": "pcmasterrace", "icon": "communityIcons/communityIcon5.png"},
+                {"name": "Pc Build", "icon": "communityIcons/communityIcon6.png"},
+                {"name": "TeamVitality", "icon": "communityIcons/communityIcon7.png"},
+
             ]
 
             # Parametru: max 4 pe rând
@@ -487,36 +477,6 @@ class DashboardWindow(QWidget):
         )
         return spacer
 
-    def initialize_custom_style(self):
-        pass
-
-    def show_detailed_post(self, post_id):
-        # Hide the dashboard view
-        self.hide()
-
-        # Create or get the detailed post widget
-        if not hasattr(self, 'detailed_post_widget'):
-            self.detailed_post_widget = DetailedPostWidget()
-            self.detailed_post_widget.back_to_feed.connect(self.show_dashboard)
-            self.layout().addWidget(self.detailed_post_widget)
-
-        # Load and show the post
-        post_data = self.get_post_data(post_id)  # Implement this method to get post data
-        self.detailed_post_widget.set_post(
-            post_id=post_id,
-            title=post_data['title'],
-            content=post_data['content'],
-            author=post_data['author_name'],
-            timestamp=post_data['timestamp'],
-            user_id=self.current_user_id
-        )
-        self.detailed_post_widget.show()
-
-    def show_dashboard(self):
-        # Show the dashboard and hide the detailed view
-        self.dashboard_view.show()
-        if hasattr(self, 'detailed_post_widget'):
-            self.detailed_post_widget.hide()
 
     def load_recommended_posts(self):
         """Load recommended posts into the horizontal layout"""
@@ -528,7 +488,9 @@ class DashboardWindow(QWidget):
                     item.widget().deleteLater()
 
             # Get some posts to recommend (using the same data as feed for now)
-            recommended_posts = self.post_repo.get_all_posts(limit=5)  # Adjust limit as needed
+
+            reco_service = RecommendationService(self.driver)
+            recommended_posts = reco_service.get_recommended_posts(self.user_id, limit=5)
 
             # Add recommended post widgets
             for post in recommended_posts:

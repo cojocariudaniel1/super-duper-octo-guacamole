@@ -5,7 +5,7 @@ from frontend.assets.customWidget.communitiesWidgetCW import CommunityWidget
 from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QFrame, QVBoxLayout, QPushButton, QWidget, QSizePolicy
 from PySide6.QtCore import Signal
-from frontend.UserInterface.PostUI.PythonUI.FeedPostWidget import FeedPostWidget
+from frontend.UserInterface.PostUI.controller.FeedPostWidget import FeedPostWidget
 from frontend.UserInterface.PostUI.UserInterfaceFile.DetaliedPostView import Ui_DetaliedPostView
 from backend.Repository.CommunityRepository import CommunityRepository
 from backend.database_connect import Neo4jDriverSingleton

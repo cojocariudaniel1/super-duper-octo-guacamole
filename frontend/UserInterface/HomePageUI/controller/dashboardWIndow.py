@@ -10,8 +10,8 @@ from backend.global_path import get_absolute_file_path
 from frontend.assets.customWidget.LoadingBar import LoadingBar
 from frontend.UserInterface.HomePageUI.UserInterfaceFile.DashBoardView import Ui_DashBoardView
 from frontend.UserInterface.HomePageUI.controller.createPostWidget import CreatePostWidget
-from frontend.UserInterface.PostUI.PythonUI.DetaliedPostWidget import DetailedPostWidget
-from frontend.UserInterface.PostUI.PythonUI.FeedPostWidget import FeedPostWidget
+from frontend.UserInterface.PostUI.controller.DetaliedPostWidget import DetailedPostWidget
+from frontend.UserInterface.PostUI.controller.FeedPostWidget import FeedPostWidget
 from frontend.assets.customWidget.communitiesWidgetCW import CommunityWidget
 from frontend.assets.customWidget.offlineFriendsCW import OfflineFriendWidget
 from frontend.assets.customWidget.onlineFriendsCW import OnlineFriendWidget
@@ -21,7 +21,7 @@ from backend.Repository.UserRepository import get_friends_with_status
 
 from backend.database_connect import Neo4jDriverSingleton
 from backend.Repository.PostRepository import PostRepository
-from frontend.UserInterface.PostUI.PythonUI.RecommendedPostsWidget import RecommendedPostsWidget
+from frontend.UserInterface.PostUI.controller.RecommendedPostsWidget import RecommendedPostsWidget
 
 class PostWorker(QObject):
     finished = Signal(list)

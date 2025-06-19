@@ -3,7 +3,7 @@ import logging
 from PySide6.QtWidgets import QWidget, QStackedWidget, QVBoxLayout
 
 from frontend.UserInterface.HomePageUI.controller.dashboardWIndow import DashboardWindow
-from frontend.UserInterface.PostUI.PythonUI.DetaliedPostWidget import DetailedPostWidget
+from frontend.UserInterface.PostUI.controller.DetaliedPostWidget import DetailedPostWidget
 from backend.Repository.PostRepository import PostRepository
 from backend.Repository.SessionRepository import SessionRepository
 from backend.database_connect import Neo4jDriverSingleton

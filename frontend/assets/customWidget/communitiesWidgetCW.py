@@ -1,12 +1,9 @@
-import logging
 import os
-from PySide6.QtWidgets import QWidget, QLabel
-from PySide6.QtGui import QPixmap, QPainter, QPainterPath, QBrush, QColor
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QWidget
 
 import image_utils
 from image_config import ImageType
-from frontend.assets.UserInterface.HomePageUI.UserInterfaceFile.CommunitiesWidgetView import Ui_CommunitiesWidget
+from frontend.UserInterface.HomePageUI.UserInterfaceFile.CommunitiesWidgetView import Ui_CommunitiesWidget
 
 
 def get_absolute_file_path(relative_path):

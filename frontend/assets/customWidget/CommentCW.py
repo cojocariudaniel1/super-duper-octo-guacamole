@@ -1,12 +1,10 @@
-import logging
-
 from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QFrame, QLineEdit
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QFrame, QLineEdit
+from PySide6.QtCore import Signal
 
 import image_utils
 from image_config import ImageType
-from frontend.assets.UserInterface.PostUI.UserInterfaceFile.CommentWidget import Ui_CommentWidget
+from frontend.UserInterface.PostUI.UserInterfaceFile.CommentWidget import Ui_CommentWidget
 
 
 class CommentWidget(QFrame):

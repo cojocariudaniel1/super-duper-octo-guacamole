@@ -1,0 +1,424 @@
+// First clear the database
+MATCH ()-[r]->() DELETE r;
+MATCH (n) DELETE n;
+
+// Create constraints
+CREATE CONSTRAINT IF NOT EXISTS FOR (u:User) REQUIRE u.id IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (i:Interest) REQUIRE i.name IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (p:Post) REQUIRE p.id IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (c:Comment) REQUIRE c.id IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (com:Community) REQUIRE com.name IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (t:Tag) REQUIRE t.name IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (n:Notification) REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (m:Message) REQUIRE m.id IS UNIQUE;
+CREATE CONSTRAINT IF NOT EXISTS FOR (s:Session) REQUIRE s.id IS UNIQUE;
+
+// Create users
+MERGE (user38599:User {id: '38599', username: 'user38599', points: 15, email: 'user38599@topikka.com', img: 'avatars/default_av.png',status: 'online', password: 'hashed_password', reputation: 15});
+MERGE (gaudy3ip:User {id: '456782', username: 'Gaudy3!p', points: 190, email: 'gaudy3ip@topikka.com', img: 'avatars/av1.png',status: 'online', password: 'hashed_password', reputation: 190});
+MERGE (qualAnon:User {id: '123451', username: 'QualAnon', points: 550, email: 'qualanon@topikka.com', img: 'avatars/default_av.png',status: 'online', password: 'hashed_password', reputation: 550});
+MERGE (PaupYy:User {id: '1234521', username: 'PaupYy', points: 550, email: 'qualanon@topikka.com',  img: 'avatars/av2.png',status: 'online',password: 'hashed_password', reputation: 550});
+MERGE (SarahFai:User {id: '1234531', username: 'SarahFai', points: 550, email: 'qualanon@topikka.com',  img: 'avatars/av3.png',status: 'online',password: 'hashed_password', reputation: 550});
+MERGE (Weekrd3:User {id: '1234541', username: 'Weekrd3', points: 550, email: 'qualanon@topikka.com',  img: 'avatars/av4.png',status: 'online',password: 'hashed_password', reputation: 550});
+
+MERGE (Dealiooo:User {id: '231421', username: 'Diranya', points: 550, email: 'qualanon@topikka.com',  img: 'avatars/av5.png',status: 'online',password: 'hashed_password', reputation: 550});
+MERGE (Doodlii:User {id: '231422', username: 'Doodlii', points: 550, email: 'qualanon@topikka.com',  img: 'avatars/av6.png',status: 'online',password: 'hashed_password', reputation: 550});
+MERGE (PrestonAvy:User {id: '231423', username: 'PrestonAvy ', points: 550, email: 'qualanon@topikka.com', img: 'avatars/av7.png',status: 'online', password: 'hashed_password', reputation: 550});
+MERGE (AItakeover8:User {id: '231424', username: 'AItakeover8', points: 550, email: 'qualanon@topikka.com', img: 'avatars/av8.png',status: 'online', password: 'hashed_password', reputation: 550});
+MERGE (kentclarKk:User {id: '231425', username: 'kentclarKk', points: 550, email: 'qualanon@topikka.com',  img: 'avatars/av9.png',status: 'online',password: 'hashed_password', reputation: 550});
+
+
+MERGE (scienceSage:User {id: '123452', username: 'ScienceSage', points: 430, email: 'sciencesage@topikka.com', img: 'avatars/default_av.png', status: 'online', password: 'hashed_password', reputation: 430});
+
+MERGE (urbanLegend:User {id: '123453', username: 'UrbanLegend', points: 390, email: 'urbanlegend@topikka.com', img: 'avatars/default_av.png', status: 'offline', password: 'hashed_password', reputation: 390});
+
+MERGE (cryptoCat:User {id: '123454', username: 'CryptoCat', points: 470, email: 'cryptocat@topikka.com', img: 'avatars/default_av.png', status: 'online', password: 'hashed_password', reputation: 470});
+
+MERGE (gamerChick:User {id: '123455', username: 'GamerChick77', points: 510, email: 'gamerchick77@topikka.com', img: 'avatars/default_av.png', status: 'offline', password: 'hashed_password', reputation: 510});
+
+MERGE (techGuru:User {id: '123456', username: 'TechGuru007', points: 600, email: 'techguru007@topikka.com', img: 'avatars/default_av.png', status: 'online', password: 'hashed_password', reputation: 600});
+
+MERGE (username2321:User {id: '123457', username: 'username2321', points: 370, email: 'username2321@topikka.com', img: 'avatars/default_av.png', status: 'online', password: 'hashed_password', reputation: 370});
+
+MERGE (roadRider:User {id: '123458', username: 'RoadRider', points: 445, email: 'roadrider@topikka.com', img: 'avatars/default_av.png', status: 'online', password: 'hashed_password', reputation: 445});
+
+MERGE (movieFan:User {id: '123459', username: 'MovieFan42', points: 520, email: 'moviefan42@topikka.com', img: 'avatars/default_av.png', status: 'offline', password: 'hashed_password', reputation: 520});
+
+MERGE (userAnon:User {id: '123460', username: 'user38599', points: 410, email: 'user38599@topikka.com', img: 'avatars/default_av.png', status: 'offline', password: 'hashed_password', reputation: 410});
+
+
+// Create communities
+MERGE (conspiracyCircle:Community {name: 'ConspiracyCircle', description: 'Discuss all conspiracy theories here', points: '232', icon: 'communityIcons/communityIcon8.png'});
+MERGE (gamingGrounds:Community {name: 'GamingGrounds', description: 'Everything about gaming', points: '1024',  icon: 'communityIcons/communityIcon9.png'});
+MERGE (popCulturePulse:Community {name: 'PopCulturePulse', description: 'Latest in pop culture',  points: '553', icon: 'communityIcons/communityIcon10.png'});
+MERGE (theBackrooms:Community {name: 'TheBackrooms', description: 'Creepy backroom stories', points: '5099',  icon: 'communityIcons/communityIcon11.png'});
+MERGE (memethis:Community {name: 'Memethis', description: 'Meme sharing community',  points: '14', icon: 'communityIcons/communityIcon12.png'});
+MERGE (photoshoppingFails:Community {name: 'PhotoshoppingFails', description: 'Funny photoshop disasters', points: '187',  icon: 'communityIcons/communityIcon13.png'});
+MERGE (roadAccidents:Community {name: 'RoadAccidents', description: 'Discuss road safety and accidents',  points: '211', icon: 'communityIcons/communityIcon14.png'});
+
+// Create posts
+MERGE (post1:Post {
+  id: '101',
+  title: 'When photoshop goes horribly wrong',
+  content: '<p>So, I was trying to help my friend out by editing a photo for her social media, but what I thought would be a simple touch-up turned into a full-on disaster. 😅</p><p>I was trying to smooth out some skin imperfections, but somehow I ended up overdoing it. Instead of subtle editing, I ended up with a weirdly smooth, almost cartoonish face. Her eyes became huge, her nose disappeared, and her smile... let\'s just say it looked like it was drawn by a 5-year-old. 😂</p><p>At first, I tried to fix it by adding some shadows, but I ended up making things look even worse. I couldn\'t stop laughing at the mess I created, but I felt so bad, so I sent it to her with the caption: "How do you like your new animated version?"</p><p>She didn\'t find it as funny as I did, but hey, at least we laughed about it afterward. Anyone else had a Photoshop fail that went completely off the rails? I could use some comfort!</p>',
+  timestamp: datetime() - duration('P3D'),
+  likes: 103,
+  dislikes: 25,
+  comments: 107,
+  visibility: 'PUBLIC'
+});
+
+MERGE (post2:Post {
+  id: '102',
+  title: 'Had a car accident, could use some advice',
+  content: '<p>Hey everyone, I\'m reaching out because I\'m feeling a bit overwhelmed after being in a car accident, and I could really use some advice or just to hear from others who might have gone through something similar.</p><p>So, here\'s what happened: I was driving home from work the other day, just like any other day, when out of nowhere, a car ran a red light and slammed into the front of my vehicle. Honestly, I\'m still kind of in shock.</p><p>The damage to my car is significant, especially to the bumper and fender, but thankfully, I wasn\'t seriously hurt—just some soreness and a few bruises. Itss a relief, but Itss still been a lot to process.</p><ul><li>Insurance confusion: I\'ve filed the claim, but I\'m not really sure what to expect next. The insurance company mentioned something about a "coverage assessment," and I\'m feeling kind of lost in the whole process. Anyone been through this?</li><li>Car repair worries: My car definitely needs some work, and I\'m trying to figure out where to go for repairs. I want to make sure I find a good place that won\'t rip me off, but I\'m just not sure how to go about it.</li><li>Emotional stuff: Honestly, I didn\'t expect this part to hit me so hard, but I\'ve been feeling pretty anxious and shaken up. I\'m nervous about getting back behind the wheel. Has anyone experienced this after an accident? How did you get through it?</li></ul><p>I know I\'m lucky that things weren\'t worse, but Itss still a lot to handle.</p>',
+  timestamp: datetime() - duration('PT1H'),
+  likes: 20,
+  dislikes: 5,
+  comments: 20,
+  visibility: 'PUBLIC'
+});
+
+// Create tags
+MERGE (tag1:Tag {name: 'WhatDoYouThink'});
+MERGE (tag2:Tag {name: 'AnonymousConfessions'});
+MERGE (tag3:Tag {name: 'UnfilteredTruth'});
+MERGE (tag4:Tag {name: 'CarAccident'});
+MERGE (tag5:Tag {name: 'AccidentRecovery'});
+MERGE (tag6:Tag {name: 'DrivingAnxiety'});
+MERGE (tag7:Tag {name: 'CarInsurance'});
+MERGE (tag8:Tag {name: 'AutoRepair'});
+MERGE (tag9:Tag {name: 'AccidentExperience'});
+MERGE (tag10:Tag {name: 'PostAccident'});
+MERGE (tag11:Tag {name: 'SupportNeeded'});
+MERGE (tag12:Tag {name: 'EmotionalImpact'});
+MERGE (tag13:Tag {name: 'RoadToRecovery'});
+MERGE (tag14:Tag {name: 'CarSafety'});
+MERGE (tag15:Tag {name: 'AccidentAdvice'});
+MERGE (tag16:Tag {name: 'fail'});
+MERGE (tag17:Tag {name: 'photoshop'});
+
+// Create friend relationships
+MATCH (u1:User {username: 'user38599'}), (u2:User {username: 'Gaudy3!p'})
+MERGE (u1)-[:FRIEND_WITH {timestamp: datetime()}]->(u2);
+
+// Create community memberships
+MATCH (u:User {username: 'QualAnon'}), (c1:Community {name: 'ConspiracyCircle'}),
+      (c2:Community {name: 'GamingGrounds'}), (c3:Community {name: 'PopCulturePulse'})
+MERGE (u)-[:MEMBER_OF {role: 'MEMBER', timestamp: datetime()}]->(c1)
+MERGE (u)-[:MEMBER_OF {role: 'MEMBER', timestamp: datetime()}]->(c2)
+MERGE (u)-[:MEMBER_OF {role: 'MEMBER', timestamp: datetime()}]->(c3);
+
+MATCH (u:User {username: 'Gaudy3!p'}), (c:Community {name: 'RoadAccidents'})
+MERGE (u)-[:MEMBER_OF {role: 'MEMBER', timestamp: datetime()}]->(c);
+
+MATCH (u:User {username: 'user38599'}), (c1:Community {name: 'ConspiracyCircle'}),
+      (c2:Community {name: 'GamingGrounds'}), (c3:Community {name: 'PopCulturePulse'})
+MERGE (u)-[:MEMBER_OF {role: 'MEMBER', timestamp: datetime()}]->(c1)
+MERGE (u)-[:MEMBER_OF {role: 'MEMBER', timestamp: datetime()}]->(c2)
+MERGE (u)-[:MEMBER_OF {role: 'MEMBER', timestamp: datetime()}]->(c3);
+
+// Create post relationships
+MATCH (u:User {username: 'QualAnon'}), (p:Post {id: '101'})
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('P3D')}]->(p);
+
+MATCH (u:User {username: 'Gaudy3!p'}), (p:Post {id: '102'})
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT1H')}]->(p);
+
+// Connect posts to communities
+MATCH (c:Community {name: 'PhotoshoppingFails'}), (p:Post {id: '101'})
+MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('P3D')}]->(p);
+
+MATCH (c:Community {name: 'RoadAccidents'}), (p:Post {id: '102'})
+MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT1H')}]->(p);
+
+// Tag posts
+MATCH (p:Post {id: '101'}), (t1:Tag {name: 'WhatDoYouThink'}),
+      (t4:Tag {name: 'photoshop'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P3D')}]->(t1)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P3D')}]->(t2)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P3D')}]->(t3)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P3D')}]->(t4);
+
+MATCH (p:Post {id: '102'}),
+      (t1:Tag {name: 'CarAccident'}), (t2:Tag {name: 'AccidentRecovery'}),
+      (t3:Tag {name: 'DrivingAnxiety'}), (t4:Tag {name: 'CarInsurance'}),
+      (t5:Tag {name: 'AutoRepair'}), (t6:Tag {name: 'AccidentExperience'}),
+      (t7:Tag {name: 'PostAccident'}), (t8:Tag {name: 'SupportNeeded'}),
+      (t9:Tag {name: 'EmotionalImpact'}), (t10:Tag {name: 'RoadToRecovery'}),
+      (t11:Tag {name: 'CarSafety'}), (t12:Tag {name: 'AccidentAdvice'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t1)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t2)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t3)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t4)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t5)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t6)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t7)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t8)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t9)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t10)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t11)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t12);
+
+// Add likes and update reputation
+MATCH (u1:User {username: 'user38599'}), (u2:User {username: 'Gaudy3!p'}),
+      (p:Post {id: '101'}), (author:User {username: 'QualAnon'})
+MERGE (u1)-[:LIKED {timestamp: datetime() - duration('P2D')}]->(p)
+MERGE (u2)-[:LIKED {timestamp: datetime() - duration('P1D')}]->(p)
+SET author.reputation = author.reputation + 20;
+
+MATCH (u:User {username: 'QualAnon'}), (p:Post {id: '102'}),
+      (author:User {username: 'Gaudy3!p'})
+MERGE (u)-[:LIKED {timestamp: datetime() - duration('PT30M')}]->(p)
+SET author.reputation = author.reputation + 10;
+
+// Add comments
+MERGE (comment1:Comment {id: '201', text: 'This happened to me too! I once made someone look like an alien by accident 😂', timestamp: datetime() - duration('P2D'), likes: 15, dislikes: 2});
+MERGE (comment2:Comment {id: '202', text: 'Sorry to hear about your accident. The anxiety will fade with time - just take it slow.', timestamp: datetime() - duration('PT30M'), likes: 8, dislikes: 0});
+
+MATCH (p:Post {id: '101'}), (c:Comment {id: '201'}), (u:User {username: 'user38599'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('P2D')}]->(c);
+
+MATCH (p:Post {id: '102'}), (c:Comment {id: '202'}), (u:User {username: 'QualAnon'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT30M')}]->(c);
+
+// Add session
+MERGE (session1:Session {id: '501', status: 'Active', last_active: datetime()});
+MATCH (u:User {username: 'user38599'}), (s:Session {id: '501'})
+MERGE (u)-[:HAS_SESSION]->(s);
+
+MATCH (p:Post {title: 'Had a car accident, could use some advice'})
+MERGE (comment1500:Comment {id: '1500', text: "I totally get what you’re going through. I had a similar experience last year, and the aftermath can be just as tough as the accident itself. The insurance process was confusing, endless paperwork and phone calls. The other driver’s insurance was slow, and even my own insurance wasn’t much help. One tip: document everything—photos of the damage, notes from every call. It helped me when things got messy. Emotionally, it took time to feel comfortable driving again. Therapy really helped me work through the anxiety. It’s tough, but it does get better with time. Hang in there!", timestamp: datetime(), likes: 0, dislikes: 0});
+MATCH (u1:User {username: 'PrestonAvy'})
+MERGE (p)-[:HAS_COMMENT]->(comment1500)
+MERGE (u1)-[:CREATED {timestamp: datetime()}]->(comment1500)
+
+MERGE (comment1501:Comment {id: '1501', text: "Thank you for your thoughts! It is comforting knowing people go through the same unfortunate events and it does help a lot to hear others' experiences. I guess I just needed to know I’m not alone in this. I’ve been feeling pretty overwhelmed by everything, but knowing it gets better with time gives me some hope. I’ll definitely take the advice about documenting everything—sounds like a game changer. Hopefully, once the insurance stuff gets sorted, I can start feeling a bit more normal again. Thanks again!", timestamp: datetime(), likes: 0, dislikes: 0});
+MATCH (u2:User {username: 'Gaudy3!p'})
+MERGE (p)-[:HAS_COMMENT]->(comment1501)
+MERGE (u2)-[:CREATED {timestamp: datetime()}]->(comment1501)
+MERGE (comment1501)-[:REPLY_TO {timestamp: datetime()}]->(comment1500);
+
+// Create additional posts
+MERGE (post3:Post {
+  id: '103',
+  title: 'The Mandela Effect - False Memories or Parallel Universes?',
+  content: '<p>I\'ve been diving deep into the Mandela Effect phenomenon and Itss blowing my mind. How can so many people remember things differently? The Berenstain Bears vs Berenstein Bears is just the tip of the iceberg.</p><p>Some theories suggest we\'re shifting between parallel universes where small details change. Others think Itss just collective false memory. What do you all think?</p><p>Here are some other examples I\'ve found:</p><ul><li>Darth Vader never actually says "Luke, I am your father"</li><li>The Monopoly man doesn\'t have a monocle (but so many remember him with one!)</li><li>Pikachu\'s tail - was the tip always black or not?</li></ul>',
+  timestamp: datetime() - duration('P1D'),
+  likes: 320,
+  dislikes: 45,
+  comments: 87,
+  visibility: 'PUBLIC'
+});
+
+MERGE (post4:Post {
+  id: '104',
+  title: 'Just finished Elden Ring after 150 hours - AMA',
+  content: '<p>After what felt like an eternity (and several broken controllers), I finally beat Elden Ring! This was my first Souls-like game and wow, what an experience.</p><p>I went with a strength/faith build and my final playtime was 152 hours. I explored every corner of the Lands Between and I\'m happy to answer any questions for newcomers.</p><p>Some highlights:</p><ul><li>Malenia took me 63 attempts (I counted)</li><li>Favorite weapon: Blasphemous Blade</li><li>Most frustrating area: Lake of Rot (obviously)</li><li>Most beautiful moment: First seeing Liurnia at night</li></ul><p>Ask me anything about the game!</p>',
+  timestamp: datetime() - duration('PT5H'),
+  likes: 210,
+  dislikes: 12,
+  comments: 53,
+  visibility: 'PUBLIC'
+});
+
+MERGE (post5:Post {
+  id: '105',
+  title: 'My creepy backrooms experience - I swear this happened',
+  content: '</p><p>After what felt like 20 minutes of walking (but my phone showed only 3 minutes had passed), I turned a corner and suddenly I was back in the normal office. Has anyone else experienced something like this?</p>',
+  timestamp: datetime() - duration('PT8H'),
+  likes: 540,
+  dislikes: 38,
+  comments: 192,
+  visibility: 'PUBLIC'
+});
+
+
+// Connect new posts to communities
+MATCH (c:Community {name: 'ConspiracyCircle'}), (p:Post {id: '103'})
+MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('P1D')}]->(p);
+
+MATCH (c:Community {name: 'GamingGrounds'}), (p:Post {id: '104'})
+MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT5H')}]->(p);
+
+MATCH (c:Community {name: 'TheBackrooms'}), (p:Post {id: '105'})
+MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT8H')}]->(p);
+
+
+
+// Tag new posts
+MATCH (p:Post {id: '103'}),
+      (t1:Tag {name: 'UnfilteredTruth'}), (t2:Tag {name: 'WhatDoYouThink'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P1D')}]->(t1)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P1D')}]->(t2);
+
+MATCH (p:Post {id: '104'}),
+      (t1:Tag {name: 'Gaming'}), (t2:Tag {name: 'EldenRing'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT5H')}]->(t1)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT5H')}]->(t2);
+
+MATCH (p:Post {id: '105'}),
+      (t1:Tag {name: 'Creepy'}), (t2:Tag {name: 'Backrooms'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT8H')}]->(t1)
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT8H')}]->(t2);
+
+// Create authors for new posts
+MATCH (u:User {username: 'QualAnon'}), (p:Post {id: '103'})
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('P1D')}]->(p);
+
+MATCH (u:User {username: 'user38599'}), (p:Post {id: '104'})
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT5H')}]->(p);
+
+MATCH (u:User {username: 'Gaudy3!p'}), (p:Post {id: '105'})
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT8H')}]->(p);
+
+// Add comments to new posts
+MERGE (comment3:Comment {id: '203', text: 'The one that gets me is "Mirror mirror on the wall" - Itss actually "Magic mirror on the wall" in Snow White!', timestamp: datetime() - duration('PT20H'), likes: 42, dislikes: 3});
+MERGE (comment4:Comment {id: '204', text: 'Congrats on beating Elden Ring! What ending did you get?', timestamp: datetime() - duration('PT3H'), likes: 15, dislikes: 0});
+MERGE (comment5:Comment {id: '205', text: 'The backrooms are real. I\'ve been there too. You\'re lucky you got out.', timestamp: datetime() - duration('PT5H'), likes: 87, dislikes: 12});
+
+// Connect comments to posts
+MATCH (p:Post {id: '103'}), (c:Comment {id: '203'}), (u:User {username: 'Gaudy3!p'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT20H')}]->(c);
+
+MATCH (p:Post {id: '104'}), (c:Comment {id: '204'}), (u:User {username: 'QualAnon'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT3H')}]->(c);
+
+MATCH (p:Post {id: '105'}), (c:Comment {id: '205'}), (u:User {username: 'user38599'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT5H')}]->(c);
+
+// Add more comments with replies
+MERGE (comment6:Comment {id: '206', text: 'The Fruit of the Loom logo never had a cornucopia! This is my favorite Mandela Effect example.', timestamp: datetime() - duration('PT18H'), likes: 56, dislikes: 2});
+MERGE (comment7:Comment {id: '207', text: 'I got the Age of Stars ending - Ranni\'s questline was amazing!', timestamp: datetime() - duration('PT2H'), likes: 8, dislikes: 0});
+MERGE (comment8:Comment {id: '208', text: 'How did you escape? Did you hear any noises while you were there?', timestamp: datetime() - duration('PT4H'), likes: 34, dislikes: 1});
+
+
+MERGE (post106:Post {
+  id: '106',
+  title: 'What’s your biggest gaming rage quit?',
+  content: '<p>I just rage quit after dying to the same boss in Sekiro for the 20th time. What\'s your worst rage quit experience?</p>',
+  timestamp: datetime() - duration('PT2H'),
+  likes: 67,
+  dislikes: 10,
+  comments: 22,
+  visibility: 'PUBLIC'
+});
+MATCH (c:Community {name: 'GamingGrounds'}), (p:Post {id: '106'})
+MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT2H')}]->(p);
+MATCH (u:User {username: 'user38599'}), (p:Post {id: '106'})
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT2H')}]->(p);
+MATCH (p:Post {id: '106'}), (t:Tag {name: 'Gaming'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT2H')}]->(t);
+
+
+MERGE (comment209:Comment {id: '209', text: 'I once threw my controller during a FIFA match. Instant regret.', timestamp: datetime() - duration('PT1H'), likes: 22, dislikes: 0});
+MATCH (p:Post {id: '106'}), (c:Comment {id: '209'}), (u:User {username: 'PrestonAvy'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT1H')}]->(c);
+
+MERGE (post107:Post {
+  id: '107',
+  title: 'Weird traffic light behavior in my town',
+  content: '<p>Anyone else experienced traffic lights randomly switching to red with no one around? Wondering if it’s a sensor issue or just bad luck.</p>',
+  timestamp: datetime() - duration('PT4H'),
+  likes: 13,
+  dislikes: 2,
+  comments: 5,
+  visibility: 'PUBLIC'
+});
+MATCH (c:Community {name: 'RoadAccidents'}), (p:Post {id: '107'})
+MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT4H')}]->(p);
+MATCH (u:User {username: 'cryptoCat'}), (p:Post {id: '107'})
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT4H')}]->(p);
+MATCH (p:Post {id: '107'}), (t:Tag {name: 'CarSafety'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT4H')}]->(t);
+MATCH (p:Post {id: '107'}), (t:Tag {name: 'SupportNeeded'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT4H')}]->(t);
+
+
+MERGE (comment210:Comment {id: '210', text: 'Yes! I reported it and turns out the sensor was broken. The city fixed it in a week.', timestamp: datetime() - duration('PT2H'), likes: 12, dislikes: 1});
+MATCH (p:Post {id: '107'}), (c:Comment {id: '210'}), (u:User {username: 'Gaudy3!p'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT2H')}]->(c);
+
+
+// Postare: Backrooms Encounter
+MERGE (post108:Post {
+  id: '108',
+  title: 'Backrooms encounter - lights flickered for no reason',
+  content: '<p>So I was walking through a poorly lit office basement when the lights started flickering and a low hum started. No one was there. I swear I felt watched. Anyone else?</p>',
+  timestamp: datetime() - duration('PT6H'),
+  likes: 88,
+  dislikes: 11,
+  comments: 30,
+  visibility: 'PUBLIC'
+});
+MATCH (c:Community {name: 'TheBackrooms'}), (p:Post {id: '108'})
+MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT6H')}]->(p);
+MATCH (u:User {username: 'SarahFai'}), (p:Post {id: '108'})
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT6H')}]->(p);
+MATCH (p:Post {id: '108'}), (t:Tag {name: 'Creepy'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT6H')}]->(t);
+MATCH (p:Post {id: '108'}), (t:Tag {name: 'Backrooms'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT6H')}]->(t);
+
+// Comentariu
+MERGE (comment211:Comment {id: '211', text: 'I had a similar experience in an abandoned mall—something about those places just feels... wrong.', timestamp: datetime() - duration('PT5H'), likes: 30, dislikes: 2});
+MATCH (p:Post {id: '108'}), (c:Comment {id: '211'}), (u:User {username: 'MovieFan42'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT5H')}]->(c);
+
+// Postare: Best Meme 2025
+MERGE (post109:Post {
+  id: '109',
+  title: 'Best meme of 2025 so far?',
+  content: '<p>This year’s memes are on fire! Personally, the ‘AI Overlord’ meme cracks me up every time. What’s your favorite meme of 2025?</p>',
+  timestamp: datetime() - duration('PT3H'),
+  likes: 133,
+  dislikes: 9,
+  comments: 41,
+  visibility: 'PUBLIC'
+});
+MATCH (c:Community {name: 'Memethis'}), (p:Post {id: '109'})
+MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT3H')}]->(p);
+MATCH (u:User {username: 'AItakeover8'}), (p:Post {id: '109'})
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT3H')}]->(p);
+MATCH (p:Post {id: '109'}), (t:Tag {name: 'WhatDoYouThink'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT3H')}]->(t);
+
+// Comentariu
+MERGE (comment212:Comment {id: '212', text: 'Definitely the ‘NPC glitch in public’ ones. Cracks me up every time.', timestamp: datetime() - duration('PT2H'), likes: 18, dislikes: 0});
+MATCH (p:Post {id: '109'}), (c:Comment {id: '212'}), (u:User {username: 'Weekrd3'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT2H')}]->(c);
+
+// Postare: Conspirația ta preferată
+MERGE (post110:Post {
+  id: '110',
+  title: 'Creepiest conspiracy you actually believe',
+  content: '<p>Let’s be honest, we all have that one conspiracy theory we kinda believe. Mine? Birds aren’t real. Share yours!</p>',
+  timestamp: datetime() - duration('PT8H'),
+  likes: 190,
+  dislikes: 22,
+  comments: 76,
+  visibility: 'PUBLIC'
+});
+MATCH (c:Community {name: 'ConspiracyCircle'}), (p:Post {id: '110'})
+MERGE (c)-[:HAS_POST {timestamp: datetime() - duration('PT8H')}]->(p);
+MATCH (u:User {username: 'urbanLegend'}), (p:Post {id: '110'})
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT8H')}]->(p);
+MATCH (p:Post {id: '110'}), (t:Tag {name: 'UnfilteredTruth'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT8H')}]->(t);
+MATCH (p:Post {id: '110'}), (t:Tag {name: 'WhatDoYouThink'})
+MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT8H')}]->(t);
+
+// Comentariu
+MERGE (comment213:Comment {id: '213', text: 'Not saying I believe it, but that Denver Airport theory is... unsettling.', timestamp: datetime() - duration('PT4H'), likes: 21, dislikes: 1});
+MATCH (p:Post {id: '110'}), (c:Comment {id: '213'}), (u:User {username: 'Diranya'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT4H')}]->(c);

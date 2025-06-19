@@ -1,0 +1,394 @@
+MATCH (p:Post {id: '103'}), (c:Comment {id: '206'}), (u:User {username: 'user38599'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT18H')}]->(c);
+
+MATCH (p:Post {id: '104'}), (c:Comment {id: '207'}), (u:User {username: 'user38599'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT2H')}]->(c);
+
+MATCH (p:Post {id: '105'}), (c:Comment {id: '208'}), (u:User {username: 'QualAnon'})
+MERGE (p)-[:HAS_COMMENT]->(c)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT4H')}]->(c);
+
+// Create comment replies
+MATCH (c1:Comment {id: '201'}), (c2:Comment {id: '206'}), (u:User {username: 'QualAnon'})
+MERGE (c2)-[:REPLY_TO {timestamp: datetime() - duration('PT17H')}]->(c1)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT17H')}]->(c2);
+
+MATCH (c1:Comment {id: '204'}), (c2:Comment {id: '207'}), (u:User {username: 'user38599'})
+MERGE (c2)-[:REPLY_TO {timestamp: datetime() - duration('PT2H')}]->(c1)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT2H')}]->(c2);
+
+MATCH (c1:Comment {id: '205'}), (c2:Comment {id: '208'}), (u:User {username: 'QualAnon'})
+MERGE (c2)-[:REPLY_TO {timestamp: datetime() - duration('PT4H')}]->(c1)
+MERGE (u)-[:CREATED {timestamp: datetime() - duration('PT4H')}]->(c2);
+
+MATCH (u:User {username:'QualAnon'}), (c:Community {name:'ConspiracyCircle'})
+CREATE (p:Post {
+  id:'post1',
+  title:'The hidden agenda behind satellite launches',
+  content:'Anyone else think recent satellite launches are a cover for something secret? Maybe they re part of a new surveillance program or something bigger. Feels fishy to me.',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'ScienceSage'}), (c:Community {name:'ConspiracyCircle'})
+CREATE (p:Post {
+  id:'post2',
+  title:'Area 51 whistleblower claims new UFO evidence',
+  content:'I just saw a leaked report from a supposed Area 51 whistleblower. Claims the Air Force recovered a crashed UFO last month. Hard to believe, but if true, Itss huge.',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'UrbanLegend'}), (c:Community {name:'ConspiracyCircle'})
+CREATE (p:Post {
+  id:'post3',
+  title:'Did they really fake the moon landing?',
+  content:'Ive been reading stuff from the 70s that claim the moon landing was faked. All those photos and videos can be staged with tech today. What do you guys think?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'CryptoCat'}), (c:Community {name:'ConspiracyCircle'})
+CREATE (p:Post {
+  id:'post4',
+  title:'Government tracking through vaccine microchips',
+  content:'There s a viral video claiming that new vaccines have tracking microchips. Of course it sounds crazy, but is there any chance Itss true? Just asking.',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'CryptoCat'}), (c:Community {name:'ConspiracyCircle'})
+CREATE (p:Post {
+  id:'post5',
+  title:'Chemtrail patterns and climate change',
+  content:'Have you noticed weird zig-zag plane trails lately? Some say Itss chemtrails for weather control. Could it be linked to climate change efforts?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'GamerChick77'}), (c:Community {name:'GamingGrounds'})
+CREATE (p:Post {
+  id:'post6',
+  title:'New update in CyberQuest game disappoints fans',
+  content:'Latest patch nerfed all the classes we loved and added microtransactions. They clearly want to squeeze more money. Fellow gamers, what s your take on this update?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'TechGuru007'}), (c:Community {name:'GamingGrounds'})
+CREATE (p:Post {
+  id:'post7',
+  title:'Tournament results: Red Dragons win again!',
+  content:'The Red Dragons took the championship title for the third year in a row. Their teamwork is unreal! Who else was watching the finals yesterday?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'ScienceSage'}), (c:Community {name:'GamingGrounds'})
+CREATE (p:Post {
+  id:'post8',
+  title:'VR headset launching next month - what do you think?',
+  content:'New VR gear is rumored to launch next month. Better graphics and lightweight. Would you buy it or stick to your current setup?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'UrbanLegend'}), (c:Community {name:'GamingGrounds'})
+CREATE (p:Post {
+  id:'post9',
+  title:'Classic retro games making a comeback',
+  content:'Saw some news that classic games are being re-released on new consoles. Nostalgia or cash grab by companies? Anyone planning to buy?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'ScienceSage'}), (c:Community {name:'RoadAccidents'})
+CREATE (p:Post {
+  id:'post11',
+  title:'Fatal highway pile-up: Who s at fault?',
+  content:'Last night s crash on I-50 involved 5 cars. Eyewitnesses say a speeding truck was weaving lanes. Opinions on who s to blame?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'RoadRider'}), (c:Community {name:'RoadAccidents'})
+CREATE (p:Post {
+  id:'post12',
+  title:'Safety tips to avoid accidents in rain',
+  content:'Driving in rain can be tricky. What are your best safety tips? Reduced speed, good tires, or anything else you recommend?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'RoadRider'}), (c:Community {name:'RoadAccidents'})
+CREATE (p:Post {
+  id:'post13',
+  title:'Speed cameras reduce fatalities by 30%',
+  content:'A new study claims speed cameras in cities have cut traffic deaths by almost a third. Should more cities install them?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'QualAnon'}), (c:Community {name:'RoadAccidents'})
+CREATE (p:Post {
+  id:'post14',
+  title:'Debate: Helmets mandatory on electric scooters?',
+  content:'Electric scooters are everywhere. Some say helmets should be required by law, others think Itss overkill. What s your stance?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'MovieFan42'}), (c:Community {name:'MovieMania'})
+CREATE (p:Post {
+  id:'post15',
+  title:'Local cinema reopens with new safety measures',
+  content:'After months closed, our local cinema is open again. They ve implemented distancing and required masks. Planning to watch a movie there soon?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'MovieFan42'}), (c:Community {name:'MovieMania'})
+CREATE (p:Post {
+  id:'post16',
+  title:'Blockbuster sequel disappoints critics',
+  content:'The latest sequel in the popular franchise got mixed reviews. Some say it lacks the original magic. Did you see it, and what did you think?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'MovieFan42'}), (c:Community {name:'MovieMania'})
+CREATE (p:Post {
+  id:'post17',
+  title:'Indie film festival highlights unknown directors',
+  content:'This weekend s indie festival showcased some amazing short films from up-and-coming directors. Anyone catch any of them?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'TechGuru007'}), (c:Community {name:'TechTalk'})
+CREATE (p:Post {
+  id:'post18',
+  title:'New smartphone release: is it worth upgrading?',
+  content:'Brand X just unveiled its latest phone model. Faster chip and better camera but expensive. Will you upgrade or wait for the next one?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'TechGuru007'}), (c:Community {name:'TechTalk'})
+CREATE (p:Post {
+  id:'post19',
+  title:'AI-powered virtual assistant hits 1M downloads',
+  content:'A new AI assistant app just hit a million downloads in a week, claiming to revolutionize personal tasks. How do you feel about AI assistants?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+MATCH (u:User {username:'QualAnon'}), (c:Community {name:'TechTalk'})
+CREATE (p:Post {
+  id:'post20',
+  title:'Discussion: Ethical implications of facial recognition',
+  content:'Facial recognition tech is improving fast. Itss used for unlocking phones to identifying people in crowds. What ethical issues concern you?',
+  timestamp: datetime(), likes: 100, dislikes: 5, comments: 10, visibility: 'PUBLIC'
+})-[:IN_COMMUNITY]->(c), (u)-[:CREATED]->(p);
+
+
+
+MATCH (u:User {username:'user38599'}), (p:Post {id:'post1'})
+CREATE (c:Comment {content:'This sounds like just another conspiracy theory. Satellites have been launched for decades and mostly used for GPS and communication.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (p:Post {id:'post1'})
+CREATE (c:Comment {content:'Well, that s what they want us to think. Have you noticed how every time they launch something, it coincides with new laws? Itss definitely a pattern.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (p:Post {id:'post1'})
+CREATE (c:Comment {content:'There are plenty of documented cases of military satellites, but it doesn t always mean the public version is a cover-up.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'CryptoCat'}), (parent:Comment {content:'Well, that s what they want us to think. Have you noticed how every time they launch something, it coincides with new laws? Itss definitely a pattern.'})
+CREATE (c:Comment {content:'True, sometimes patterns seem suspicious, but they could also be coincidences rather than a cover-up.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'Gaudy3!p'}), (p:Post {id:'post2'})
+CREATE (c:Comment {content:'If this were real, the media would be all over it. Sounds like a hoax to me.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'UrbanLegend'}), (p:Post {id:'post2'})
+CREATE (c:Comment {content:'Air Force rumor mills are wild. But Itss strange all official sources deny anything. I m not convinced either way.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (p:Post {id:'post2'})
+CREATE (c:Comment {content:'Every whistleblower story is dismissed as fake so the government can control the narrative. I d want to see the documents.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (parent:Comment {content:'If this were real, the media would be all over it. Sounds like a hoax to me.'})
+CREATE (c:Comment {content:'We should always verify such claims with multiple sources. Skepticism is healthy here.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (p:Post {id:'post3'})
+CREATE (c:Comment {content:'Itss a really old debate. I doubt NASA could fool everyone for so long, but some inconsistencies still make me wonder.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (p:Post {id:'post3'})
+CREATE (c:Comment {content:'There are a lot of scientific data and third-party observations supporting the moon landing. It seems unlikely to fake it all.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'CryptoCat'}), (p:Post {id:'post3'})
+CREATE (c:Comment {content:'Even if faked, why would they go to all that trouble? The evidence is pretty strong, and many countries tracked the mission.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'Gaudy3!p'}), (p:Post {id:'post4'})
+CREATE (c:Comment {content:'I saw that video too. People fall for anything these days. There s zero proof of microchips in vaccines.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'UrbanLegend'}), (p:Post {id:'post4'})
+CREATE (c:Comment {content:'Those videos are usually out of context. The  microchip  is typically a tiny magnet or something. Itss probably just propaganda.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (p:Post {id:'post4'})
+CREATE (c:Comment {content:'I ve read some research papers on the microchip claims. So far, nothing credible. Itss mostly fearmongering.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (parent:Comment {content:'Those videos are usually out of context. The  microchip  is typically a tiny magnet or something. Itss probably just propaganda.'})
+CREATE (c:Comment {content:'Propaganda or truth, depends on who you ask. I d like solid evidence either way. Until then, I m staying cautious.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (p:Post {id:'post5'})
+CREATE (c:Comment {content:'I ve also noticed that. There was a documentary about it. Itss hard to tell the difference between normal contrails and chemtrails.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (p:Post {id:'post5'})
+CREATE (c:Comment {content:'Contrails are well understood scientifically. There s no evidence of actual  chemtrails  spraying chemicals on purpose.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'CryptoCat'}), (p:Post {id:'post5'})
+CREATE (c:Comment {content:'I work near an airport and see trails often. I think Itss just regular flights. But who knows, Itss fun to imagine.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'RoadRider'}), (parent:Comment {content:'I ve also noticed that. There was a documentary about it. Itss hard to tell the difference between normal contrails and chemtrails.'})
+CREATE (c:Comment {content:'Documentary or not, I d trust climate scientists more than random YouTube channels.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'GamerChick77'}), (p:Post {id:'post6'})
+CREATE (c:Comment {content:'I rage-quit after the patch. The game was fun before, now Itss pay-to-win junk.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'TechGuru007'}), (p:Post {id:'post6'})
+CREATE (c:Comment {content:'Could be a money grab, but they did add some cool new maps. Guess I ll grind for the gear before judging too harshly.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'GamerChick77'}), (p:Post {id:'post7'})
+CREATE (c:Comment {content:'Red Dragons are on fire, unmatched synergy. Congratulations to them!'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'UrbanLegend'}), (p:Post {id:'post7'})
+CREATE (c:Comment {content:'I tuned in, great matches! The underdogs put up a good fight though.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'TechGuru007'}), (p:Post {id:'post7'})
+CREATE (c:Comment {content:'Skill and strategy for the win. Looking forward to see how other teams step up next season.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'GamerChick77'}), (parent:Comment {content:'I tuned in, great matches! The underdogs put up a good fight though.'})
+CREATE (c:Comment {content:'Totally agree, the finals were intense. The support from the crowd was amazing too.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'TechGuru007'}), (p:Post {id:'post8'})
+CREATE (c:Comment {content:'I m definitely interested if it solves the motion sickness issue. Current VR tech is good but not perfect.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (p:Post {id:'post8'})
+CREATE (c:Comment {content:'Wonder what specs it has. If Itss on par with PC performance, might be a game-changer.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'MovieFan42'}), (p:Post {id:'post8'})
+CREATE (c:Comment {content:'I m not much of a gamer, but VR experiences for movies? That could be fun!'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'CryptoCat'}), (parent:Comment {content:'I m definitely interested if it solves the motion sickness issue. Current VR tech is good but not perfect.'})
+CREATE (c:Comment {content:'VR sickness is a problem. I only use headsets for short sessions.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'UrbanLegend'}), (p:Post {id:'post9'})
+CREATE (c:Comment {content:'Nostalgia for sure. Some of those games are timeless. I ll probably pick up a few classics again.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'GamerChick77'}), (p:Post {id:'post9'})
+CREATE (c:Comment {content:'Retro games are awesome. Even my kids enjoy them now!'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'TechGuru007'}), (parent:Comment {content:'Nostalgia for sure. Some of those games are timeless. I ll probably pick up a few classics again.'})
+CREATE (c:Comment {content:'True, but sometimes they just port them without fixes. Make sure they run well on new systems.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'TechGuru007'}), (parent:Comment {content:'If the DLC adds enough content, maybe. But $50 feels like a slap in the face to loyal players.'})
+CREATE (c:Comment {content:'Yeah, maybe if it had double the content or was on sale later, I d consider it.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'RoadRider'}), (p:Post {id:'post11'})
+CREATE (c:Comment {content:'I saw the footage. Looks like the truck driver was swerving dangerously. He has to be responsible.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (parent:Comment {content:'I saw the footage. Looks like the truck driver was swerving dangerously. He has to be responsible.'})
+CREATE (c:Comment {content:'Weather conditions were bad. Maybe slippery roads contributed. But reckless driving can t be excused.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (p:Post {id:'post11'})
+CREATE (c:Comment {content:'We should wait for official investigation. Eyewitness accounts can be unreliable in such chaotic scenes.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'RoadRider'}), (p:Post {id:'post12'})
+CREATE (c:Comment {content:'Slow down! Hydroplaning is real. Also make sure your tires have good tread.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (parent:Comment {content:'Slow down! Hydroplaning is real. Also make sure your tires have good tread.'})
+CREATE (c:Comment {content:'Definitely good tires. Also increase following distance. Cruise control is not recommended in rain.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'UrbanLegend'}), (p:Post {id:'post12'})
+CREATE (c:Comment {content:'Check your brakes before you drive, and avoid sudden movements.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'TechGuru007'}), (p:Post {id:'post12'})
+CREATE (c:Comment {content:'Wipers and defoggers on point. And maybe don t drive if the storm is too intense.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'RoadRider'}), (p:Post {id:'post13'})
+CREATE (c:Comment {content:'Speed cameras save lives, simple as that. Some drivers need to learn the hard way.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (p:Post {id:'post13'})
+CREATE (c:Comment {content:'I see them as a money-making trap by cities, but if they keep people safe, maybe Itss worth it.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (parent:Comment {content:'Speed cameras save lives, simple as that. Some drivers need to learn the hard way.'})
+CREATE (c:Comment {content:'Evidence suggests reduced speeds lower fatalities, but fairness and accuracy of cameras must be ensured.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'CryptoCat'}), (p:Post {id:'post13'})
+CREATE (c:Comment {content:'They do slow people down. Not a fan of tickets, but safety is important.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'RoadRider'}), (p:Post {id:'post14'})
+CREATE (c:Comment {content:'Helmets mandatory, absolutely. I ve seen too many scooter crashes that could have been worse without a helmet.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'UrbanLegend'}), (parent:Comment {content:'Helmets mandatory, absolutely. I ve seen too many scooter crashes that could have been worse without a helmet.'})
+CREATE (c:Comment {content:'I agree. Even a minor fall can cause serious head injury.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'CryptoCat'}), (p:Post {id:'post14'})
+CREATE (c:Comment {content:'Maybe not mandatory, but at least recommended. Most riders don t take it seriously.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (p:Post {id:'post14'})
+CREATE (c:Comment {content:'I lean towards mandating safety gear. Itss better to have a law than to regret injuries later.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'MovieFan42'}), (p:Post {id:'post15'})
+CREATE (c:Comment {content:'Yes, I bought tickets for next week. Feels good to support them, but I m still a bit nervous.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'Gaudy3!p'}), (p:Post {id:'post15'})
+CREATE (c:Comment {content:'I m waiting a bit longer. Streaming at home is safer for me.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (p:Post {id:'post15'})
+CREATE (c:Comment {content:'They seem to be following guidelines. If seating is spaced out, it should be OK.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'UrbanLegend'}), (parent:Comment {content:'Yes, I bought tickets for next week. Feels good to support them, but I m still a bit nervous.'})
+CREATE (c:Comment {content:'I think you ll be fine as long as you use hand sanitizer and keep distance in lines.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'MovieFan42'}), (p:Post {id:'post16'})
+CREATE (c:Comment {content:'I thought it was fun, but not as good as the original. Too many CGI scenes over story.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'CryptoCat'}), (p:Post {id:'post16'})
+CREATE (c:Comment {content:'It was visually stunning, but yeah, the plot felt a bit recycled.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'Gaudy3!p'}), (p:Post {id:'post16'})
+CREATE (c:Comment {content:'Totally agree. Felt like they rushed it for profits, not passion.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (p:Post {id:'post16'})
+CREATE (c:Comment {content:'Critics maybe too harsh? Itss still entertainment, not every movie needs to be deep.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'MovieFan42'}), (p:Post {id:'post17'})
+CREATE (c:Comment {content:'I loved the documentary shorts! Fresh perspectives, lots of talent out there.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'UrbanLegend'}), (parent:Comment {content:'I loved the documentary shorts! Fresh perspectives, lots of talent out there.'})
+CREATE (c:Comment {content:'Same here. That one about street art was inspiring.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (p:Post {id:'post17'})
+CREATE (c:Comment {content:'Indie films can be hit or miss. But festivals are great for giving artists exposure.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'TechGuru007'}), (p:Post {id:'post17'})
+CREATE (c:Comment {content:'Wish I could attend more festivals. The theater community needs our support.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'TechGuru007'}), (p:Post {id:'post18'})
+CREATE (c:Comment {content:'I m upgrading. The camera improvements alone are worth it for me.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'CryptoCat'}), (parent:Comment {content:'I m upgrading. The camera improvements alone are worth it for me.'})
+CREATE (c:Comment {content:'I hear you, but I ll wait for price drop. Last year s model is still good.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (p:Post {id:'post18'})
+CREATE (c:Comment {content:'If you re on an older phone, Itss a big leap. But if you have a model from last year, maybe stick.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'UrbanLegend'}), (p:Post {id:'post18'})
+CREATE (c:Comment {content:'Also check battery life reviews. Performance is great but the battery might be worse.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'TechGuru007'}), (p:Post {id:'post19'})
+CREATE (c:Comment {content:'Itss exciting tech, but I m wary of privacy issues. Who knows what data they re collecting?'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (p:Post {id:'post19'})
+CREATE (c:Comment {content:'AI assistants can be handy, but I agree on privacy. Check permissions!'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (parent:Comment {content:'Itss exciting tech, but I m wary of privacy issues. Who knows what data they re collecting?'})
+CREATE (c:Comment {content:'Big tech always collects data. If it helps me, I might risk it.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'CryptoCat'}), (p:Post {id:'post19'})
+CREATE (c:Comment {content:'I ve tried one, it can do cool things but sometimes misunderstand simple commands.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'ScienceSage'}), (p:Post {id:'post20'})
+CREATE (c:Comment {content:'Major privacy concerns. Who has access to the data? Could lead to surveillance states.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'QualAnon'}), (p:Post {id:'post20'})
+CREATE (c:Comment {content:'On the other hand, it can catch criminals. But regulation is needed.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'RoadRider'}), (parent:Comment {content:'Major privacy concerns. Who has access to the data? Could lead to surveillance states.'})
+CREATE (c:Comment {content:'Yes, without rules, Itss dangerous. We saw how Itss misused in some countries.'})-[:REPLY_TO]->(parent), (u)-[:COMMENTED]->(c);
+
+MATCH (u:User {username:'TechGuru007'}), (p:Post {id:'post20'})
+CREATE (c:Comment {content:'Bias in recognition algorithms is a problem too. Not all groups are recognized equally.'})-[:ON_POST]->(p), (u)-[:COMMENTED]->(c);

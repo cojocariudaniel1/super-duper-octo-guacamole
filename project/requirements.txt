@@ -1,4 +1,0 @@
-py2neo
-neo4j
-PySide6
-bcrypt

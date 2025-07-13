@@ -1,3 +1,6 @@
+from datetime import datetime, timezone
+
+import humanize
 from PySide6.QtWidgets import QFrame, QSizePolicy
 from PySide6.QtCore import Signal, Qt, QSize
 from PySide6.QtGui import QTextOption
@@ -100,7 +103,9 @@ class RecommendedPostsWidget(QFrame):
         self.tags = f"#{community.replace(' ', '')}" if community else ""
 
         self.ui.communityName.setText(community if community else "General")
-        self.ui.postTime.setText(str(self._format_timestamp(self.timestamp)))
+        formatted_time = self._format_timestamp(self.timestamp)
+
+        self.ui.postTime.setText(formatted_time)
         self.ui.username.setText(self.author)
         self.ui.usernamePoints.setText(f"{self.points} points")
         self.ui.postTitle.setText(self.title)
@@ -121,10 +126,34 @@ class RecommendedPostsWidget(QFrame):
 
         return tags_string
 
+
     def _format_timestamp(self, timestamp):
-        """Format timestamp to relative time"""
-        # Implement your timestamp formatting logic here
-        return timestamp  # Return formatted string
+        """
+        Format timestamp to a human-readable relative time.
+        Handles both Neo4j DateTime objects and string timestamps.
+        """
+        # Convert Neo4j DateTime to Python datetime if needed
+        if hasattr(timestamp, 'to_native'):
+            timestamp = timestamp.to_native()
+        elif isinstance(timestamp, str):
+            timestamp = datetime.fromisoformat(timestamp)
+
+        # Make both datetimes offset-naive or offset-aware
+        now = datetime.now(timestamp.tzinfo if timestamp.tzinfo else None)
+
+        delta = now - timestamp
+
+        if delta.days > 365:
+            return f"{delta.days // 365} years ago"
+        if delta.days > 30:
+            return f"{delta.days // 30} months ago"
+        if delta.days > 0:
+            return f"{delta.days} days ago"
+        if delta.seconds > 3600:
+            return f"{delta.seconds // 3600} hours ago"
+        if delta.seconds > 60:
+            return f"{delta.seconds // 60} minutes ago"
+        return "Just now"
 
     def _connect_signals(self):
         """Connect all widget signals"""

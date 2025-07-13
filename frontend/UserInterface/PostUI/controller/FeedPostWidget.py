@@ -26,7 +26,7 @@ class FeedPostWidget(QFrame):
         self.user_id = user_id
         self.driver = Neo4jDriverSingleton.get_driver()
         self.post_repo = PostRepository(self.driver)
-
+        self.post_data = post_data
         self.setCursor(Qt.CursorShape.PointingHandCursor)
         self._initialize_post_data(post_data)
         self._setup_ui_styles()
@@ -44,6 +44,7 @@ class FeedPostWidget(QFrame):
         )
 
         # Community icon if available
+
         if "community_icon" in post_data:
             image_utils.set_configured_image(
                 item=self.ui.communityIcon,
@@ -150,7 +151,7 @@ class FeedPostWidget(QFrame):
     def _on_like_clicked(self):
         try:
             print(self.user_id)
-            user_id = self.user_id  # 🔁 Înlocuiește cu ID-ul real al utilizatorului logat
+            user_id = self.user_id
             new_points = self.post_repo.increment_post_points(
                 post_id=self.post_id,
                 increment=1,

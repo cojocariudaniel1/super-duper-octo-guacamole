@@ -81,7 +81,6 @@ class CommentWidget(QFrame):
 
         # Connect signals
         self.ui.likeButtonIcon.clicked.connect(self._on_like_clicked)
-        self.ui.replyCommentButtonIcon.clicked.connect(self._on_reply_clicked)
         self.ui.replyCommentButtonIcon.clicked.connect(self._toggle_reply_input)
         self.reply_submit.clicked.connect(self._submit_reply)
 
@@ -94,6 +93,7 @@ class CommentWidget(QFrame):
     def _submit_reply(self):
         """Handle reply submission"""
         text = self.reply_input.text().strip()
+
         if text:
             self.reply_clicked.emit(self.comment_id, text)
             self.reply_input.clear()
@@ -119,7 +119,6 @@ class CommentWidget(QFrame):
             image_type=ImageType.USER_AVATAR,
             item_type="label"
         )
-
         # Button icons
         image_utils.set_configured_image(
             item=self.ui.likeButtonIcon,
@@ -148,6 +147,5 @@ class CommentWidget(QFrame):
         self.like_clicked.emit(self.comment_id)
 
     def _on_reply_clicked(self):
-        """Handle reply button click"""
-        self.reply_clicked.emit(self.comment_id)
+        self.reply_clicked.emit(self.comment_id, self.reply_input.text())
 

@@ -140,13 +140,10 @@ MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P3D')}]->(t2)
 MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P3D')}]->(t3)
 MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('P3D')}]->(t4);
 
-MATCH (p:Post {id: '102'}),
+MATCH (p:Post {id: '1003'}),
       (t1:Tag {name: 'CarAccident'}), (t2:Tag {name: 'AccidentRecovery'}),
-      (t3:Tag {name: 'DrivingAnxiety'}), (t4:Tag {name: 'CarInsurance'}),
-      (t5:Tag {name: 'AutoRepair'}), (t6:Tag {name: 'AccidentExperience'}),
-      (t7:Tag {name: 'PostAccident'}), (t8:Tag {name: 'SupportNeeded'}),
-      (t9:Tag {name: 'EmotionalImpact'}), (t10:Tag {name: 'RoadToRecovery'}),
-      (t11:Tag {name: 'CarSafety'}), (t12:Tag {name: 'AccidentAdvice'})
+      (t2:Tag {name: 'DrivingAnxiety'}), (t4:Tag {name: 'CarInsurance'}),
+      (t3:Tag {name: 'AutoRepair'}), (t6:Tag {name: 'AccidentExperience'})
 MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t1)
 MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t2)
 MERGE (p)-[:TAGGED_AS {timestamp: datetime() - duration('PT1H')}]->(t3)
@@ -176,8 +173,7 @@ SET author.reputation = author.reputation + 10;
 MERGE (comment1:Comment {id: '201', text: 'This happened to me too! I once made someone look like an alien by accident 😂', timestamp: datetime() - duration('P2D'), likes: 15, dislikes: 2});
 MERGE (comment2:Comment {id: '202', text: 'Sorry to hear about your accident. The anxiety will fade with time - just take it slow.', timestamp: datetime() - duration('PT30M'), likes: 8, dislikes: 0});
 
-MATCH (p:Post {id: '101'}), (c:Comment {id: '201'}), (u:User {username: 'user38599'})
-MERGE (p)-[:HAS_COMMENT]->(c)
+MATCH (p:Post {id: '101'}), (u:User {username: 'user38599'})
 MERGE (u)-[:CREATED {timestamp: datetime() - duration('P2D')}]->(c);
 
 MATCH (p:Post {id: '102'}), (c:Comment {id: '202'}), (u:User {username: 'QualAnon'})

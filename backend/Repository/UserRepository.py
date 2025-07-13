@@ -38,7 +38,7 @@ def create_user(driver, email, password):
             existing_user = tx.run(existing_user_query, email=email).single()
 
             if existing_user:
-                return None  # User already exists
+                return None
 
             user_id = str(uuid.uuid4())  # Generate a unique ID
             create_query = """
@@ -84,7 +84,6 @@ def get_friends_with_status(driver, user_id):
         result = session.run(query, user_id=user_id)
         friends = []
         for record in result:
-            print(record)
             friends.append({
                 "id": record["id"],
                 "name": record["name"],

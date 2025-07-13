@@ -45,7 +45,7 @@ class Ui_DashBoardView(object):
         self.MainWindowScrollArea.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.mainWindowScrollAreaWidget = QWidget()
         self.mainWindowScrollAreaWidget.setObjectName(u"mainWindowScrollAreaWidget")
-        self.mainWindowScrollAreaWidget.setGeometry(QRect(0, 0, 1424, 855))
+        self.mainWindowScrollAreaWidget.setGeometry(QRect(0, 0, 1424, 955))
         self.postsLayout = QVBoxLayout(self.mainWindowScrollAreaWidget)
         self.postsLayout.setSpacing(0)
         self.postsLayout.setObjectName(u"postsLayout")
@@ -357,7 +357,7 @@ class Ui_DashBoardView(object):
         self.popularHashtagsLayoutWidget = QVBoxLayout()
         self.popularHashtagsLayoutWidget.setSpacing(9)
         self.popularHashtagsLayoutWidget.setObjectName(u"popularHashtagsLayoutWidget")
-        self.popularHashtagsLayoutWidget.setContentsMargins(9, 9, 9, 9)
+        self.popularHashtagsLayoutWidget.setContentsMargins(9, 0, 9, 9)
         self.popularHashtagsLayoutWidgetFirstRow = QHBoxLayout()
         self.popularHashtagsLayoutWidgetFirstRow.setSpacing(6)
         self.popularHashtagsLayoutWidgetFirstRow.setObjectName(u"popularHashtagsLayoutWidgetFirstRow")
@@ -647,7 +647,7 @@ class Ui_DashBoardView(object):
         self.frame_2.setObjectName(u"frame_2")
         sizePolicy3.setHeightForWidth(self.frame_2.sizePolicy().hasHeightForWidth())
         self.frame_2.setSizePolicy(sizePolicy3)
-        self.frame_2.setStyleSheet(u"background-color: rgb(253, 255, 221);")
+        self.frame_2.setStyleSheet(u"")
         self.frame_2.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
 
@@ -656,14 +656,6 @@ class Ui_DashBoardView(object):
         self.MainWindowScrollArea.setWidget(self.mainWindowScrollAreaWidget)
 
         self.mainVerticalLayout.addWidget(self.MainWindowScrollArea)
-
-        self.frame = QFrame(DashBoardView)
-        self.frame.setObjectName(u"frame")
-        self.frame.setMinimumSize(QSize(0, 100))
-        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Shadow.Raised)
-
-        self.mainVerticalLayout.addWidget(self.frame)
 
 
         self.retranslateUi(DashBoardView)
@@ -685,8 +677,8 @@ class Ui_DashBoardView(object):
         self.disconnectBtn.setText(QCoreApplication.translate("DashBoardView", u"Disconnect", None))
         self.TopCommunitiesLabel.setText(QCoreApplication.translate("DashBoardView", u"TOP COMMUNITIES", None))
         self.PopularHashtagsLabel.setText(QCoreApplication.translate("DashBoardView", u"POPUlAR HASHTAGS", None))
-        self.label.setText(QCoreApplication.translate("DashBoardView", u"#TextLabel", None))
-        self.label_5.setText(QCoreApplication.translate("DashBoardView", u"#TextLabelAAAAAAAA", None))
+        self.label.setText(QCoreApplication.translate("DashBoardView", u"#Exemplu Tag 1", None))
+        self.label_5.setText(QCoreApplication.translate("DashBoardView", u"#Exemplu Tag 2", None))
         self.recommendedPostsLabel.setText(QCoreApplication.translate("DashBoardView", u"RECOMMENDED POSTS", None))
         self.friendsTitleLabel.setText(QCoreApplication.translate("DashBoardView", u"Friends", None))
         self.searchBarFriends.setInputMask("")

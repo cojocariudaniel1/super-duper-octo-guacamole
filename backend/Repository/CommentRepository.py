@@ -9,22 +9,20 @@ class CommentRepository:
         self.driver = driver
 
     def get_comments_for_post(self, post_id):
-        """
-        Fetch all comments for a post with their hierarchy and author information
-        """
         with self.driver.session() as session:
             query = """
             MATCH (p:Post {id: $post_id})
             OPTIONAL MATCH (p)-[:HAS_COMMENT]->(c:Comment)
             OPTIONAL MATCH (c)-[:REPLY_TO]->(parent:Comment)
             OPTIONAL MATCH (u:User)-[:CREATED]->(c)
-            RETURN c.id AS id,
+            RETURN DISTINCT c.id AS id,
                    c.text AS text,
                    c.timestamp AS timestamp,
                    c.likes AS likes,
                    c.dislikes AS dislikes,
                    u.username AS author_name,
                    u.id AS author_id,
+                   u.img AS author_avatar,
                    parent.id AS parent_id
             ORDER BY c.timestamp ASC
             """
@@ -32,7 +30,6 @@ class CommentRepository:
 
             comments = []
             for record in result:
-                print(record)
                 if record["id"] is None:  # Skip if no comments found
                     continue
 
@@ -44,17 +41,34 @@ class CommentRepository:
                     "dislikes": record.get("dislikes", 0),
                     "author_name": record["author_name"],
                     "author_id": record["author_id"],
+                    "author_avatar": record.get("author_avatar", "avatars/default_av.png"),
                     "parent_id": record.get("parent_id")
                 })
+
             return self._build_comment_tree(comments)
 
+    def _build_comment_tree(self, comments):
+        comment_map = {}
+        root_comments = []
+
+        for comment in comments:
+            comment["replies"] = []
+            comment_map[comment["id"]] = comment
+
+        for comment in comments:
+            if comment["parent_id"]:
+                parent = comment_map.get(comment["parent_id"])
+                if parent:
+                    parent["replies"].append(comment)
+            else:
+                root_comments.append(comment)
+
+        return root_comments
+
     def add_comment_to_post(self, post_id, user_id, text, parent_comment_id=None):
-        """
-        Add a comment to a post or as a reply to another comment
-        """
         with self.driver.session() as session:
             comment_id = str(datetime.now().timestamp())  # Simple unique ID for demo
-
+            print(f"User id that creasted comemnts is : {user_id}")
             if parent_comment_id:
                 # For replies to existing comments
                 query = """
@@ -70,12 +84,13 @@ class CommentRepository:
                 })
                 CREATE (u)-[:CREATED]->(c)
                 CREATE (c)-[:REPLY_TO]->(parent)
-                CREATE (c)-[:COMMENT_ON]->(p)
+                CREATE (p)-[:HAS_COMMENT]->(c)
                 RETURN c.id AS id,
                        c.text AS text,
                        c.timestamp AS timestamp,
                        u.username AS author_name,
                        u.id AS author_id,
+                       u.img AS author_avatar,
                        parent.id AS parent_id
                 """
                 params = {
@@ -86,29 +101,26 @@ class CommentRepository:
                     "comment_id": comment_id
                 }
             else:
-                # For top-level comments on posts
                 query = """
-                MATCH (u:User {id: $user_id})
-                MATCH (p:Post {id: $post_id})
-                CREATE (c:Comment {
-                    id: $comment_id,
-                    text: $text,
-                    timestamp: datetime(),
-                    likes: 0,
-                    dislikes: 0
-                })
-                CREATE (u)-[:CREATED]->(c)
-                CREATE (c)-[:COMMENT_ON]->(p)
-
-                // Update post comment count
-                SET p.comments = coalesce(p.comments, 0) + 1
-
-                RETURN c.id AS id,
-                       c.text AS text,
-                       c.timestamp AS timestamp,
-                       u.username AS author_name,
-                       u.id AS author_id,
-                       null AS parent_id
+                    MATCH (u:User {id: $user_id})
+                    MATCH (p:Post {id: $post_id})
+                    CREATE (c:Comment {
+                        id: $comment_id,
+                        text: $text,
+                        timestamp: datetime(),
+                        likes: 0,
+                        dislikes: 0
+                    })
+                    CREATE (u)-[:CREATED]->(c)
+                    CREATE (p)-[:HAS_COMMENT]->(c)
+                    SET p.comments = coalesce(p.comments, 0) + 1
+                    RETURN c.id AS id,
+                           c.text AS text,
+                           c.timestamp AS timestamp,
+                           u.username AS author_name,
+                           u.id AS author_id,
+                           u.img AS author_avatar,
+                           null AS parent_id
                 """
                 params = {
                     "post_id": post_id,
@@ -126,6 +138,7 @@ class CommentRepository:
                     "timestamp": self._format_timestamp(record["timestamp"]),
                     "author_name": record["author_name"],
                     "author_id": record["author_id"],
+                    "author_avatar": record.get("author_avatar", "avatars/default_av.png"),
                     "parent_id": record.get("parent_id")
                 }
             else:
@@ -146,28 +159,7 @@ class CommentRepository:
             record = result.single()
             return record["points"]
 
-    def _build_comment_tree(self, comments):
-        """
-        Convert flat list of comments into hierarchical tree structure
-        """
-        comment_map = {}
-        root_comments = []
 
-        # First pass: create map of all comments
-        for comment in comments:
-            comment["replies"] = []
-            comment_map[comment["id"]] = comment
-
-        # Second pass: build hierarchy
-        for comment in comments:
-            if comment["parent_id"]:
-                parent = comment_map.get(comment["parent_id"])
-                if parent:
-                    parent["replies"].append(comment)
-            else:
-                root_comments.append(comment)
-
-        return root_comments
 
     def _format_timestamp(self, timestamp):
         """

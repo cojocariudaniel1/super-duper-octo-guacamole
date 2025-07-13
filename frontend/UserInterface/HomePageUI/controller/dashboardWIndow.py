@@ -22,6 +22,7 @@ from backend.Repository.UserRepository import get_friends_with_status
 from backend.database_connect import Neo4jDriverSingleton
 from backend.Repository.PostRepository import PostRepository
 from frontend.UserInterface.PostUI.controller.RecommendedPostsWidget import RecommendedPostsWidget
+from PySide6.QtGui import QKeySequence, QShortcut
 
 class PostWorker(QObject):
     finished = Signal(list)
@@ -52,7 +53,7 @@ class PostWorker(QObject):
 
 
 class DashboardWindow(QWidget):
-    dashboard_post_clicked = Signal(str)
+    dashboard_post_clicked = Signal(str, str)
     def __init__(self, user_id):
         super().__init__()
         self.user_id = user_id
@@ -81,7 +82,8 @@ class DashboardWindow(QWidget):
         self.create_post_container = self.create_create_post_container()
 
         # Connect back button to show feed
-        self.post_detail.back_to_feed.connect(self.show_feed)
+        self.post_detail.back_to_feed.connect(self._on_back_to_feed)
+
 
         # Add containers to stack and set in scroll area
         self.stack.addWidget(self.feed_container)
@@ -101,9 +103,9 @@ class DashboardWindow(QWidget):
         self.posts_per_page = 10
 
         # Create a button to show the Create Post page
-        self.create_post_button = QPushButton("Create Post")
-        self.create_post_button.clicked.connect(self.show_create_post)
-        self.ui.HeaderBar.addWidget(self.create_post_button)
+        # self.create_post_button = QPushButton("Create Post")
+        # self.create_post_button.clicked.connect(self.show_create_post)
+        # self.ui.HeaderBar.addWidget(self.create_post_button)
 
         # Initialize worker thread
         self.worker_thread = None
@@ -115,7 +117,19 @@ class DashboardWindow(QWidget):
         self.load_top_communities_grid()
         self.load_recommended_posts()
 
+        refresh_shortcut = QShortcut(QKeySequence("Ctrl+R"), self)
+        refresh_shortcut.activated.connect(self.refresh_posts)
 
+    def refresh_posts(self):
+        self.current_offset = 0
+        self.loaded_post_ids.clear()
+        self.load_posts()
+        self.load_recommended_posts()
+
+    def _on_back_to_feed(self, refresh_recommendations: bool = False):
+        self.stack.setCurrentIndex(0)
+        if refresh_recommendations:
+            self.load_recommended_posts()
 
     def set_button_icon(self, button, icon_name, fallback_size=(32, 32)):
         """
@@ -136,7 +150,6 @@ class DashboardWindow(QWidget):
                 return
 
         # Fallback if icon not found
-        print(f"Icon not found: {icon_path}")
         blank_pixmap = QPixmap(fallback_size[0], fallback_size[1])
         button.setIcon(QIcon(blank_pixmap))
 
@@ -148,18 +161,13 @@ class DashboardWindow(QWidget):
             label (QLabel): The label to set the image to
             image_name (str): Name of the image file in assets/images/
         """
-        # Construct the full path
         image_path = get_absolute_file_path(f"frontend/assets/images/{image_name}")
-
         if os.path.exists(image_path):
             pixmap = QPixmap(image_path)
             if not pixmap.isNull():
                 label.setPixmap(pixmap)
                 return
-
-        # Fallback if image not found
-        print(f"Image not found: {image_path}")
-        label.setPixmap(QPixmap(label.size()))  # Bla
+        label.setPixmap(QPixmap(label.size()))
 
     def create_feed_container(self):
         """Create and return the feed container."""
@@ -231,21 +239,20 @@ class DashboardWindow(QWidget):
     def on_posts_loaded(self, posts):
         """Handle successfully loaded posts."""
         for post in posts:
-            if post['id'] not in self.loaded_post_ids:  # <--- Verifică dacă deja a fost adăugat
+            if post['id'] not in self.loaded_post_ids:
                 self.add_post(post)
-                self.loaded_post_ids.add(post['id'])  # <--- Salvează ID-ul postării
+                self.loaded_post_ids.add(post['id'])
         self.loading_bar.stop_loading()
 
     def on_posts_error(self, error_msg):
         """Handle post loading errors."""
-        print(f"Error loading posts: {error_msg}")
         self.loading_bar.stop_loading()
 
     def add_post(self, post_data):
         """Add a new post to the feed layout."""
         post_widget = FeedPostWidget(post_data, self.user_id)
         # Connect the signals - make sure this line is present
-        post_widget.post_clicked.connect(self.show_post_detail)  # This is crucial
+        post_widget.post_clicked.connect(self.show_post_detail)
 
         # Other connections
         post_widget.comment_clicked.connect(self.handle_comment)
@@ -261,13 +268,9 @@ class DashboardWindow(QWidget):
         self.posts_layout.addSpacing(5)
 
     def show_post_detail(self, post_id):
-        print(f"Emitting dashboard_post_clicked for post {post_id}")
         try:
-            print(f"DashboardWindow emitting signal from instance: {id(self)}")
-
-            self.dashboard_post_clicked.emit(post_id)
+            self.dashboard_post_clicked.emit(post_id, self.user_id)
             QCoreApplication.processEvents()
-            print("Emission successful")
         except Exception as e:
             print(f"Emission failed: {str(e)}")
 
@@ -279,12 +282,12 @@ class DashboardWindow(QWidget):
 
     def handle_reply(self, post_id):
         """Handle reply button click."""
-        print(f"Reply clicked for post {post_id}")
         # Implement reply functionality here
 
     def show_feed(self):
-        """Switch back to the feed view."""
         self.stack.setCurrentIndex(0)
+        self.load_recommended_posts()
+
 
     def load_communities_acces_link(self):
         """Load top communities from database and display them"""
@@ -315,7 +318,7 @@ class DashboardWindow(QWidget):
         """Load and display a list of online and offline friends from the database."""
         try:
             friends_data = get_friends_with_status(self.driver, self.user_id)
-
+            logging.critical(f"user id is {self.user_id}")
             # Clear existing layouts
             for layout in [self.ui.onlineFriendsLayout, self.ui.offlineFriendsLayout]:
                 while layout.count():

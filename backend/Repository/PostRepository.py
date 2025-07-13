@@ -6,9 +6,6 @@ class PostRepository:
         self.driver = driver
 
     def get_all_posts(self, limit=10, offset=0):
-        """
-        Fetch posts with pagination including user/community icons and additional fields.
-        """
         with self.driver.session() as session:
             query = """
             MATCH (p:Post)<-[:CREATED]-(u:User)
@@ -23,9 +20,12 @@ class PostRepository:
                    p.comments AS comments,
                    u.username AS author_name, 
                    u.id AS author_id,
-                   c.name AS community_name
+                   u.img AS author_avatar,
+                   c.name AS community_name,
+                   c.icon AS community_icon
             ORDER BY p.timestamp DESC
-            SKIP $offset LIMIT $limit
+            SKIP $offset LIMIT $limit   
+
             """
             result = session.run(query, offset=offset, limit=limit)
             posts = []
@@ -39,11 +39,12 @@ class PostRepository:
                     "likes": record.get("likes", 0),
                     "dislikes": record.get("dislikes", 0),
                     "comments": record.get("comments", 0),
-                    "author_name": record["author_name"],
-                    "author_id": record["author_id"],
-                    "community_name": record.get("community_name", "")
+                    "author_name": record.get("author_name", "Unknown"),
+                    "author_id": record.get("author_id", "Unknown"),
+                    "author_avatar": record.get("author_avatar", "avatars/default_av.png"),
+                    "community_name": record.get("community_name", ""),
+                    "community_icon": record.get("community_icon", "communityIcons/communityIcon1.png")
                 })
-            print(f"PostRepository: PostData {posts}")
             return posts
 
     def get_post_by_post_id(self, post_id):
@@ -64,7 +65,10 @@ class PostRepository:
                    p.comments AS comments,
                    u.username AS author_name, 
                    u.id AS author_id,
-                   c.name AS community_name
+                   u.img AS author_avatar,
+                   c.name AS community_name,
+                   c.icon AS community_icon
+
             """
             result = session.run(query, post_id=post_id)
             record = result.single()
@@ -81,8 +85,11 @@ class PostRepository:
                     "comments": record.get("comments", 0),
                     "author_name": record["author_name"],
                     "author_id": record["author_id"],
-                    "community_name": record.get("community_name", "")
+                    "author_avatar": record.get("author_avatar", "avatars/default_av.png"),
+                    "community_name": record.get("community_name", ""),
+                    "community_icon": record.get("community_icon", "communityIcons/communityIcon1.png")
                 }
+
             else:
                 return None
 
@@ -104,7 +111,9 @@ class PostRepository:
                    p.comments AS comments,
                    u.username AS author_name, 
                    u.id AS author_id,
-                   c.name AS community_name
+                   u.img AS author_avatar,
+                   c.name AS community_name,
+                   c.icon AS community_icon
             ORDER BY p.timestamp DESC
             """
             result = session.run(query, user_id=user_id)
@@ -119,9 +128,10 @@ class PostRepository:
                 "comments": record.get("comments", 0),
                 "author_name": record["author_name"],
                 "author_id": record["author_id"],
-                "community_name": record.get("community_name", "")
+                "author_avatar": record.get("author_avatar", "avatars/default_av.png"),
+                "community_name": record.get("community_name", ""),
+                "community_icon": record.get("community_icon", "communityIcons/communityIcon1.png")
             } for record in result]
-
 
     def create_post(self, user_id, title, content, visibility="PUBLIC", community_name=None):
         """
@@ -215,7 +225,6 @@ class PostRepository:
         """
         Increment or decrement a post's points and record the user interaction.
         """
-        print("Like clicked")
         with self.driver.session() as session:
             field = "likes" if is_like else "dislikes"
 
@@ -267,7 +276,9 @@ class PostRepository:
                    c.content AS content, 
                    c.timestamp AS timestamp,
                    u.username AS author_name,
-                   u.id AS author_id
+                   u.id AS author_id,
+                   u.img AS author_avatar
+
             """
             result = session.run(query, post_id=post_id, user_id=user_id, content=content)
             record = result.single()
@@ -277,5 +288,6 @@ class PostRepository:
                 "content": record["content"],
                 "timestamp": self._format_timestamp(record["timestamp"]),
                 "author_name": record["author_name"],
-                "author_id": record["author_id"]
+                "author_id": record["author_id"],
+                "author_avatar": record.get("author_avatar", "avatars/default_av.png")
             }
